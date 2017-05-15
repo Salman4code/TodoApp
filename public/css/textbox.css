@@ -1,0 +1,41 @@
+/*li:hover
+{
+  background-color: aqua;
+
+}
+#nav1
+{
+  background-color: #cc99ff;
+}
+.imgicon
+{
+    width: 20%;
+    border-radius: 2px;
+    margin-left:40%;
+    /*margin-right:50%;
+}*/
+input[type=text], input[type=password],input[type=email],input[type=password],input[type=number]{
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    margin-left: 15%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+/*label{
+  margin-left: 15%;
+}
+.center
+{
+  margin-left: 15%;
+}
+#checked
+{
+  margin-left: 15%;
+}*/
+form{
+  border:1px solid black;
+  align-content: center;
+  width: 50%
+}

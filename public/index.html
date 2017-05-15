@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Single Page App</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/keep.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="/css/textbox.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/css/design.css"> -->
+<!-- <script src="bower_components/angular/angular.min.js"></script> -->
+<!-- <script src="bower_components/angular-route/angular-route.min.js"></script> -->
+<!-- <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js">
+
+</script>-->
+<!-- <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+
+
+
+<script src="app.js"></script>
+<!-- <script src="/controller/HomeController.js"></script> -->
+<script src="/controller/loginController.js"></script>
+<script src="/controller/registrationController.js"></script>
+<script src="/controller/HomeController.js"></script>
+<script src="/controller/getNote.js"></script>
+<!-- <script src="/service/loginservice.js"></script> -->
+
+</head>
+
+<!-- <body ng-controller="mainController"> -->
+<body>
+  <!-- <div class="container-fluid"> -->
+
+  <!-- <header id="head">
+            <nav class="navbar navbar-default" id="style1">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Google Keep</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#login">Login<span class="glyphicon glyphicon-log-in"></span></a></li>
+                    <li><a href="#signup"><span class="glyphicon glyphicon-user"></span>Signup</a></li>
+
+                </ul>
+            </div>
+            </nav>
+        </header> -->
+
+
+  <div ng-view></div>
+
+
+<!-- </div> -->
+</body>
+
+</html>

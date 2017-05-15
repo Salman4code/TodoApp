@@ -1,0 +1,248 @@
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+/*Navigation bar style*/
+#navcolor
+{
+    border: none;
+    background-color: #fb0;
+}
+.nav>li>a>img{
+  height: 25px;
+}
+#googlekeeptext
+{
+    font-family: 'Roboto',  arial,sans-serif;
+    font-size: 20px;
+    position:relative;
+    margin-top: 6px;
+    padding: 8px;
+    text-decoration: none;
+
+    color: black;
+}
+#searchtextbox
+{
+    width: 150px;
+    margin-top: 7px;
+    /*margin-left: 146px;*/
+    padding: 12px 20px 10px 40px;
+
+    border: none;
+    border-radius: 4px;
+    background-color: #f5b400;
+    background-image: url('../image/searchicon.png');
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+}
+#searchtextbox:focus
+{
+    background-color: white;
+}
+
+/*Note Styles*/
+#div1
+{
+    /*width: 627px;*/
+    width:100%;
+
+    height: 50px;
+    margin-top: 80px;
+    /*margin-left: 190px;*/
+
+    background-color: white;
+    /*box-shadow: 2px 2px 2px #888;*/
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+}
+#div1 img
+{
+    float: right;
+
+    height: 25px;
+    margin-top: 3px;
+    margin-right: 8px;
+}
+
+#div2
+{
+    /*display: none;*/
+
+    /*width: 627px;*/
+    width:100%;
+    margin-top: 80px;
+    /*margin-left: 190px;*/
+
+    border: 0;
+    /*outline: none;*/
+    background-color: white;
+    /*box-shadow: 2px 2px 2px #888;*/
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+}
+#div2 img
+{
+    float: right;
+
+    height: 25px;
+    margin-top: -6px;
+    margin-right: 8px;
+}
+#note
+{
+    width: 100%;
+
+    border: 0;
+    border-radius: 1px;
+}
+#title
+{
+    overflow: hidden;
+
+    width: 100%;
+    height: 30px;
+
+    resize: none;
+
+    border: 0;
+    outline: none;
+}
+#content
+{
+    overflow: hidden;
+
+    width: 100%;
+    height: 30px;
+
+    resize: none;
+
+    border: 0;
+    outline: none;
+}
+
+
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    position: fixed;
+    left: 250px;
+    z-index: 1000;
+    overflow-y: auto;
+    margin-left: -250px;
+    width: 0;
+    height: 100%;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    padding: 15px;
+    width: 100%;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: #999999;
+    text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    background: none;
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+@media(max-width:600px)
+{
+  #google{
+    display: none;
+  }
+}

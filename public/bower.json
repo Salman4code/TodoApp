@@ -1,0 +1,27 @@
+{
+  "name": "view",
+  "authors": [
+    "Salman4code <khansalman752@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "bootstrap": "~3.3.5",
+    "draggabilly": "^2.1.1",
+    "handlebars": "~3.0.3",
+    "mui": "^0.9.16",
+    "packery": "^2.1.1",
+    "angular-route": "^1.6.4",
+    "angular-ui-router": "ui-router#^1.0.3+hybrid-2.0.0-2"
+  }
+}

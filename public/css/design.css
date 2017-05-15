@@ -1,0 +1,63 @@
+/*first header navigation css*/
+#style1
+{
+  background-color: #ffbb00;
+}
+#iconnav
+{
+  list-style: none;
+  height: 25px;
+  margin-left: 64%;
+  margin-top: 9px;
+}
+#iconnav img
+{
+  height: 25px;
+  /*list-style: none*/
+}
+#iconnav #refresh,#list,#grid,#notification,#logOut
+{
+  /*display:none;*/
+
+  /*list-style: none;*/
+}
+/*#googlekeeptext,#searchtextbox{
+  display:none;
+}*/
+
+/*Login css*/
+
+.imgicon
+{
+    width: 20%;
+    border-radius: 2px;
+    margin-left:40%;
+    /*background-color: #ffbb00;*/
+
+    /*margin-right:50%;*/
+}
+
+/*Registration form css*/
+input[type=text], input[type=password],input[type=email],input[type=password],input[type=number]{
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    margin-left: 15%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+label{
+  margin-left: 15%;
+}
+.center
+{
+  margin-left: 15%;
+}
+#checked
+{
+  margin-left: 15%;
+}
+form{
+  border:1px solid black;
+}

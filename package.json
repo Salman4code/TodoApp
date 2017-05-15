@@ -1,0 +1,16 @@
+{
+  "name": "salman",
+  "version": "1.0.0",
+  "description": "myonpackage",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Salman",
+  "license": "ISC",
+  "dependencies": {
+    "hooks": "^0.3.2",
+    "morgan": "^1.8.1",
+    "node-session": "^1.2.1"
+  }
+}
