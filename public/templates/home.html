@@ -52,23 +52,22 @@
           <li>
             <a id="refresh"><img src="../image/refreshicon.png"></img>
             </a>
-          </li>
-          <li>
-            <a id="list"><img src="../image/listviewicon.png"></img>
-            </a>
-          </li>
-          <li>
-            <a id="grid"><img src="../image/appsicon.png"></img>
-            </a>
-          </li>
-          <li>
-            <a id="notification"><img src="../image/notification.png"></img>
-            </a>
-          </li>
-          <li>
-            <a type="button" id="logOut" ng-click="logout()"><img src="../image/logout.png" alt=""></img>
-            </a>
-          </li>
+            <li>
+              <a id="grid" ng-style="gridstyle" ng-click="gridview()"><img src="../image/appsicon.png"></img>
+              </a>
+            </li>
+            <li>
+              <a id="list" ng-style="liststyle" ng-click="listview()"><img src="../image/listviewicon.png"></img>
+              </a>
+            </li>
+            <li>
+              <a id="notification"><img src="../image/notification.png"></img>
+              </a>
+            </li>
+            <li>
+              <a type="button" id="logOut" ng-click="logout()"><img src="../image/logout.png" alt=""></img>
+              </a>
+            </li>
         </ul>
         <!-- <form class="navbar-form navbar-left" action="#" method="GET">
 
@@ -148,27 +147,21 @@
 
 
 
-            <div class="row" id="cards">
+            <div class="row" id="cards" ng-show="grid">
               <!-- <div class="col-sm-2 col-lg-2"></div>  -->
               <div ng-repeat="x in records" class='col-sm-4'>
-                <pre id='box'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"><!-- {{x.take_note}} --></div><div><a id='delete'>delete</a></div></pre></div>
+                <pre id='box'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"><!-- {{x.take_note}} --></div><div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></pre>
+              </div>
 
 
             </div>
 
 
 
-            <div id="list_cards" class='col-sm-12'>
-
-              <!-- <div ng-repeat="x in records">
-
-                <pre  id='box1'>
-                <div>{{x.title}}</div>
-                <div id='notecontent'>{{x.takenote}}</div>
-              <div><a id='delete'>delete</a>
-              </div>
-            </pre>
-              </div> -->
+            <div id="list_cards" class='col-sm-12' ng-show="list">
+              <div ng-repeat="x in records">
+                <pre  id='box1'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"></div>
+                  <div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></pre></div>
 
             </div>
 

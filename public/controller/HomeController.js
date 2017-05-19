@@ -1,6 +1,8 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
-app.controller('HomeController', function($scope, $rootScope,$state,$location, getNoteService, SaveNoteService, logOutService,checkuserservice) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, getNoteService, deleteNoteService, SaveNoteService, logOutService, checkuserservice) {
+
+
 
 
 
@@ -11,11 +13,11 @@ app.controller('HomeController', function($scope, $rootScope,$state,$location, g
       if (response.data.status == true) {
 
         // $location.path('/welcomepage');
-                $state.go('home');
-        $rootScope.getnote();
+        $state.go('home');
+        // $rootScope.getnote();
       } else {
         // $location.path('/login');
-                $state.go('login');
+        $state.go('login');
 
       }
     })
@@ -26,7 +28,7 @@ app.controller('HomeController', function($scope, $rootScope,$state,$location, g
   $rootScope.getnote = function() {
     var obj = getNoteService.app();
     obj.then(function(data) {
-      console.log(data.data.status);
+      console.log("notedata",data.data.note_data);
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         var noteArr = [];
@@ -52,7 +54,7 @@ app.controller('HomeController', function($scope, $rootScope,$state,$location, g
     var content = $scope.content;
     console.log(title);
     console.log(content);
-    if (title == "" && content == "" || title == undefined && content == undefined) {
+    if (title == " " && content == " " || title == undefined && content == undefined) {
       return;
     }
 
@@ -79,45 +81,94 @@ app.controller('HomeController', function($scope, $rootScope,$state,$location, g
     logOutService.app().then(function(data) {
       console.log(data.data.status);
       // $location.path('/login');
-              $state.go('login');
+      $state.go('login');
     }).catch(function(error) {
       console.log(error);
     })
   }
 
-}).service('getNoteService', function($http) {
+  $scope.deletenote = function(id) {
+    deleteNoteService.app(id).then(function(data) {
+      console.log(data.data.status);
+      // $location.path('/login');
+      $rootScope.getnote();
 
-  this.app = function() {
-    return $http({
-      url: "/get_data_notes",
-      method: "POST",
-      dataType: 'JSON'
-    });
+    }).catch(function(error) {
+      console.log(error);
+    })
   }
-}).service('SaveNoteService', function($http) {
 
-  this.app = function(noteobj) {
-    return $http({
-      url: "/data_notes",
-      method: "POST",
-      dataType: 'JSON',
-      data: noteobj
-    });
+  $scope.listview = function() {
+    $scope.list = true;
+    $scope.grid = false;
+    $scope.liststyle = {
+      'display': 'none'
+    }
+    $scope.gridstyle = {
+      'display': 'block'
+    }
+    localStorage.setItem("view", "list");
   }
-}).service('logOutService', function($http) {
+  $scope.gridview = function() {
+    $scope.list = false;
+    $scope.grid = true;
+    $scope.liststyle = {
+      'display': 'block'
+    }
+    $scope.gridstyle = {
+      'display': 'none'
+    }
+    localStorage.setItem("view", "grid");
+  }
 
-  this.app = function() {
-    return $http({
-      url: "/logout",
-      method: "POST"
-    });
+
+  if (localStorage.getItem("view") == "grid") {
+    console.log("gridview");
+    $scope.gridview();
+
+  } else {
+    console.log("listview");
+
+    $scope.listview();
   }
-}).service('checkuserservice', function($http) {
-  this.app = function() {
-    return $http({
-      url: "http://localhost:8081/welcome",
-      method: "get",
-    });
-  }
-  //
-});
+
+
+
+
+})
+// .service('getNoteService', function($http) {
+//
+//   this.app = function() {
+//     return $http({
+//       url: "/get_data_notes",
+//       method: "POST",
+//       dataType: 'JSON'
+//     });
+//   }
+// }).service('SaveNoteService', function($http) {
+//
+//   this.app = function(noteobj) {
+//     return $http({
+//       url: "/data_notes",
+//       method: "POST",
+//       dataType: 'JSON',
+//       data: noteobj
+//     });
+//   }
+// }).service('logOutService', function($http) {
+//
+//   this.app = function() {
+//     return $http({
+//       url: "/logout",
+//       method: "POST"
+//     });
+//   }
+// }).service('checkuserservice', function($http) {
+//   this.app = function() {
+//     return $http({
+//       url: "/welcome",
+//       method: "get",
+//     });
+//   }
+//   //
+// });

@@ -22,6 +22,7 @@
     "mui": "^0.9.16",
     "packery": "^2.1.1",
     "angular-route": "^1.6.4",
-    "angular-ui-router": "ui-router#^1.0.3+hybrid-2.0.0-2"
+    "angular-ui-router": "ui-router#^1.0.3+hybrid-2.0.0-2",
+    "angular-sanitize": "^1.6.4"
   }
 }
