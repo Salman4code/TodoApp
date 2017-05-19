@@ -26,7 +26,7 @@
         <form name="loginform" ng-controller="loginController">
 
             <div>
-            <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br>
+            <!-- <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br> -->
             <!-- <p><label for="email_id">Email id:</label>
             <i class="glyphicon glyphicon-user"></i>
             <input type="email" ng-model="email_id" name="email_id" class="form-control" placeholder="Email id" required><br>
@@ -65,7 +65,8 @@
                   <label for="rememberme">Remember Me</label><br><br> -->
 
           <button type="button" id="login1" ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid">Submit</button><br><br>
-          <a href="#signup" class="center">New User / Register here?</a><br><br>
+          <a ui-sref="signup" class="center">New User / Register here?</a><br><br>
+            <!-- <a href="#signup" class="center">Already registered Click here to login</a> -->
         </div>
        </form>
      </div>

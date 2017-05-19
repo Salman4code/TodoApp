@@ -11,25 +11,23 @@
 
   <!-- <link rel="stylesheet" type="text/css" href="/css/textbox.css"> -->
   <!-- <link rel="stylesheet" type="text/css" href="/css/design.css"> -->
-<!-- <script src="bower_components/angular/angular.min.js"></script> -->
-<!-- <script src="bower_components/angular-route/angular-route.min.js"></script> -->
-<!-- <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-</script>-->
-<!-- <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script> -->
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular-sanitize.js"></script>
+
 
 
 
 <script src="app.js"></script>
-<!-- <script src="/controller/HomeController.js"></script> -->
 <script src="/controller/loginController.js"></script>
 <script src="/controller/registrationController.js"></script>
 <script src="/controller/HomeController.js"></script>
-<script src="/controller/getNote.js"></script>
 <!-- <script src="/service/loginservice.js"></script> -->
 
 </head>
@@ -55,7 +53,8 @@
         </header> -->
 
 
-  <div ng-view></div>
+  <!-- <div ng-view></div> -->
+    <ui-view></ui-view>
 
 
 <!-- </div> -->

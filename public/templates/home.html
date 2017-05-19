@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title></title> -->
-  <!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="../css/keep.css"> -->
-  <!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script> -->
-  <!-- <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="../css/keep.css"> -->
+<!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script> -->
+<!-- <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
-  <script>
-    function wrapper() {
-      $("#wrapper").toggleClass("toggled");
-
-    }
-  </script>
+<script>
+  // function wrapper() {
+  //   $("#wrapper").toggleClass("toggled");
+  //
+  // }
+</script>
 
 <!-- </head> -->
 
@@ -33,7 +33,8 @@
                     <span class="icon-bar"></span>
                 </button>
 
-        <a class="navbar-brand" onclick="wrapper()" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+        <!-- <a class="navbar-brand" onclick="wrapper()" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a> -->
+        <a class="navbar-brand" ng-click="sidenav=!sidenav" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
 
         <!-- <span class="nav navbar-nav navbar-left"> -->
         <a id="googlekeeptext"><b id="google">Google </b>Keep</a>
@@ -65,7 +66,7 @@
             </a>
           </li>
           <li>
-            <a type="button" id="logOut"><img src="../image/logout.png" alt=""></img>
+            <a type="button" id="logOut" ng-click="logout()"><img src="../image/logout.png" alt=""></img>
             </a>
           </li>
         </ul>
@@ -82,7 +83,7 @@
   <div id="wrapper" class="toggled">
     <div class="container-fluid">
       <!-- Sidebar -->
-      <div id="sidebar-wrapper">
+      <div id="sidebar-wrapper" ng-hide="sidenav">
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
             <br>
@@ -114,33 +115,65 @@
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
-        <!-- <div class="container-fluid"> -->
-        <div class="row">
-          <div class="col-sm-3"></div>
-          <div class="col-sm-6">
-            <!-- <div id="div1" ng-controller="noteController as note" ng-show="Visible" ng-click="getNote()"> -->
-            <div id="div1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
-              <input type="text" placeholder="Take a note.." id="note">
-              <!-- <span style="float:right;margin-top:3px"> -->
-              <img src="../image/penicon.png">
-              <img src="../image/notewithimageicon.png">
-              <!-- <span> -->
-            </div>
-            <div id="div2" ng-show="note2">
-              <textarea id="title" placeholder="Title"></textarea><br>
-              <textarea id="content" placeholder="Take a note.."></textarea>
-              <div><a id="done"  ng-click="getnote()">Done</a>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+              <!-- <div id="div1" ng-controller="noteController as note" ng-show="Visible" ng-click="getNote()"> -->
+              <div id="div1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
+                <input type="text" placeholder="Take a note.." id="note">
+                <!-- <span style="float:right;margin-top:3px"> -->
+                <img src="../image/penicon.png">
+                <img src="../image/notewithimageicon.png">
+                <!-- <span> -->
+              </div>
+              <div id="div2" ng-show="note2">
+                <!-- <textarea id="title" placeholder="Title" ng-model="title"></textarea><br>
+              <textarea id="content" placeholder="Take a note.." ng-model="content"></textarea>
+              <div><a id="done" ng-click="savenote()">Done</a>
                 <img src="../image/penicon.png" alt="">
                 <img src="../image/notewithimageicon.png" alt="">
+              </div> -->
+
+                <div id="title" newcontenteditable contenteditable="true" placeholder="Title" ng-model="title"></div><br>
+                <div id="content" newcontenteditable contenteditable="true" placeholder="Take a note.." ng-model="content"></div>
+                <div><a id="done" ng-click="savenote()">Done</a>
+                  <img src="../image/penicon.png" alt="">
+                  <img src="../image/notewithimageicon.png" alt="">
+
+                </div>
+
               </div>
+            </div>
 
 
 
+            <div class="row" id="cards">
+              <!-- <div class="col-sm-2 col-lg-2"></div>  -->
+              <div ng-repeat="x in records" class='col-sm-4'>
+                <pre id='box'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"><!-- {{x.take_note}} --></div><div><a id='delete'>delete</a></div></pre></div>
 
+
+            </div>
+
+
+
+            <div id="list_cards" class='col-sm-12'>
+
+              <!-- <div ng-repeat="x in records">
+
+                <pre  id='box1'>
+                <div>{{x.title}}</div>
+                <div id='notecontent'>{{x.takenote}}</div>
+              <div><a id='delete'>delete</a>
+              </div>
+            </pre>
+              </div> -->
+
+            </div>
 
 
           </div>
-        </div>
 
         </div>
       </div>
