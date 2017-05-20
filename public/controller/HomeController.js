@@ -1,7 +1,7 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
-app.controller('HomeController', function($scope, $rootScope, $state, $location, getNoteService, deleteNoteService, SaveNoteService, logOutService, checkuserservice) {
 
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, getNoteService, deleteNoteService, SaveNoteService, logOutService, checkuserservice) {
 
 
 
@@ -25,10 +25,23 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $rootScope.checkuser();
 
+  $scope.OpenPopup = function(title) {
+    var modalInstance = $uibModal.open({
+      templateUrl: '../templates/popup.html',
+      controller: 'popupController',
+      resolve: {
+        title: function() {
+          return title;
+        }
+      }
+
+    })
+
+  }
   $rootScope.getnote = function() {
     var obj = getNoteService.app();
     obj.then(function(data) {
-      console.log("notedata",data.data.note_data);
+      console.log("notedata", data.data.note_data);
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         var noteArr = [];

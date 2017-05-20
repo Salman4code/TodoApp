@@ -1,26 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title></title> -->
-<!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="../css/keep.css"> -->
-<!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script> -->
-<!-- <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
-
-<script>
-  // function wrapper() {
-  //   $("#wrapper").toggleClass("toggled");
-  //
-  // }
-</script>
-
-<!-- </head> -->
-
-<div ng-controller="HomeController">
+<div ng-controller="HomeController" style="background-color: #e8e8e8;">
 
 
   <nav class="navbar navbar-inverse navbar-fixed-top" id="navcolor" role="navigation">
@@ -150,7 +128,7 @@
             <div class="row" id="cards" ng-show="grid">
               <!-- <div class="col-sm-2 col-lg-2"></div>  -->
               <div ng-repeat="x in records" class='col-sm-4'>
-                <pre id='box'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"><!-- {{x.take_note}} --></div><div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></pre>
+                <div id='box'><div ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"><!-- {{x.take_note}} --></div><div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></div>
               </div>
 
 
@@ -158,12 +136,17 @@
 
 
 
-            <div id="list_cards" class='col-sm-12' ng-show="list">
+            <div id="list_cards" class="row"  ng-show="list">
+              <!-- <div class="col-lg-2"></div> -->
               <div ng-repeat="x in records">
-                <pre  id='box1'><div>{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note"></div>
-                  <div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></pre></div>
-
-            </div>
+                <div class="col-lg-2">
+                </div>
+                <div id='box1' class='col-lg-8'><div ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"></div>
+                  <div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></div>
+                <div class="col-lg-2">
+                </div>
+              </div>
+              </div>
 
 
           </div>

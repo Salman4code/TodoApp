@@ -49,7 +49,7 @@
 //           }
 //       };
 //   }]);
-var app = angular.module('myApp', ['ui.router','ngSanitize'])
+var app = angular.module('myApp', ['ui.router','ngSanitize','ui.bootstrap'])
   .config(function($stateProvider, $urlRouterProvider) {
 
 

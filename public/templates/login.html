@@ -1,3 +1,5 @@
+<div>
+
 <header>
           <nav class="navbar navbar-default" id="style1">
           <div class="container">
@@ -22,18 +24,16 @@
     <!-- <link rel="stylesheet" type="text/css" href="/css/design.css"> -->
     <div class="row">
       <div class="col-sm-3"></div>
-      <div class="col-sm-5">
-        <form name="loginform" ng-controller="loginController">
+      <div class="col-sm-6 ">
+        <form id="loginform" name="loginform" ng-controller="loginController">
 
-            <div>
+
             <!-- <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br> -->
             <!-- <p><label for="email_id">Email id:</label>
             <i class="glyphicon glyphicon-user"></i>
             <input type="email" ng-model="email_id" name="email_id" class="form-control" placeholder="Email id" required><br>
             <span ng-show="loginform.email_id.$touched && loginform.email_id.$invalid">The email_id is required.</span>
             </p>      <br><br> -->
-
-
 
 
           <p><label>Email id:</label>
@@ -59,16 +59,11 @@
           <!-- <span ng-show="loginform.password.$error.minlength">password is too short.</span></p> -->
 
 
-          <!-- <p id="d"></p> -->
-
-          <!-- <input type="checkbox" id="rememberme" value="rememberme">
-                  <label for="rememberme">Remember Me</label><br><br> -->
-
           <button type="button" id="login1" ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid">Submit</button><br><br>
           <a ui-sref="signup" class="center">New User / Register here?</a><br><br>
-            <!-- <a href="#signup" class="center">Already registered Click here to login</a> -->
-        </div>
+
        </form>
      </div>
     </div>
   </div>
+</div>

@@ -1,63 +1,90 @@
 /*first header navigation css*/
 #style1
 {
-  background-color: #ffbb00;
+    background-color: #fb0;
 }
-#iconnav
-{
-  list-style: none;
-  height: 25px;
-  margin-left: 64%;
-  margin-top: 9px;
-}
-#iconnav img
-{
-  height: 25px;
-  /*list-style: none*/
-}
-#iconnav #refresh,#list,#grid,#notification,#logOut
-{
-  /*display:none;*/
-
-  /*list-style: none;*/
-}
-/*#googlekeeptext,#searchtextbox{
-  display:none;
-}*/
-
 /*Login css*/
 
-.imgicon
+/*.imgicon
 {
     width: 20%;
     border-radius: 2px;
-    margin-left:40%;
-    /*background-color: #ffbb00;*/
+    margin-left:40%;*/
+/*background-color: #ffbb00;*/
 
-    /*margin-right:50%;*/
-}
+/*margin-right:50%;*/
+/*}*/
 
 /*Registration form css*/
-input[type=text], input[type=password],input[type=email],input[type=password],input[type=number]{
+
+#loginform
+{
+    position: relative;
+    background:#FFFFFF;
+    z-index:1;
+    padding-top: 10%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    margin-top: 50px;
+    /*text-align: center;*/
+    /*border: 1px solid black;*/
+    box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+
+#loginform input
+{
+    /*display: inline-block;*/
+    font-family: sans-serif;
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
     width: 70%;
-    padding: 12px 20px;
     margin: 8px 0;
     margin-left: 15%;
-    display: inline-block;
+    padding: 12px 20px;
+
     border: 1px solid #ccc;
-    box-sizing: border-box;
 }
-label{
-  margin-left: 15%;
+#loginform label
+{
+    margin-left: 15%;
+}
+
+#signupform
+{
+    position: relative;
+    background:#FFFFFF;
+    z-index:1;
+    /*padding-top: 10%;*/
+    padding-right: 5%;
+    padding-bottom: 2%;
+    padding-left: 5%;
+    /*margin-top: 50px;*/
+    /*text-align: center;*/
+    /*border: 1px solid black;*/
+    box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+
+#signupform input
+{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 70%;
+    margin: 8px 0;
+    margin-left: 15%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+}
+#signupform label
+{
+    margin-left: 15%;
 }
 .center
 {
-  margin-left: 15%;
+    margin-left: 15%;
 }
 #checked
 {
-  margin-left: 15%;
-}
-form{
-  border:1px solid black;
+    margin-left: 15%;
 }
