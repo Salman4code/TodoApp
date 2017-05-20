@@ -60,7 +60,7 @@
   <div id="wrapper" class="toggled">
     <div class="container-fluid">
       <!-- Sidebar -->
-      <div id="sidebar-wrapper" ng-hide="sidenav">
+      <div id="sidebar-wrapper" ng-show="sidenav">
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
             <br>
@@ -96,13 +96,10 @@
           <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-              <!-- <div id="div1" ng-controller="noteController as note" ng-show="Visible" ng-click="getNote()"> -->
               <div id="div1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
                 <input type="text" placeholder="Take a note.." id="note">
-                <!-- <span style="float:right;margin-top:3px"> -->
                 <img src="../image/penicon.png">
                 <img src="../image/notewithimageicon.png">
-                <!-- <span> -->
               </div>
               <div id="div2" ng-show="note2">
                 <!-- <textarea id="title" placeholder="Title" ng-model="title"></textarea><br>
@@ -112,9 +109,9 @@
                 <img src="../image/notewithimageicon.png" alt="">
               </div> -->
 
-                <div id="title" newcontenteditable contenteditable="true" placeholder="Title" ng-model="title"></div><br>
+                <div id="title" newcontenteditable contenteditable="true" placeholder="Title" ng-model="title"></div>
                 <div id="content" newcontenteditable contenteditable="true" placeholder="Take a note.." ng-model="content"></div>
-                <div><a id="done" ng-click="savenote()">Done</a>
+                <div><a id="done" style="float:right;" ng-click="savenote()">Done</a>
                   <img src="../image/penicon.png" alt="">
                   <img src="../image/notewithimageicon.png" alt="">
 
@@ -128,7 +125,7 @@
             <div class="row" id="cards" ng-show="grid">
               <!-- <div class="col-sm-2 col-lg-2"></div>  -->
               <div ng-repeat="x in records" class='col-sm-4'>
-                <div id='box'><div ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"><!-- {{x.take_note}} --></div><div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></div>
+                <div id='box'><div id="notetitle" ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"><!-- {{x.take_note}} --></div><div id="cardbottom"><a id='delete' ng-click="deletenote(x._id)">delete</a></div></div>
               </div>
 
 
@@ -141,7 +138,7 @@
               <div ng-repeat="x in records">
                 <div class="col-lg-2">
                 </div>
-                <div id='box1' class='col-lg-8'><div ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"></div>
+                <div id='box1' class='col-lg-8'><div id="title" ng-click="OpenPopup(x.title,x.take_note)">{{x.title}}</div><div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x.title,x.take_note)"></div>
                   <div><a id='delete' ng-click="deletenote(x._id)">delete</a></div></div>
                 <div class="col-lg-2">
                 </div>
