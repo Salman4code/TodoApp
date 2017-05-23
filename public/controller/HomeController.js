@@ -1,9 +1,10 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
 
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, getNoteService, deleteNoteService, SaveNoteService, logOutService, checkuserservice) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, getNoteService, deleteNoteService, SaveNoteService, updateNoteService, logOutService, checkuserservice) {
 
 
+  $scope.sidenav = true;
 
 
   $rootScope.checkuser = function() {
@@ -25,17 +26,68 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $rootScope.checkuser();
 
-  $scope.OpenPopup = function(title) {
+  $scope.OpenPopup = function(notedata) {
+
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/popup.html',
-      controller: 'popupController',
-      resolve: {
-        title: function() {
-          return title;
-        }
-      }
+      controller: function($uibModalInstance) {
 
-    })
+        var $ctrl = this;
+        console.log(notedata._id);
+        console.log(notedata.title);
+        console.log(notedata.take_note);
+        this.title = notedata.title;
+        this.content = notedata.take_note;
+        this.id = notedata._id;
+
+        this.updateNote = function() {
+          console.log("update ok", notedata._id);
+          updatedNoteData = {
+            title: this.title,
+            take_note: this.content
+          }
+          var obj = updateNoteService.app(updatedNoteData, this.id);
+          obj.then(function(data) {
+            console.log(data.data.status);
+            if (data.data.status == true) {
+              console.log(data.data.message);
+              $rootScope.getnote();
+            } else {
+              console.log(data.data.message);
+            }
+
+          }).catch(function(error) {
+            console.log("error");
+          })
+          // $uibModalInstance.close({
+          //   id: $ctrl.id,
+          //   title: $ctrl.title,
+          //   note: $ctrl.note
+          // });
+
+        };
+
+        this.cancel = function() {
+          console.log("update cancel");
+          $uibModalInstance.dismiss('cancel');
+        };
+      },
+
+      controllerAs: "$ctrl"
+    });
+
+    modalInstance.result.catch(function(error) {
+      console.log("err", error);
+
+    }).then(function(data) {
+      if (data) {
+        console.log(data);
+        // $scope.toDoList.splice(index, 1, data);
+        // $scope.updateNote(data);
+      }
+      // this.close('dismiss');
+    });
+
 
   }
   $rootScope.getnote = function() {
@@ -67,7 +119,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var content = $scope.content;
     console.log(title);
     console.log(content);
-    if (title == " " && content == " " || title == undefined && content == undefined) {
+    if (title == "" && content == "" || title == undefined && content == undefined) {
       return;
     }
 
@@ -145,43 +197,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.listview();
   }
 
+  $scope.slidemenubar = function() {
+    console.log("sidebar click");
+    console.log($scope.sidenav);
+    if(window.innerWidth>600){
+    if (!$scope.sidenav) {
+      $scope.pagecontent = {
+        "margin-left": "100px",
+        "transition": "all 0.5s ease"
+      }
+    }
+    if ($scope.sidenav) {
+      $scope.pagecontent = {
+        "margin-left": "0px",
+        "transition": "all 0.5s ease"
+      }
+    }
+  }
+  }
 
 
-
-})
-// .service('getNoteService', function($http) {
-//
-//   this.app = function() {
-//     return $http({
-//       url: "/get_data_notes",
-//       method: "POST",
-//       dataType: 'JSON'
-//     });
-//   }
-// }).service('SaveNoteService', function($http) {
-//
-//   this.app = function(noteobj) {
-//     return $http({
-//       url: "/data_notes",
-//       method: "POST",
-//       dataType: 'JSON',
-//       data: noteobj
-//     });
-//   }
-// }).service('logOutService', function($http) {
-//
-//   this.app = function() {
-//     return $http({
-//       url: "/logout",
-//       method: "POST"
-//     });
-//   }
-// }).service('checkuserservice', function($http) {
-//   this.app = function() {
-//     return $http({
-//       url: "/welcome",
-//       method: "get",
-//     });
-//   }
-//   //
-// });
+});

@@ -14,11 +14,11 @@ var data_notes_Schema = Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    // default: Date.now
   },
   updatedAt: {
     type: Date,
-    default: Date.now
+    // default: Date.now
   }
 });
 
@@ -36,12 +36,29 @@ data_notes_Schema.statics.save_data = function(request, data_number, cb) {
   console.log("executed");
 
 }
-data_notes_Schema.pre('save', function(next){
-  var something = this;
-  this.updatedAt=new Date();
-  //  something.updatedAt(Date.now());
-   next();
-})
+
+data_notes_Schema.pre('save', function(next) {
+    // get the current date
+    // console.log("pre");
+    var currentDate = new Date();
+
+    // change the updated_at field to current date
+    this.updatedAt = currentDate;
+
+    // if created_at doesn't exist, add to that field
+    if (!this.createdAt)
+        this.createdAt = currentDate;
+
+    next();
+});
+
+
+// data_notes_Schema.pre('save', function(next){
+//   var something = this;
+//   this.updatedAt=new Date();
+//   //  something.updatedAt(Date.now());
+//    next();
+// })
 
 data_notes_Schema.statics.get_data = function(user_id, cb) {
 

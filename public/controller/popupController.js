@@ -1,8 +1,10 @@
-app.controller('popupController', function($scope,title) {
+app.controller('popupController', function($scope,title,$uibModal) {
 console.log("popup");
   $scope.title=title;
 
-//   $scope.close = function () {
-// $uibModal.dismiss('cancel');
-// };
+  this.close = function () {
+    console.log("fdjhgfdghfd h");
+    // $uibModal.cancel('dismiss');
+$uibModal.dismiss('cancel');
+};
 })

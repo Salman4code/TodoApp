@@ -61,4 +61,13 @@ data:userSignupdetail
     });
   }
   //
+}).service('updateNoteService', function($http) {
+  this.app = function(data,id) {
+    return $http({
+      url: "/update_data_notes/" + id + "",
+      method: "POST",
+      data: data
+    });
+  }
+  //
 });

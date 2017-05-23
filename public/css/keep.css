@@ -11,7 +11,7 @@ body
 [contenteditable=true]:empty:before
 {
     display: block;
-
+    color: #7e7e7e;
     content: attr(placeholder);
 }
 
@@ -30,14 +30,10 @@ body
 {
     font-family: 'Roboto',  arial,sans-serif;
     font-size: 20px;
-
     position: relative;
-
     margin-top: 6px;
     padding: 8px;
-
     text-decoration: none;
-
     color: black;
 }
 #searchtextbox
@@ -46,7 +42,6 @@ body
     margin-top: 7px;
     /*margin-left: 146px;*/
     padding: 12px 20px 10px 40px;
-
     border: none;
     border-radius: 4px;
     background-color: #f5b400;
@@ -65,16 +60,16 @@ body
 
 
 /*Note Styles*/
-#div1
+/*#div1
 {
-    /*width: 627px;*/
+    width: 627px;
     width: 100%;
     height: 50px;
     margin-top: 80px;
-    /*margin-left: 190px;*/
+    margin-left: 190px;
 
     background-color: white;
-    /*box-shadow: 2px 2px 2px #888;*/
+    box-shadow: 2px 2px 2px #888;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
 }
 #div1 img
@@ -84,20 +79,19 @@ body
     height: 25px;
     margin-top: 3px;
     margin-right: 8px;
-}
+}*/
 
-#div2
+/*#div2
 {
-    /*display: none;*/
-    /*width: 627px;*/
+    width: 627px;
     width: 100%;
     margin-top: 80px;
-    /*margin-left: 190px;*/
+    margin-left: 190px;
 
     border: 0;
-    /*outline: none;*/
+    outline: none;
     background-color: white;
-    /*box-shadow: 2px 2px 2px #888;*/
+    box-shadow: 2px 2px 2px #888;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
 }
 #div2 img
@@ -107,7 +101,7 @@ body
     height: 25px;
     margin-top: -6px;
     margin-right: 8px;
-}
+}*/
 #note
 {
     width: 100%;
@@ -138,7 +132,6 @@ body
     font-weight: bold;
     /*line-height: 23px;*/
     min-height: 30px;
-    /*padding: 15px 15px 0 15px;*/
 
 }
 #content
@@ -149,12 +142,11 @@ body
     overflow: hidden;
     box-sizing: border-box;
     width: 100%;
-    /*min-height: 46px;*/
+    min-height: 46px;
     /*padding: 12px 15px 15px 15px;*/
     /*height: 30px;*/
     padding: 10px 15px;
-    /*resize: none;*/
-    /*white-space: pre-wrap;*/
+    resize: none;
     word-wrap: break-word;
     border: 0;
     outline: none;
@@ -164,13 +156,16 @@ body
 {
     overflow: hidden;
 
-    width: 100%;
-    margin-top: 9%;
-
+    width: 240px;
+    margin-top: 15px;
+    margin-left: 15px;
     border: none;
     border-radius: 0;
     background: white;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+}
+#box:hover{
+box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 }
 #box1
 {
@@ -179,7 +174,7 @@ body
     margin-top: 20px;
 
     border: none;
-    /*width: 100%;*/
+    /*width: 70%;*/
     /*margin-left: 18%;*/
     border-radius: 0;
     background: white;
@@ -191,15 +186,15 @@ body
     /*width: 85%;
     padding-top: 3%;
     padding-left: 20%;*/
-    width: 80%;
-    margin-top: 3%;
-    margin-left: 10%;
+    width: 70%;
+    /*margin-top: 3%;*/
+    margin-left: 210px;
 }
 #list_cards
 {
-    width: 100%;
+    /*width: 100%;*/
     /*margin-top: 40px;*/
-    margin-left: 15%;
+    /*margin-left: 15%;*/
 }
 #notecontent
 {
@@ -239,8 +234,32 @@ body
     -webkit-transition-timing-function: ease-in;
     transition-timing-function: ease-in;*/
 }
+.float{
+  float:right;
+}
+#divnote1{
+  margin-top: 70px;
+  padding: 10px 15px;
+  resize: none;
+  border: 0;
+  outline: none;
+  font-family: 'Roboto Condensed',arial,sans-serif;
+  font-size: 17px;
+  background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+
+}
+#divnote2{
+  margin-top: 70px;
+  background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+}
 
 
+
+.modal-content {
+  margin-top: 35%;
+}
 /* Toggle Styles */
 
 #wrapper
@@ -259,7 +278,7 @@ body
 
 #sidebar-wrapper
 {
-    z-index: 1000;
+    z-index: 1;
     /*position: fixed;*/
     left: 250px;
 
@@ -267,7 +286,7 @@ body
     /*margin-left: -250px;*/
 
     width: 0;
-    height: 100%;
+    /*height: 100%;*/
     /*background: #000;*/
 
     -webkit-transition: all .5s ease;
@@ -288,8 +307,8 @@ body
 
 #wrapper.toggled #page-content-wrapper
 {
-    position: absolute;
-    /*margin-right: -250px;*/
+    position: relative;
+    margin-right: -250px;
 }
 
 /* Sidebar Styles */
@@ -397,5 +416,19 @@ body
     #google
     {
         display: none;
+    }
+    #box{
+      width: 143%;
+    }
+    #cards{
+      margin-left: -13px;
+    }
+    #searchtextbox
+    {
+      display: none;
+    }
+    #googlekeeptext
+    {
+      position: absolute;
     }
 }

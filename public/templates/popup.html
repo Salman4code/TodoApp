@@ -1,11 +1,13 @@
+
 <div class="modal-header">
-<h3 class="modal-title">Header</h3>
+  <div id="title" newcontenteditable contenteditable="true" placeholder="Title" ng-model="$ctrl.title"></div>
+
 </div>
 <div class="modal-body">
-<span><b>Passed Parameter after click:</b></span>{{title}}
-In this Popup, we are passing the parameter "John" after clicking on a button.
+  <div id="content" newcontenteditable contenteditable="true" placeholder="Take a note.." ng-model="$ctrl.content"></div>
+
 </div>
 <div class="modal-footer">
-<button class="btn btn-warning" type="button"
-ng-click="close()">Cancel</button>
+  <!-- <div><a id="done" style="float:right;" ng-click="$ctrl.updateNote()">Done</a> -->
+<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel();$ctrl.updateNote()">Done</button>
 </div>
