@@ -11,4 +11,6 @@ router.use('/get_data_notes',require('./authentication'),require('./get_data_not
 router.use('/update_data_notes',require('./update_data_notes'));
 router.use('/delete_data_notes',require('./delete_data_notes'));
 router.use('/read_single_note',require('./read_single_note'));
+router.use('/reminder',require('./reminder'));
+
 module.exports = router;

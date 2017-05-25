@@ -19,6 +19,9 @@ var data_notes_Schema = Schema({
   updatedAt: {
     type: Date,
     // default: Date.now
+  },
+  reminder:{
+    type:Date
   }
 });
 
@@ -52,7 +55,18 @@ data_notes_Schema.pre('save', function(next) {
     next();
 });
 
+data_notes_Schema.statics.reminder=function(note_id,request,cb){
 
+  console.log("update_data", note_id);
+  this.update({
+    _id: note_id
+  }, {
+    $set: {
+      reminder:request.reminder
+    }
+  }, cb);
+
+}
 // data_notes_Schema.pre('save', function(next){
 //   var something = this;
 //   this.updatedAt=new Date();

@@ -8,14 +8,15 @@ app.service('loginservice', function($http) {
     });
   }
 
-}).service('signupservice',function($http){
+}).service('signupservice', function($http) {
 
-this.app=function(userSignupdetail){
-  return $http({url:"/signup",
-method:"POST",
-data:userSignupdetail
-});
-}
+  this.app = function(userSignupdetail) {
+    return $http({
+      url: "/signup",
+      method: "POST",
+      data: userSignupdetail
+    });
+  }
 
 }).service('getNoteService', function($http) {
 
@@ -40,7 +41,7 @@ data:userSignupdetail
 
   this.app = function(id) {
     return $http({
-      url:  "/delete_data_notes/" + id + "",
+      url: "/delete_data_notes/" + id + "",
       method: "POST"
     });
   }
@@ -60,14 +61,24 @@ data:userSignupdetail
       method: "get",
     });
   }
-  //
+
 }).service('updateNoteService', function($http) {
-  this.app = function(data,id) {
+  this.app = function(data, id) {
     return $http({
       url: "/update_data_notes/" + id + "",
       method: "POST",
       data: data
     });
   }
-  //
+
+}).service('reminderService', function($http) {
+  this.app = function(id, data) {
+    console.log("inside function",id,data);
+    return $http({
+      url: "/reminder/" + id + "",
+      method: "POST",
+      data: data
+    });
+  }
+
 });

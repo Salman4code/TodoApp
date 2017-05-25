@@ -225,14 +225,19 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 
     box-sizing: border-box;
     padding: 10px 15px;
-
+    height: 35px;
     opacity: 1;
+    display: inline;
+
     /*-webkit-transition-duration: .218s;
     transition-duration: .218s;
     -webkit-transition-property: opacity;
     transition-property: opacity;
     -webkit-transition-timing-function: ease-in;
     transition-timing-function: ease-in;*/
+}
+#cardbottom img{
+  height: 20px;
 }
 .float{
   float:right;

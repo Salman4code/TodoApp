@@ -1,9 +1,12 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
 
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, getNoteService, deleteNoteService, SaveNoteService, updateNoteService, logOutService, checkuserservice) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, reminderService, getNoteService, deleteNoteService, SaveNoteService, updateNoteService, logOutService, checkuserservice) {
 
-
+  // $scope.isHidden = false;
+  $scope.tommorrow = "tommorrow";
+  $scope.next = "nextweek";
+  $scope.today = "today";
   $scope.sidenav = true;
 
 
@@ -21,7 +24,10 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         $state.go('login');
 
       }
+    }).catch(function(error) {
+      console.log("error");
     })
+
   }
 
   $rootScope.checkuser();
@@ -34,12 +40,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
         var $ctrl = this;
         console.log(notedata._id);
-        console.log(notedata.title);
+        console.log(notedata.title)
         console.log(notedata.take_note);
+        console.log("date", notedata.updatedAt);
         this.title = notedata.title;
         this.content = notedata.take_note;
         this.id = notedata._id;
-
+        this.date = notedata.updatedAt
         this.updateNote = function() {
           console.log("update ok", notedata._id);
           updatedNoteData = {
@@ -132,6 +139,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     obj.then(function(data) {
       console.log(data.data.status);
       if (data.data.status == true) {
+        $scope.title="";
+        $scope.content="";
         console.log(data.data.message);
         $rootScope.getnote();
       } else {
@@ -200,20 +209,63 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.slidemenubar = function() {
     console.log("sidebar click");
     console.log($scope.sidenav);
-    if(window.innerWidth>600){
-    if (!$scope.sidenav) {
-      $scope.pagecontent = {
-        "margin-left": "100px",
-        "transition": "all 0.5s ease"
+    if (window.innerWidth > 600) {
+      if (!$scope.sidenav) {
+        $scope.pagecontent = {
+          "margin-left": "100px",
+          "transition": "all 0.5s ease"
+        }
       }
-    }
-    if ($scope.sidenav) {
-      $scope.pagecontent = {
-        "margin-left": "0px",
-        "transition": "all 0.5s ease"
+      if ($scope.sidenav) {
+        $scope.pagecontent = {
+          "margin-left": "0px",
+          "transition": "all 0.5s ease"
+        }
       }
     }
   }
+
+
+  $scope.reminder = function(id, remindertime) {
+    console.log("reminder");
+    var date = new Date();
+    $scope.remindertime = remindertime;
+    if ($scope.remindertime == "today") {
+      var today = new Date(date);
+      today.setHours(21, 00, 00)
+      $scope.reminder_at = new Date(today)
+      console.log("today", $scope.reminder_at);
+    }
+    if ($scope.remindertime == "tommorrow") {
+      var today = new Date(date);
+      today.setDate(today.getDate() + 1)
+      $scope.reminder_at = new Date(today)
+      console.log("tommorrow date", $scope.reminder_at);
+    }
+    if ($scope.remindertime == "nextweek") {
+      var today = new Date(date);
+      today.setDate(today.getDate() + 7)
+      $scope.reminder_at = new Date(today)
+      console.log("nextweek", $scope.reminder_at);
+    }
+    console.log(id);
+    var data = {
+      reminder: $scope.reminder_at
+    };
+    var obj = reminderService.app(id, data);
+    obj.then(function(data) {
+      if (data.data.status == true) {
+        console.log(data);
+        $rootScope.getnote();
+
+      } else {
+        console.log(data.data.status);
+        return;
+      }
+    }).catch(function(error) {
+      console.log("error");
+    })
+
   }
 
 
