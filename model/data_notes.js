@@ -20,8 +20,8 @@ var data_notes_Schema = Schema({
     type: Date,
     // default: Date.now
   },
-  reminder:{
-    type:Date
+  reminder: {
+    type: Date
   }
 });
 
@@ -41,28 +41,28 @@ data_notes_Schema.statics.save_data = function(request, data_number, cb) {
 }
 
 data_notes_Schema.pre('save', function(next) {
-    // get the current date
-    // console.log("pre");
-    var currentDate = new Date();
+  // get the current date
+  // console.log("pre");
+  var currentDate = new Date();
 
-    // change the updated_at field to current date
-    this.updatedAt = currentDate;
+  // change the updated_at field to current date
+  this.updatedAt = currentDate;
 
-    // if created_at doesn't exist, add to that field
-    if (!this.createdAt)
-        this.createdAt = currentDate;
+  // if created_at doesn't exist, add to that field
+  if (!this.createdAt)
+    this.createdAt = currentDate;
 
-    next();
+  next();
 });
 
-data_notes_Schema.statics.reminder=function(note_id,request,cb){
+data_notes_Schema.statics.reminder = function(note_id, request, cb) {
 
   console.log("update_data", note_id);
   this.update({
     _id: note_id
   }, {
     $set: {
-      reminder:request.reminder
+      reminder: request.reminder
     }
   }, cb);
 
@@ -110,7 +110,16 @@ data_notes_Schema.statics.deletes_data_notes = function(note_id, cb) {
     _id: note_id
   }, cb);
 }
-
+data_notes_Schema.statics.delete_reminder = function(note_id, cb) {
+  console.log("delete reminder");
+  this.update({
+    _id: note_id
+  }, {
+    $unset: {
+      reminder: ""
+    }
+  }, cb);
+}
 
 var dataSchema = mongoose.model('note_data', data_notes_Schema);
 

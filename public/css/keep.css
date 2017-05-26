@@ -11,8 +11,10 @@ body
 [contenteditable=true]:empty:before
 {
     display: block;
-    color: #7e7e7e;
+
     content: attr(placeholder);
+
+    color: #7e7e7e;
 }
 
 
@@ -22,7 +24,7 @@ body
     border: none;
     background-color: #fb0;
 }
-.nav > li > a>img
+.nav > li > a > img
 {
     height: 25px;
 }
@@ -30,10 +32,14 @@ body
 {
     font-family: 'Roboto',  arial,sans-serif;
     font-size: 20px;
+
     position: relative;
+
     margin-top: 6px;
     padding: 8px;
+
     text-decoration: none;
+
     color: black;
 }
 #searchtextbox
@@ -42,6 +48,7 @@ body
     margin-top: 7px;
     /*margin-left: 146px;*/
     padding: 12px 20px 10px 40px;
+
     border: none;
     border-radius: 4px;
     background-color: #f5b400;
@@ -60,118 +67,86 @@ body
 
 
 /*Note Styles*/
-/*#div1
-{
-    width: 627px;
-    width: 100%;
-    height: 50px;
-    margin-top: 80px;
-    margin-left: 190px;
 
-    background-color: white;
-    box-shadow: 2px 2px 2px #888;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
-}
-#div1 img
-{
-    float: right;
-
-    height: 25px;
-    margin-top: 3px;
-    margin-right: 8px;
-}*/
-
-/*#div2
-{
-    width: 627px;
-    width: 100%;
-    margin-top: 80px;
-    margin-left: 190px;
-
-    border: 0;
-    outline: none;
-    background-color: white;
-    box-shadow: 2px 2px 2px #888;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
-}
-#div2 img
-{
-    float: left;
-
-    height: 25px;
-    margin-top: -6px;
-    margin-right: 8px;
-}*/
 #note
 {
+    font-family: 'Roboto Slab','Times New Roman',serif;
+    font-size: 14px;
+    line-height: 19px;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
     width: 100%;
 
     border: 0;
     border-radius: 1px;
-    font-family: 'Roboto Slab','Times New Roman',serif;
-    font-size: 14px;
-    line-height: 19px;
-    overflow: hidden;
-    box-sizing: border-box;
     /*min-height: 46px;*/
     /*padding: 12px 15px 15px 15px;*/
 }
 #title
 {
+    font-family: 'Roboto Condensed',arial,sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+
     overflow: hidden;
 
     width: 100%;
     min-height: 43px;
-    /*height: 30px;*/
-    padding: 10px 15px;
-    resize: none;
-    border: 0;
-    outline: none;
-    font-family: 'Roboto Condensed',arial,sans-serif;
-    font-size: 17px;
-    font-weight: bold;
     /*line-height: 23px;*/
     min-height: 30px;
+    /*height: 30px;*/
+    padding: 10px 15px;
 
+    resize: none;
+
+    border: 0;
+    outline: none;
 }
 #content
 {
     font-family: 'Roboto Slab','Times New Roman',serif;
     font-size: 14px;
     /*line-height: 19px;*/
+
     overflow: hidden;
+
     box-sizing: border-box;
     width: 100%;
     min-height: 46px;
     /*padding: 12px 15px 15px 15px;*/
     /*height: 30px;*/
     padding: 10px 15px;
+
     resize: none;
     word-wrap: break-word;
+
     border: 0;
     outline: none;
-
 }
 #box
 {
     overflow: hidden;
 
     width: 240px;
-    margin-top: 15px;
+    margin-bottom: 15px;
     margin-left: 15px;
+
     border: none;
     border-radius: 0;
     background: white;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
 }
-#box:hover{
-box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+#box:hover
+{
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 }
 #box1
 {
     overflow: hidden;
 
-    margin-top: 20px;
+    margin-bottom: 15px;
 
     border: none;
     /*width: 70%;*/
@@ -186,48 +161,55 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
     /*width: 85%;
     padding-top: 3%;
     padding-left: 20%;*/
-    width: 70%;
-    /*margin-top: 3%;*/
-    margin-left: 210px;
+    width: 100%;
+    margin-top: 25px;
+    /*margin-left: 210px;*/
 }
 #list_cards
 {
     /*width: 100%;*/
-    /*margin-top: 40px;*/
+    margin-top: 25px;
     /*margin-left: 15%;*/
 }
 #notecontent
 {
-    padding: 10px 15px;
     font-family: 'Roboto Slab','Times New Roman',serif;
     font-size: 14px;
     line-height: 19px;
+
     overflow: hidden;
+
     box-sizing: border-box;
     width: 100%;
     min-height: 46px;
+    padding: 10px 15px;
+
     white-space: pre-wrap;
     word-wrap: break-word;
 }
 #notetitle
 {
-    padding: 10px 15px;
-    resize: none;
-    border: 0;
-    outline: none;
     font-family: 'Roboto Condensed',arial,sans-serif;
     font-size: 17px;
     font-weight: bold;
+
+    padding: 10px 15px;
+
+    resize: none;
+
+    border: 0;
+    outline: none;
 }
 #cardbottom
 {
     bottom: 0;
 
     box-sizing: border-box;
-    padding: 10px 15px;
-    height: 35px;
+    /*padding: 10px 15px;*/
+    height: 55px;
+
     opacity: 1;
-    display: inline;
+
 
     /*-webkit-transition-duration: .218s;
     transition-duration: .218s;
@@ -236,34 +218,43 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
     -webkit-transition-timing-function: ease-in;
     transition-timing-function: ease-in;*/
 }
-#cardbottom img{
-  height: 20px;
+#cardbottom img
+{
+    height: 20px;
+    /*padding: 4px;*/
 }
-.float{
-  float:right;
+.float
+{
+    float: right;
 }
-#divnote1{
-  margin-top: 70px;
-  padding: 10px 15px;
-  resize: none;
-  border: 0;
-  outline: none;
-  font-family: 'Roboto Condensed',arial,sans-serif;
-  font-size: 17px;
-  background-color: white;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+#divnote1
+{
+    font-family: 'Roboto Condensed',arial,sans-serif;
+    font-size: 17px;
 
+    margin-top: 70px;
+    padding: 10px 15px;
+
+    resize: none;
+
+    border: 0;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
 }
-#divnote2{
-  margin-top: 70px;
-  background-color: white;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
+#divnote2
+{
+    margin-top: 70px;
+
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.2);
 }
 
 
 
-.modal-content {
-  margin-top: 35%;
+.modal-content
+{
+    margin-top: 35%;
 }
 /* Toggle Styles */
 
@@ -313,6 +304,7 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 #wrapper.toggled #page-content-wrapper
 {
     position: relative;
+
     margin-right: -250px;
 }
 
@@ -332,7 +324,7 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 
     list-style: none;
 
-    background: white;
+    /*background: white;*/
 }
 
 .sidebar-nav li
@@ -422,18 +414,42 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
     {
         display: none;
     }
-    #box{
-      width: 143%;
+    #box
+    {
+        width: 100%;
     }
-    #cards{
-      margin-left: -13px;
+    #cards
+    {
+        /*margin-left: -13px;*/
     }
     #searchtextbox
     {
-      display: none;
+        display: none;
     }
     #googlekeeptext
     {
-      position: absolute;
+        position: absolute;
     }
+    .sidebar-nav
+    {
+        background-color: white;
+    }
+    /*.pagecontent
+    {
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-left:auto;
+      margin-right: auto;
+    }*/
+    .wrappercontainer
+    {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-left:auto;
+      margin-right: auto;
+    }
+    #page-content-wrapper {
+    width: 100%;
+    padding: 5px;
+}
 }

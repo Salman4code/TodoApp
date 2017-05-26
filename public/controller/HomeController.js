@@ -1,7 +1,7 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
 
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, reminderService, getNoteService, deleteNoteService, SaveNoteService, updateNoteService, logOutService, checkuserservice) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window,deletereminderService,reminderService, getNoteService, deleteNoteService, SaveNoteService, updateNoteService, logOutService, checkuserservice) {
 
   // $scope.isHidden = false;
   $scope.tommorrow = "tommorrow";
@@ -31,6 +31,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $rootScope.checkuser();
+
+
 
   $scope.OpenPopup = function(notedata) {
 
@@ -139,8 +141,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     obj.then(function(data) {
       console.log(data.data.status);
       if (data.data.status == true) {
-        $scope.title="";
-        $scope.content="";
+        $scope.title = "";
+        $scope.content = "";
         console.log(data.data.message);
         $rootScope.getnote();
       } else {
@@ -151,6 +153,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log("error");
     })
   }
+
+  $scope.copyNote=function(notedata){
+    var obj = SaveNoteService.app(notedata);
+    obj.then(function(data) {
+      console.log(data.data.status);
+      if (data.data.status == true) {
+        console.log(data.data.message);
+        $rootScope.getnote();
+      } else {
+        console.log(data.data.message);
+      }
+
+    }).catch(function(error) {
+      console.log("error");
+    })
+
+  }
+
   $scope.logout = function() {
     logOutService.app().then(function(data) {
       console.log(data.data.status);
@@ -227,6 +247,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
   $scope.reminder = function(id, remindertime) {
+    // $scope.reminder_date=true;
     console.log("reminder");
     var date = new Date();
     $scope.remindertime = remindertime;
@@ -264,6 +285,18 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       }
     }).catch(function(error) {
       console.log("error");
+    })
+
+  }
+
+  $scope.deletereminder=function(note_id){
+    deletereminderService.app(note_id).then(function(data) {
+      console.log(data.data.status);
+      // $location.path('/login');
+      $rootScope.getnote();
+
+    }).catch(function(error) {
+      console.log(error);
     })
 
   }

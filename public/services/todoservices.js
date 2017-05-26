@@ -73,11 +73,18 @@ app.service('loginservice', function($http) {
 
 }).service('reminderService', function($http) {
   this.app = function(id, data) {
-    console.log("inside function",id,data);
     return $http({
       url: "/reminder/" + id + "",
       method: "POST",
       data: data
+    });
+  }
+
+}).service('deletereminderService', function($http) {
+  this.app = function(id) {
+    return $http({
+      url: "/reminder/" + id + "",
+      method: "POST",
     });
   }
 

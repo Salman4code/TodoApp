@@ -12,5 +12,7 @@ router.use('/update_data_notes',require('./update_data_notes'));
 router.use('/delete_data_notes',require('./delete_data_notes'));
 router.use('/read_single_note',require('./read_single_note'));
 router.use('/reminder',require('./reminder'));
+router.use('/deletereminder',require('./deletereminder'));
+
 
 module.exports = router;
