@@ -1,30 +1,51 @@
-// var app = angular.module('myApp', ['ngRoute']);
+app.controller('loginController', function($scope, $rootScope, $state, loginservice,checkuserservice,TodoService) {
 
-app.controller('loginController', function($scope, $rootScope, $location,$state, loginservice) {
 
+
+  $rootScope.checkuser = function() {
+    console.log("checkuser");
+    checkuserservice.app().then(function(response) {
+      console.log(response);
+      if (response.data.status == true) {
+
+        // $location.path('/welcomepage');
+        $state.go('home');
+        // $rootScope.getnote();
+      } else {
+        // $location.path('/login');
+        $state.go('login');
+
+      }
+    }).catch(function(error) {
+      console.log("error");
+    })
+
+  }
 
 
   // $rootScope.checkuser();
+
+
   $scope.login = function() {
     var email_id = $scope.email_id;
     var password = $scope.password;
     console.log(email_id);
-    // console.log(password);
-    // alert($scope.email_id);
     var userlogin = {
       email: email_id,
       password: password
     }
-    var obj = loginservice.app(userlogin);
+    var url='/login'
+    var method="post"
+    var obj = TodoService.app(url,method,userlogin);
     obj.then(function(data) {
+      console.log("TodoService");
       console.log(data.data.status);
       if (data.data.status == true) {
-        // $location.path('/welcomepage');
-                $state.go('home');
-         $rootScope.getnote();
+        $state.go('home');
+        $rootScope.getnote();
       } else {
-        // $location.path('/login');
-                $state.go('login');
+        alert(data.data.message);
+        $state.go('login');
       }
 
     }).catch(function(error) {

@@ -1,91 +1,111 @@
-app.service('loginservice', function($http) {
-
-  this.app = function(userlogin) {
+// app.service('loginservice', function($http) {
+//
+//   this.app = function(userlogin) {
+//     return $http({
+//       url: "/login",
+//       method: "POST",
+//       data: userlogin
+//     });
+//   }
+//
+// }).service('signupservice', function($http) {
+//
+//   this.app = function(userSignupdetail) {
+//     return $http({
+//       url: "/signup",
+//       method: "POST",
+//       data: userSignupdetail
+//     });
+//   }
+//
+// }).service('getNoteService', function($http) {
+//
+//   this.app = function() {
+//     return $http({
+//       url: "/get_data_notes",
+//       method: "POST",
+//       dataType: 'JSON'
+//     });
+//   }
+// }).service('SaveNoteService', function($http) {
+//
+//   this.app = function(noteobj) {
+//     return $http({
+//       url: "/data_notes",
+//       method: "POST",
+//       dataType: 'JSON',
+//       data: noteobj
+//     });
+//   }
+// }).service('deleteNoteService', function($http) {
+//
+//   this.app = function(id) {
+//     return $http({
+//       url: "/delete_data_notes/" + id + "",
+//       method: "POST"
+//     });
+//   }
+//
+// }).service('logOutService', function($http) {
+//
+//   this.app = function() {
+//     return $http({
+//       url: "/logout",
+//       method: "POST"
+//     });
+//   }
+// }).service('checkuserservice', function($http) {
+//   this.app = function() {
+//     return $http({
+//       url: "/welcome",
+//       method: "get",
+//     });
+//   }
+//
+// }).service('updateNoteService', function($http) {
+//   this.app = function(data, id) {
+//     return $http({
+//       url: "/update_data_notes/" + id + "",
+//       method: "POST",
+//       data: data
+//     });
+//   }
+//
+// }).service('reminderService', function($http) {
+//   this.app = function(id, data) {
+//     return $http({
+//       url: "/reminder/" + id + "",
+//       method: "POST",
+//       data: data
+//     });
+//   }
+//
+// }).service('deletereminderService', function($http) {
+//   this.app = function(id) {
+//     return $http({
+//       url: "/reminder/" + id + "",
+//       method: "POST",
+//     });
+//   }
+//
+// }).service('changecolorService', function($http) {
+//   this.app = function(id,color) {
+//     // console.log(id,color);
+//     return $http({
+//       url: "/changebgcolor/" + id + "",
+//       method: "POST",
+//       data:color
+//     });
+//   }
+//
+// })
+app.service('TodoService', function($http) {
+  this.app = function(url,method,data) {
+    console.log("TodoService");
     return $http({
-      url: "/login",
-      method: "POST",
-      data: userlogin
+      url: url,
+      method:method,
+      data:data
     });
   }
-
-}).service('signupservice', function($http) {
-
-  this.app = function(userSignupdetail) {
-    return $http({
-      url: "/signup",
-      method: "POST",
-      data: userSignupdetail
-    });
-  }
-
-}).service('getNoteService', function($http) {
-
-  this.app = function() {
-    return $http({
-      url: "/get_data_notes",
-      method: "POST",
-      dataType: 'JSON'
-    });
-  }
-}).service('SaveNoteService', function($http) {
-
-  this.app = function(noteobj) {
-    return $http({
-      url: "/data_notes",
-      method: "POST",
-      dataType: 'JSON',
-      data: noteobj
-    });
-  }
-}).service('deleteNoteService', function($http) {
-
-  this.app = function(id) {
-    return $http({
-      url: "/delete_data_notes/" + id + "",
-      method: "POST"
-    });
-  }
-
-}).service('logOutService', function($http) {
-
-  this.app = function() {
-    return $http({
-      url: "/logout",
-      method: "POST"
-    });
-  }
-}).service('checkuserservice', function($http) {
-  this.app = function() {
-    return $http({
-      url: "/welcome",
-      method: "get",
-    });
-  }
-
-}).service('updateNoteService', function($http) {
-  this.app = function(data, id) {
-    return $http({
-      url: "/update_data_notes/" + id + "",
-      method: "POST",
-      data: data
-    });
-  }
-
-}).service('reminderService', function($http) {
-  this.app = function(id, data) {
-    return $http({
-      url: "/reminder/" + id + "",
-      method: "POST",
-      data: data
-    });
-  }
-
-}).service('deletereminderService', function($http) {
-  this.app = function(id) {
-    return $http({
-      url: "/reminder/" + id + "",
-      method: "POST",
-    });
-  }
-
 });

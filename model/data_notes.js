@@ -22,6 +22,9 @@ var data_notes_Schema = Schema({
   },
   reminder: {
     type: Date
+  },
+  bgcolor:{
+    type:String
   }
 });
 
@@ -117,6 +120,16 @@ data_notes_Schema.statics.delete_reminder = function(note_id, cb) {
   }, {
     $unset: {
       reminder: ""
+    }
+  }, cb);
+}
+data_notes_Schema.statics.changecolor = function(note_id,request, cb) {
+  console.log("delete reminder");
+  this.update({
+    _id: note_id
+  }, {
+    $set: {
+      bgcolor:request.bgcolor
     }
   }, cb);
 }

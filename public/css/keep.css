@@ -258,6 +258,31 @@ body
 }
 /* Toggle Styles */
 
+#coloricons
+{
+  margin-top: -44px;
+  width: 80px;
+    margin-left: 50px;
+    background-color: white;
+    position: absolute;
+    z-index: 4011;
+    height: 53px;
+    padding-top: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+
+}
+#coloriconsgrid{
+  margin-top: -44px;
+    width: 13%;
+    margin-left: 50px;
+    background-color: white;
+    position: absolute;
+    z-index: 4011;
+    height: 53px;
+    padding-top: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    
+}
 #wrapper
 {
     padding-left: 0;
