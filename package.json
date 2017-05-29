@@ -1,16 +1,31 @@
 {
-  "name": "salman",
+  "name": "todoapp",
   "version": "1.0.0",
   "description": "myonpackage",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Salman",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "crypto": "0.0.3",
+    "express-validator": "^3.2.0",
     "hooks": "^0.3.2",
+    "mongoose": "^4.10.3",
+    "mongoose-validators": "^0.1.0",
     "morgan": "^1.8.1",
     "node-session": "^1.2.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salman4code/TodoApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Salman4code/TodoApp/issues"
+  },
+  "homepage": "https://github.com/Salman4code/TodoApp#readme"
 }

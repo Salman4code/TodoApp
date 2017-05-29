@@ -1,3 +1,5 @@
+<div style="background-color:{{$ctrl.bgcolor}}">
+
 
 <div class="modal-header">
   <div id="title" newcontenteditable contenteditable="true" placeholder="Title" ng-model="$ctrl.title"></div>
@@ -11,4 +13,5 @@
 <div class="modal-footer">
   <!-- <div><a id="done" style="float:right;" ng-click="$ctrl.updateNote()">Done</a> -->
 <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel();$ctrl.updateNote()">Done</button>
+</div>
 </div>

@@ -1,6 +1,6 @@
 // var app = angular.module('myApp', ['ngRoute']);
 
-app.controller('registrationController', function($scope, $location, $state, signupservice, TodoService) {
+app.controller('registrationController', function($scope, $location, $state, TodoService) {
   // $scope.message = 'Hello from registrationController';
   // $scope.email_regex = /[a-z0-9._-]+@[a-z]+\.+[a-z]{2,3}$/;
   // $scope.password = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -41,15 +41,3 @@ app.controller('registrationController', function($scope, $location, $state, sig
     })
   }
 });
-
-
-// app.service('signupservice',function($http){
-//
-// this.app=function(userSignupdetail){
-//   return $http({url:"/signup",
-// method:"POST",
-// data:userSignupdetail
-// });
-// }
-//
-// });

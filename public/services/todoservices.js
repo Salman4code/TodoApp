@@ -100,11 +100,11 @@
 //
 // })
 app.service('TodoService', function($http) {
-  this.app = function(url,method,data) {
+  this.app = function(url,action,data) {
     console.log("TodoService");
     return $http({
       url: url,
-      method:method,
+      method:action,
       data:data
     });
   }

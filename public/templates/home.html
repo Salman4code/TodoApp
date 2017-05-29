@@ -35,7 +35,7 @@
               </a>
             </li>
             <li>
-              <a id="list" ng-style="liststyle" ng-click="listview()" uib-tooltip="List" tooltip-placement="bottom" ><img src="../image/listviewicon.png"></img>
+              <a id="list" ng-style="liststyle" ng-click="listview()" uib-tooltip="List" tooltip-placement="bottom"><img src="../image/listviewicon.png"></img>
               </a>
             </li>
             <li>
@@ -94,7 +94,7 @@
       <div id="page-content-wrapper" ng-style="pagecontent">
         <div class="container-fluid pagecontent">
           <div class="row">
-            <div class="col-lg-3 col-xs-12 col-md-3 col-sm-3"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
             <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
               <div id="divnote1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
                 <!-- <input type="text" placeholder="Take a note.." > -->
@@ -160,7 +160,7 @@
                 <img src="../image/more.png"></a> -->
             </span>
                   <div style="border-top:1px dashed #e8e8e8;padding-left:16px;" ng-if="x.reminder" ng-mouseover="deleteremicon=true" ng-mouseleave="deleteremicon = false">
-                    <span><span class="glyphicon glyphicon-time" uib-tooltip="Reminder" tooltip-placement="bottom" tooltip-append-to-body=true></span>{{x.reminder | date:'dd:MMM hh:mm a'}}</span>
+                    <span><span class="glyphicon glyphicon-time" uib-tooltip="Reminder" tooltip-placement="bottom" tooltip-append-to-body=true></span> {{x.reminder | date:'dd:MMM hh:mm a'}}</span>
                     <span ng-show="deleteremicon" class="glyphicon glyphicon-remove-circle" style="float:right;" ng-click="deletereminder(x._id)"></span>
                   </div>
                 </div>
@@ -179,30 +179,31 @@
                 <div id="coloricons" ng-show="coloricons">
 
                   <a ng-click="selectcolor(y.color,x._id)" ng-repeat="y in color">
-                    <img ng-src="{{y.imgpath}}">
+                    <img ng-src="{{y.imgpath}}" uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom">
                   </a>
 
                 </div>
 
                 <div id="cardbottom"><span ng-show="icons">
-                  <div class="btn-group" uib-dropdown dropdown-append-to-body="true" uib-tooltip="Remind Me" tooltip-placement="bottom" tooltip-append-to-body=true>
-                    <i id="btn-append-to-body" style="display:inline-block" class="fa fa-ellipsis-v" uib-dropdown-toggle>
+                  <div class="btn-group" ng-mouseleave="deleteremicon = true" uib-dropdown dropdown-append-to-body="true" uib-tooltip="Remind Me" tooltip-placement="bottom" tooltip-append-to-body=true>
+                    <i id="btn-append-to-body" style="display:inline-block" class="fa fa-ellipsis-v" uib-dropdown-toggle >
                     <img  src="../image/Remindericon.png"></i>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
                       <li role="menuitem"><a ng-click="reminder(x._id,today)">Today</a></li>
                       <li role="menuitem"><a ng-click="reminder(x._id,tommorrow)">Tommorow</a></li>
                       <li role="menuitem"><a ng-click="reminder(x._id,next)">next week</a></li>
+                      <!-- <li></li> -->
                     </ul>
                   </div>
 
-                <img  src="../image/Remindericon.png" uib-tooltip="Remind me" tooltip-placement="bottom" tooltip-append-to-body=true></i>
-                  <img src="../image/color.png" ng-mouseover="coloricons=true" uib-tooltip="color" tooltip-placement="bottom" tooltip-append-to-body=true >
+                <!-- <img  src="../image/Remindericon.png" uib-tooltip="Remind me" tooltip-placement="bottom" tooltip-append-to-body=true></i> -->
+                  <img src="../image/color.png" ng-mouseover="coloricons=true" uib-tooltip="color" tooltip-placement="bottom" tooltip-append-to-body=true ng-mouseleave="deleteremicon = true">
                 <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
                   <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>
                                     <img src="../image/more.png" ng-mouseleave="coloricons = false"></a>
                   </i>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-                  <li role="menuitem"><a id='delete' ng-click="deletenote(x._id)">Delete</a></li>
+                  <li role="menuitem"><a id='delete' ng-click="deletenote(x._id, $index)">Delete</a></li>
                   <li role="menuitem"><a ng-click="copyNote(x)">Make a copy</a></li>
                 </ul>
               </div>
@@ -210,7 +211,7 @@
                 <!-- <a id='delete' ng-click="deletenote(x._id)">
                   <img src="../image/more.png" alt=""></a> -->
                 </span>
-                  <div style="border-top:1px dashed #e8e8e8;padding-left:16px;"><span uib-tooltip="Reminder" tooltip-placement="bottom" tooltip-append-to-body=true class="glyphicon glyphicon-time"></span>{{x.reminder | date:'dd:MM hh:mm'}}
+                  <div style="border-top:1px dashed #e8e8e8;padding-left:16px;" ng-if="x.reminder" ng-mouseover="deleteremicon=true" ng-mouseleave="deleteremicon = false"><span uib-tooltip="Reminder" tooltip-placement="bottom" tooltip-append-to-body=true class="glyphicon glyphicon-time"></span>{{x.reminder | date:'dd:MM hh:mm'}}
                     <span ng-show="icons" class="glyphicon glyphicon-remove-circle" style="float:right;" ng-click="deletereminder(x._id)"></span></div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $rootScope, $state, loginservice,checkuserservice,TodoService) {
+app.controller('loginController', function($scope, $rootScope, $state,TodoService) {
 
 
 
@@ -43,7 +43,7 @@ app.controller('loginController', function($scope, $rootScope, $state, loginserv
       if (data.data.status == true) {
         $state.go('home');
         $rootScope.getnote();
-      } else {
+      } else if(data.data.status==false) {
         alert(data.data.message);
         $state.go('login');
       }

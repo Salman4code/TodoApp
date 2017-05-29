@@ -39,9 +39,9 @@
           <p><label>Email id:</label>
           <i class="glyphicon glyphicon-user"></i><br>
           <input type="email" class="form-control" name="email_id" ng-model="email_id" placeholder="Email Id" required>
-          <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$dirty && loginform.email_id.$invalid"><br>
-          <span ng-show="loginform.email_id.$error.required">Email_id is required.</span>
-          <span ng-show="loginform.email_id.$error.email">Invalid email_id.</span>
+          <span  ng-show="loginform.email_id.$dirty && loginform.email_id.$invalid">
+          <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$error.required">Email_id is required.</span>
+          <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$error.email">Invalid email_id.</span>
           <!-- <span ng-show="loginform.email_id.$touched">please Enter email_id</span> -->
 
           </span>
@@ -54,8 +54,8 @@
           <p><label>Password:</label>
           <i class="glyphicon glyphicon-lock"></i><br>
           <input type="password" name="password" class="form-control" placeholder="Password" ng-model="password" required>
-          <span style="color:red;margin-left:16%" ng-show="loginform.password.$dirty && loginform.password.$invalid"><br>
-          <span ng-show="loginform.password.$error.required">password is required.</span></p>
+          <span ng-show="loginform.password.$dirty && loginform.password.$invalid">
+          <span style="color:red;margin-left:16%" ng-show="loginform.password.$error.required">password is required.</span></p>
           <!-- <span ng-show="loginform.password.$error.minlength">password is too short.</span></p> -->
 
 

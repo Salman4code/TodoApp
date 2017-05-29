@@ -161,7 +161,7 @@ body
     /*width: 85%;
     padding-top: 3%;
     padding-left: 20%;*/
-    width: 100%;
+    /*width: 100%;*/
     margin-top: 25px;
     /*margin-left: 210px;*/
 }
@@ -254,14 +254,15 @@ body
 
 .modal-content
 {
-    margin-top: 35%;
+    margin-top: 150px;
 }
 /* Toggle Styles */
 
 #coloricons
 {
+  box-sizing: border-box;
   margin-top: -44px;
-  width: 80px;
+  width: 113px;
     margin-left: 50px;
     background-color: white;
     position: absolute;
@@ -281,7 +282,7 @@ body
     height: 53px;
     padding-top: 3px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    
+
 }
 #wrapper
 {
@@ -326,12 +327,12 @@ body
     padding: 15px;
 }
 
-#wrapper.toggled #page-content-wrapper
+/*#wrapper.toggled #page-content-wrapper
 {
     position: relative;
 
     margin-right: -250px;
-}
+}*/
 
 /* Sidebar Styles */
 
@@ -442,6 +443,7 @@ body
     #box
     {
         width: 100%;
+        margin-left: 0px;
     }
     #cards
     {
