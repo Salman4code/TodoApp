@@ -51,14 +51,14 @@
         </span><br>
 
 
-        <label>Password:</label><input type="password" class="form-control" placeholder="Password" name="Password" ng-model="password" ng-minlength="6" ng-maxlength="10" required>
+        <label>Password:</label><input type="password" class="form-control" placeholder="Password" name="Password" ng-model="password" ng-minlength="6" ng-maxlength="15" required>
         <span style="color:red;margin-left:16%" ng-show="signupform.Password.$dirty && signupform.Password.$invalid"><br>
           <span ng-show="signupform.Password.$error.required">Password is required.</span>
         <span ng-show="signupform.Password.$error.minlength">Please Enter minimum 6 character.</span>
         </span><br>
 
 
-        <label>Retype Password:</label><input type="password" class="form-control" placeholder="Re-type Password" name="rPassword" ng-model="rpassword" ng-minlength="6" ng-maxlength="10" required>
+        <label>Retype Password:</label><input type="password" class="form-control" placeholder="Re-type Password" name="rPassword" ng-model="rpassword" ng-minlength="6" ng-maxlength="15" required>
         <span style="color:red;margin-left:16%" ng-show="signupform.rPassword.$dirty && signupform.rPassword.$invalid"><br>
         <span ng-show="signupform.rPassword.$error.required">Please Enter password.</span>
         <span ng-show="signupform.rPassword.$error.minlength">Please Enter minimum 6 character.</span>

@@ -1,22 +1,22 @@
-var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap'])
+var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap','ui.bootstrap.datetimepicker'])
   .config(function($stateProvider, $urlRouterProvider) {
 
 
     $stateProvider.state('home', {
         url: '/home',
         templateUrl: 'templates/home.html',
-        controller: 'HomeController'
+        // controller: 'HomeController'
 
       })
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
-        controller: 'loginController'
+        // controller: 'loginController'
 
       }).state('signup', {
         url: '/signup',
         templateUrl: 'templates/registration.html',
-        controller: 'registrationController',
+        // controller: 'registrationController',
         // onEnter: function() {
         //   console.log('inside signup');
         // }

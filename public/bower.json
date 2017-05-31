@@ -24,6 +24,8 @@
     "angular-route": "^1.6.4",
     "angular-ui-router": "ui-router#^1.0.3+hybrid-2.0.0-2",
     "angular-sanitize": "^1.6.4",
-    "angular-bootstrap": "angular-ui-bootstrap-bower#^2.5.0"
+    "angular-bootstrap": "angular-ui-bootstrap-bower#^2.5.0",
+    "angular-ui-bootstrap-datetimepicker": "^2.5.0",
+    "moment": "^2.18.1"
   }
 }

@@ -1,6 +1,7 @@
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, TodoService) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, TodoService) {
 
   // $scope.isHidden = false;
+  var user=[];
   $scope.tommorrow = "tommorrow";
   $scope.next = "nextweek";
   $scope.today = "today";
@@ -9,47 +10,66 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.color = [{
       "color": "#ffffff",
       "imgpath": "../image/whitechecked.png",
-      "tooltip":"white"
+      "tooltip": "white"
     },
     {
       "color": "#ff8a80",
       "imgpath": "../image/red.png",
-      "tooltip":"red"
+      "tooltip": "red"
     },
     {
       "color": "#ffd180",
       "imgpath": "../image/orange.png",
-      "tooltip":"orange"
+      "tooltip": "orange"
     },
     {
       "color": "#ffd180",
       "imgpath": "../image/yellow.png",
-      "tooltip":"yellow"
+      "tooltip": "yellow"
     },
     {
       "color": "#cfd8dc",
       "imgpath": "../image/gray.png",
-      "tooltip":"gray"
+      "tooltip": "gray"
     },
     {
       "color": "#80d8ff",
       "imgpath": "../image/blue.png",
-      "tooltip":"blue"
+      "tooltip": "blue"
     },
     {
       "color": "#a7ffeb",
       "imgpath": "../image/teal.png",
-      "tooltip":"teal"
+      "tooltip": "teal"
     },
     {
       "color": "#ccff90",
       "imgpath": "../image/green.png",
-      "tooltip":"green"
+      "tooltip": "green"
     }
 
 
   ];
 
+  // $("body").click(function(event) {
+  //   if (event.target.id == "title" || event.target.id == "content" || event.target.id == "done")
+  //     return;
+  //   else {
+  //     $("#divnote2").hide();
+  //     $("#divnote1").show();
+  //
+  //     var title = $("#title").val();
+  //     var take_note = $("#content").val();
+  //     console.log("done", take_note);
+  //     if (title == "" && take_note == "") {
+  //
+  //       return;
+  //     }
+  //
+  //     // save_notes(title, take_note);
+  //
+  //   }
+  // });
 
   $rootScope.checkuser = function() {
     console.log("checkuser");
@@ -57,9 +77,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var action = "get";
     TodoService.app(url, action).then(function(response) {
       console.log("checkuser", response);
-      if (response.data.status == true) {
+      console.log(response.data.status);
 
+      if (response.data.status == true) {
         $state.go('home');
+
+        $scope.user=response.data.userprofile;
+        console.log(user);
         // $rootScope.getnote();
       } else {
         $state.go('login');
@@ -73,7 +97,30 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $rootScope.checkuser();
 
+$scope.Openprofilemodal=function(){
 
+      var modalInstance = $uibModal.open({
+        templateUrl: '../templates/popup.html',
+        controller: function($uibModalInstance) {
+          console.log("profilemodal");
+        },
+          controllerAs: "$ctrl"
+        });
+
+        modalInstance.result.catch(function(error) {
+          console.log("err", error);
+
+        }).then(function(data) {
+          if (data) {
+            console.log(data);
+            // $scope.toDoList.splice(index, 1, data);
+            // $scope.updateNote(data);
+          }
+          // this.close('dismiss');
+        });
+
+
+}
 
   $scope.OpenPopup = function(notedata) {
 
@@ -84,13 +131,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         var $ctrl = this;
         console.log(notedata._id);
         console.log(notedata.title)
-        console.log("color",notedata.bgcolor);
+        console.log("color", notedata.bgcolor);
         console.log("date", notedata.updatedAt);
         this.title = notedata.title;
         this.content = notedata.take_note;
         this.id = notedata._id;
         this.date = notedata.updatedAt
-        this.bgcolor=notedata.bgcolor;
+        this.bgcolor = notedata.bgcolor;
         this.updateNote = function() {
           console.log("update ok", notedata._id);
           updatedNoteData = {
@@ -143,7 +190,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
   }
-  var noteArr = [];
+
   $rootScope.getnote = function() {
     var url = "/get_data_notes";
     var action = "POST";
@@ -153,7 +200,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log("notedata", data.data.note_data);
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
-        noteArr;
+        // noteArr;
+        var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
         }
@@ -239,39 +287,41 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
-      if(data.data.status==true)
-      {
-      noteArr.splice(index,1);
-      //$rootScope.getnote();
-    }
-    else{
-      alert("data.data.message");
-    }
+      if (data.data.status == true) {
+        // noteArr.splice(index,1);
+        $rootScope.getnote();
+      } else {
+        alert("data.data.message");
+      }
     }).catch(function(error) {
       console.log(error);
     })
   }
 
   $scope.listview = function() {
-    $scope.list = true;
-    $scope.grid = false;
+    // $scope.list = true;
+    // $scope.grid = false;
     $scope.liststyle = {
       'display': 'none'
     }
     $scope.gridstyle = {
       'display': 'block'
     }
+    $scope.changeview = "cards";
+    $scope.boxsize = "col-lg-12 col-md-12 col-sm-12 col-xs-12 box1 dragCard"
     localStorage.setItem("view", "list");
   }
   $scope.gridview = function() {
-    $scope.list = false;
-    $scope.grid = true;
+    // $scope.list = false;
+    // $scope.grid = true;
     $scope.liststyle = {
       'display': 'block'
     }
     $scope.gridstyle = {
       'display': 'none'
     }
+    $scope.changeview = "cards";
+    $scope.boxsize = "col-lg-4 col-md-6 col-sm-6 col-xs-12 box dragCard"
     localStorage.setItem("view", "grid");
   }
 
@@ -284,6 +334,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     console.log("listview");
 
     $scope.listview();
+
   }
 
   $scope.slidemenubar = function() {
@@ -316,26 +367,26 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       today.setHours(21, 00, 00)
       $scope.reminder_at = new Date(today)
       console.log("today", $scope.reminder_at);
-    }
-    if ($scope.remindertime == "tommorrow") {
+    } else if ($scope.remindertime == "tommorrow") {
       var today = new Date(date);
       today.setDate(today.getDate() + 1)
       $scope.reminder_at = new Date(today)
       console.log("tommorrow date", $scope.reminder_at);
-    }
-    if ($scope.remindertime == "nextweek") {
+    } else if ($scope.remindertime == "nextweek") {
       var today = new Date(date);
       today.setDate(today.getDate() + 7)
       $scope.reminder_at = new Date(today)
       console.log("nextweek", $scope.reminder_at);
+    } else {
+      $scope.reminder_at = new Date(remindertime);
     }
     console.log(id);
     var data = {
       reminder: $scope.reminder_at
     };
-    var url="/reminder/" + id + "";
-    var action="POST";
-    var obj = TodoService.app(url,action, data);
+    var url = "/reminder/" + id + "";
+    var action = "POST";
+    var obj = TodoService.app(url, action, data);
     obj.then(function(data) {
       if (data.data.status == true) {
         console.log(data);
@@ -352,9 +403,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.deletereminder = function(note_id) {
-    var url="/deletereminder/" + note_id + "";
-    var action="POST";
-    TodoService.app(url,action).then(function(data) {
+    var url = "/deletereminder/" + note_id + "";
+    var action = "POST";
+    TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
       $rootScope.getnote();
 
@@ -369,9 +420,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var backgroundcolor = {
       bgcolor: color
     };
-    var url="/changebgcolor/" + note_id + "";
-    var action="POST";
-    TodoService.app(url,action, backgroundcolor).then(function(data) {
+    var url = "/changebgcolor/" + note_id + "";
+    var action = "POST";
+    TodoService.app(url, action, backgroundcolor).then(function(data) {
       console.log(data.data.status);
       $rootScope.getnote();
 

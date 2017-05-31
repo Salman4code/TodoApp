@@ -4,7 +4,9 @@ app.controller('loginController', function($scope, $rootScope, $state,TodoServic
 
   $rootScope.checkuser = function() {
     console.log("checkuser");
-    checkuserservice.app().then(function(response) {
+    var url = "/welcome";
+    var action = "get";
+    TodoService.app(url, action).then(function(response) {
       console.log(response);
       if (response.data.status == true) {
 
@@ -23,7 +25,7 @@ app.controller('loginController', function($scope, $rootScope, $state,TodoServic
   }
 
 
-  // $rootScope.checkuser();
+  $rootScope.checkuser();
 
 
   $scope.login = function() {
