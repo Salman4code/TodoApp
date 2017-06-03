@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap','ui.bootstrap.datetimepicker'])
+var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngImgCrop', 'angularFileUpload'])
   .config(function($stateProvider, $urlRouterProvider) {
 
 

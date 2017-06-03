@@ -23,13 +23,12 @@ app.directive('newcontenteditable', function() {
       });
     }
   };
-});
-app.directive('testpackery', ['$rootScope', '$timeout',
+}).directive('testpackery', ['$rootScope', '$timeout',
   function($rootScope, $timeout) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        console.log("link called on", element[0]);
+        // console.log("link called on", element[0]);
         if ($rootScope.packery === undefined || $rootScope.packery === null) {
           scope.element = element;
           $rootScope.packery = new Packery(element[0].parentElement, {
@@ -83,9 +82,50 @@ app.directive('testpackery', ['$rootScope', '$timeout',
     };
 
   }
-]);
+])
+app.directive('myTodo', function(){
+    return {
+      restrict: 'EA',
+      templateUrl: 'templates/pinup.html',
+      controller: 'HomeController',
+      scope: {
+        list: '=',
+        pinuptitle: '@',
+        color:'=',
+      },
+      link: function($scope, element, attrs) {}
+    };
+  });
 
- // .directive('hideWhenClickAnywhere', function($window) {
+app.directive('pinnedcards', function() {
+  return {
+    restrict: 'EA', //E = element, A = attribute, C = class, M = comment
+    scope: {
+      //@ reads the attribute value, = provides two-way binding, & works with functions
+      title: '@'
+    },
+    templateUrl: 'templates/pinup.html',
+    controller: 'HomeController', //Embed a custom controller in the directive
+    link: function($scope, element, attrs) {} //DOM manipulation
+  }
+});
+
+// app.directive('myDomDirective', function() {
+//   return {
+//     link: function($scope, element, attrs) {
+//       element.bind('click', function() {
+//         element.html('You clicked me!');
+//       });
+//       element.bind('mouseenter', function() {
+//         element.css('background-color', 'yellow');
+//       });
+//       element.bind('mouseleave', function() {
+//         element.css('background-color', 'white');
+//       });
+//     }
+//   };
+// });
+// .directive('hideWhenClickAnywhere', function($window) {
 //   return {
 //
 //     scope: {

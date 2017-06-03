@@ -1,7 +1,7 @@
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, TodoService) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal,$window, $timeout, TodoService) {
 
   // $scope.isHidden = false;
-  var user=[];
+  var user = [];
   $scope.tommorrow = "tommorrow";
   $scope.next = "nextweek";
   $scope.today = "today";
@@ -51,25 +51,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   ];
 
-  // $("body").click(function(event) {
-  //   if (event.target.id == "title" || event.target.id == "content" || event.target.id == "done")
-  //     return;
-  //   else {
-  //     $("#divnote2").hide();
-  //     $("#divnote1").show();
-  //
-  //     var title = $("#title").val();
-  //     var take_note = $("#content").val();
-  //     console.log("done", take_note);
-  //     if (title == "" && take_note == "") {
-  //
-  //       return;
-  //     }
-  //
-  //     // save_notes(title, take_note);
-  //
-  //   }
-  // });
 
   $rootScope.checkuser = function() {
     console.log("checkuser");
@@ -82,7 +63,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       if (response.data.status == true) {
         $state.go('home');
 
-        $scope.user=response.data.userprofile;
+        $scope.user = response.data.userprofile;
         console.log(user);
         // $rootScope.getnote();
       } else {
@@ -97,30 +78,31 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $rootScope.checkuser();
 
-$scope.Openprofilemodal=function(){
+  $scope.Openprofilemodal = function() {
+    var modalInstance = $uibModal.open({
+      templateUrl: '../templates/profilePopup.html',
+      controller: 'profilepopupController',
+      resolve: {
+        object: function() {
+          // return modalInstance;
+        }
+      }
+    });
+    modalInstance.close = function() {
+      console.log("update cancel");
+      modalInstance.dsmiss('cancel');
+    };
+    modalInstance.result.catch(function(error) {
+      console.log("err", error);
 
-      var modalInstance = $uibModal.open({
-        templateUrl: '../templates/popup.html',
-        controller: function($uibModalInstance) {
-          console.log("profilemodal");
-        },
-          controllerAs: "$ctrl"
-        });
-
-        modalInstance.result.catch(function(error) {
-          console.log("err", error);
-
-        }).then(function(data) {
-          if (data) {
-            console.log(data);
-            // $scope.toDoList.splice(index, 1, data);
-            // $scope.updateNote(data);
-          }
-          // this.close('dismiss');
-        });
+    }).then(function(data) {
+      if (data) {
+        console.log(data);
+      }
+    });
 
 
-}
+  }
 
   $scope.OpenPopup = function(notedata) {
 
@@ -159,11 +141,7 @@ $scope.Openprofilemodal=function(){
           }).catch(function(error) {
             console.log("error");
           })
-          // $uibModalInstance.close({
-          //   id: $ctrl.id,
-          //   title: $ctrl.title,
-          //   note: $ctrl.note
-          // });
+
 
         };
 
@@ -191,6 +169,7 @@ $scope.Openprofilemodal=function(){
 
   }
 
+
   $rootScope.getnote = function() {
     var url = "/get_data_notes";
     var action = "POST";
@@ -201,10 +180,11 @@ $scope.Openprofilemodal=function(){
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         // noteArr;
-        var noteArr = [];
+         var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
         }
+        // pinArr=noteArr
         $scope.records = noteArr;
       } else {
         console.log(data.data.message);
@@ -216,6 +196,10 @@ $scope.Openprofilemodal=function(){
 
   }
   $rootScope.getnote();
+
+  // $scope.pinup = noteArr;
+
+
   $scope.savenote = function() {
     $scope.note1 = true;
     $scope.note2 = false;
@@ -299,8 +283,7 @@ $scope.Openprofilemodal=function(){
   }
 
   $scope.listview = function() {
-    // $scope.list = true;
-    // $scope.grid = false;
+  
     $scope.liststyle = {
       'display': 'none'
     }
@@ -312,8 +295,7 @@ $scope.Openprofilemodal=function(){
     localStorage.setItem("view", "list");
   }
   $scope.gridview = function() {
-    // $scope.list = false;
-    // $scope.grid = true;
+
     $scope.liststyle = {
       'display': 'block'
     }
@@ -431,6 +413,31 @@ $scope.Openprofilemodal=function(){
     })
 
   }
+  $scope.archive_notes=function(note_id){
+    var url="/archive/"+note_id+"";
+    var action="POST";
+    TodoService.app(url,action).then(function(data){
+      console.log(data.data.status);
+      $rootScope.getnote();
+    }).catch(function(error){
+      console.log(error);
+    })
+  }
 
+  $scope.pin_note=function(note_id,val){
+    console.log("inside pin function");
+
+    var url="/pinned/"+note_id+"";
+    var action="POST";
+    var data={
+      value:val
+    }
+    TodoService.app(url,action,data).then(function(data){
+      console.log(data.data.status);
+      $rootScope.getnote();
+    }).catch(function(error){
+      console.log(error);
+    })
+  }
 
 });

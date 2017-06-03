@@ -14,6 +14,9 @@ router.use('/read_single_note',require('./read_single_note'));
 router.use('/reminder',require('./reminder'));
 router.use('/deletereminder',require('./deletereminder'));
 router.use('/changebgcolor',require('./changebgcolor'));
+router.use('/archive',require('./archive'));
+router.use('/pinned',require('./pinned'));
+
 
 
 

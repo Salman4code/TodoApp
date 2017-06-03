@@ -25,6 +25,12 @@ var data_notes_Schema = Schema({
   },
   bgcolor:{
     type:String
+  },
+  archive:{
+    type:Boolean
+  },
+  pin_note:{
+    type:Boolean
   }
 });
 
@@ -130,6 +136,27 @@ data_notes_Schema.statics.changecolor = function(note_id,request, cb) {
   }, {
     $set: {
       bgcolor:request.bgcolor
+    }
+  }, cb);
+}
+data_notes_Schema.statics.archive_notes= function(note_id, cb) {
+  console.log("delete reminder");
+  this.update({
+    _id: note_id
+  }, {
+    $set: {
+      archive:true
+    }
+  }, cb);
+}
+
+data_notes_Schema.statics.pinned_note= function(note_id,Booleanvalue, cb) {
+  console.log("Boolean value",Booleanvalue);
+  this.update({
+    _id: note_id
+  }, {
+    $set: {
+      pin_note:Booleanvalue.value
     }
   }, cb);
 }

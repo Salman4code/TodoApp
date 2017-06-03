@@ -26,6 +26,8 @@
     "angular-sanitize": "^1.6.4",
     "angular-bootstrap": "angular-ui-bootstrap-bower#^2.5.0",
     "angular-ui-bootstrap-datetimepicker": "^2.5.0",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "ng-img-crop": "ngImgCrop#^0.3.2",
+    "angular-file-upload": "^2.5.0"
   }
 }

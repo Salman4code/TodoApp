@@ -90,9 +90,22 @@ background-color: #689f38;
   width: 100px;
   border-radius: 50%;
 }
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+  }
 
 /*Note Styles*/
-
+#pin{
+  float: right;
+  /*top:0;*/
+  /*right:-10;*/
+}
+#pinicon{
+  height: 15px;
+}
 #note
 {
     font-family: 'Roboto Slab','Times New Roman',serif;
@@ -203,6 +216,23 @@ background-color: #689f38;
     margin-top: 25px;
     margin-left: 15%;
 }*/
+.pinned{
+  color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 22px 16px;
+    /*position: absolute;*/
+}
+.others
+{
+  color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 22px 16px;
+  margin-left: 230px;
+}
 #notecontent
 {
     font-family: 'Roboto Slab','Times New Roman',serif;
@@ -253,7 +283,8 @@ background-color: #689f38;
 #cardbottom img
 {
     height: 20px;
-    /*padding: 4px;*/
+    margin-right: 26px;
+
 }
 .float
 {
@@ -293,9 +324,9 @@ background-color: #689f38;
 #coloricons
 {
   box-sizing: border-box;
-  margin-top: -44px;
-  width: 113px;
-    margin-left: 50px;
+  margin-top: -58px;
+width: 113px;
+margin-left: 90px;
     background-color: white;
     position: absolute;
     z-index: 4011;
@@ -496,6 +527,8 @@ background-color: #689f38;
     {
         width: 100%;
         margin-left: 0px;
+        left:0px;
+        position: relative;
     }
     #searchtextbox
     {
