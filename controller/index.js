@@ -16,6 +16,7 @@ router.use('/deletereminder',require('./deletereminder'));
 router.use('/changebgcolor',require('./changebgcolor'));
 router.use('/archive',require('./archive'));
 router.use('/pinned',require('./pinned'));
+router.use('/uploadimage',require('./uploadimage'));
 
 
 

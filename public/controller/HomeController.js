@@ -58,8 +58,10 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var action = "get";
     TodoService.app(url, action).then(function(response) {
       console.log("checkuser", response);
-      console.log(response.data.status);
-
+      // console.log(response.data.status);
+      // $rootScope.username=response.data.userprofile.userName;
+      // $rootScope.userId=response.data.userprofile._id;
+      $rootScope.userProfile=response.data.userprofile;
       if (response.data.status == true) {
         $state.go('home');
 
@@ -180,11 +182,25 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         // noteArr;
+        var flag=0;
          var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
+          if(data.data.note_data[i].pin_note==true)
+          {
+            flag++;
+          }
         }
+        console.log(flag);
         // pinArr=noteArr
+        if(flag!=0){
+          $scope.pin=true;
+          $scope.other=true;
+        }
+        else {
+          $scope.pin=false;
+          $scope.other=false;
+        }
         $scope.records = noteArr;
       } else {
         console.log(data.data.message);
@@ -283,7 +299,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.listview = function() {
-  
+
     $scope.liststyle = {
       'display': 'none'
     }

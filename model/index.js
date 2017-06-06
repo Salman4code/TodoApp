@@ -28,6 +28,12 @@ var userDetailSchema = Schema({
   userPassword: {
     type: String,
     required: true
+  },
+  CroppedImage:{
+    type:String
+  },
+  OriginalImage:{
+    type:String
   }
 });
 
@@ -44,19 +50,6 @@ userDetailSchema.statics.checksignup = function(request, cb) {
   })
 
   userdetail.save(cb);
-  // userdetail.save(function(err, data) {
-  //   if (err) {
-  //     cb(err, null);
-  //   } else {
-  //     cb(null, "Successfully registered")
-  //   }
-  // });
-  // userdetail.pre('save',function(next){
-  //   var date=new Date();
-  //   console.log(date);
-  //   // next();
-  // })
-
   console.log("executed");
 
 }
@@ -73,35 +66,24 @@ userDetailSchema.statics.checklogin = function(request, cb) {
     userEmail: request.email,
     userPassword: password
   }, cb);
-  // userSchema.findOne({
-  //   userEmail: request.body.email
-  // }, function(err, docs) {
-  //   console.log(docs);
-  //   if (docs) {
-  //     console.log(docs.userPassword);
-  //
-  //     var password = decrypt(docs.userPassword);
-  //     console.log(password);
-  //     console.log(request.body.password);
-  //     if (request.body.password == password) {
-  //       token = jwt.sign(docs, app.get('superSecret'), {
-  //         expiresIn: 60 * 60 * 24 // expires in 24 hours
-  //       });
-  //
-  //       cb(null, "login Successfully",token);
-  //     } else {
-  //       cb(err, null);
-  //     }
-  //   } else {
-  //     cb(err, "Email_id is not registered with us");
-  //   }
-  // })
 }
 
 userDetailSchema.statics.userprofile=function(request,cb){
 
   var UserId=request._id;
   userSchema.findById(UserId,cb)
+}
+
+userDetailSchema.statics.uploadProfileImage=function(id,imageurl,cb){
+console.log("upload",imageurl);
+this.update({
+    _id: id
+  }, {
+    $set: {
+      CroppedImage:imageurl.croppedimage,
+      OriginalImage:imageurl.originalimage
+    }
+  }, cb);
 }
 
 var userSchema = mongoose.model('registration', userDetailSchema);

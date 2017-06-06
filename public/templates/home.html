@@ -16,13 +16,14 @@
           <li id="iconnav">
             <a id="refresh" uib-tooltip="Refresh" tooltip-placement="bottom" tooltip-append-to-body=true ><img  src="../image/refreshicon.png"></img></a>
 
-            <a id="list" ng-style="liststyle" ng-click="listview()" uib-tooltip="List" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/listviewicon.png"></img></a>
-
             <a id="grid" ng-style="gridstyle" ng-click="gridview()" uib-tooltip="Grid" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/appsicon.png"></img></a>
+
+            <a id="list" ng-style="liststyle" ng-click="listview()" uib-tooltip="List" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/listviewicon.png"></img></a>
 
             <a  uib-tooltip="Notification" tooltip-placement="bottom" tooltip-append-to-body=true><img id="notification" src="../image/notification.png"></img></a>
 
           <a type="button" id="logOut"><img src="../image/logout.png" alt=""></img></a>
+
         </li>
       </span>
     </div>
@@ -42,18 +43,19 @@
         <a class="navbar-brand" ng-click="sidenav=!sidenav;slidemenubar()" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
 
         <!-- <span class="nav navbar-nav navbar-left"> -->
-        <a id="googlekeeptext"  uib-tooltip="Google" tooltip-placement="bottom"><b id="google">Google </b>Keep</a>
-        <!-- <div class="input-group"> -->
-        <input type="text" placeholder="Search..." id="searchtextbox" ng-model="search">
-        <!-- </div> -->
+
+        <a id="googlekeeptext" class="btn-group" uib-tooltip="Google" tooltip-placement="bottom"><b id="google">Google </b>Keep</a>
+        <div class="btn-group">
+<input type="text" placeholder="Search..." id="searchtextbox" ng-model="search">
+        </div>
         <!-- </span> -->
 
-      </div>
+       </div>
 
 
 
 
-      <div id="navbar" class="navbar-collapse collapse">
+     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li>
             <a id="refresh" uib-tooltip="Refresh" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/refreshicon.png"></img>
@@ -70,20 +72,17 @@
               <a id="notification" uib-tooltip="Notification" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/notification.png"></img>
               </a>
             </li>
-            <!-- <li>
-              <a type="button" id="logOut" ng-click="logout()" uib-tooltip="LogOut" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/logout.png" alt=""></img>
-              </a>
-            </li> -->
+
             <li>
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                  <div id="Profileicondesign">{{user.userName.charAt(0) | uppercase}}
-
-                  </div>
-                <!-- <img  class="circular--square1" src="../image/Profileicon1.png"> --></a>
+                  <!-- <div id="Profileicondesign">{{user.userName.charAt(0) | uppercase}} -->
+                    <img id="Profileicondesign" ng-src="{{user.CroppedImage}}">
+                  <!-- </div> -->
+              </a>
                 <div style="margin-top: -13px;width: 310px;height: 167px;margin-right: 18px;" class="dropdown-menu">
                     <div  class="row profilepicture">
                       <div class="col-sm-5" style="padding-left: 26px;padding-top: 9px;">
-                      <img src="{{img}}">
+                      <img ng-src="{{user.CroppedImage}}">
                       </div>
                       <div class="col-sm-7" style="padding-top: 20px;padding-left: inherit;font-family: sans-serif;">
 
@@ -92,20 +91,11 @@
                       </div>
 
                    </div>
-                  <!-- <div class="profile2">
-                      <span style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.8em; font-weight: bold;">{{user.fullName}}
-                      </span> <span style="position: absolute; padding: 50px 0px 0px 32px; font-size: 1.2em;">{{user.email}}</span>
-                      <div class="profile3">
-                         <button class="btn btn-primary btn-lg accBtn" type="button" value="My Account" data-ng-click="">My Account
-                         </button>
-                      </div>
-                   </div> -->
-                   <!-- <br> -->
 
                       <div style="padding: 3px;">
                         <button type="button" name="button" ng-click="Openprofilemodal()">Change Profile Picture</button>
 
-                         <button class="btn btn-default btn-lg" style="float: right;" type="button" value="signout" data-ng-click="logout()">Sign out
+                         <button class="btn btn-default btn-lg" style="float: right;" type="button"  data-ng-click="logout()" uib-tooltip="LogOut" tooltip-placement="bottom" tooltip-append-to-body=true>Sign out
                          </button>
                       </div>
                    </div>

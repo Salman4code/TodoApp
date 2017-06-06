@@ -1,8 +1,8 @@
-<div class="others">Others</div>
 
 <div class="row" ng-class="changeview">
 <div class="col-lg-2 col-md-2 col-sm-2"></div>
 <div class="col-lg-8 col-md-8 col-sm-8">
+  <div class="others" ng-show="other">Others</div>
 
  <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="!x.archive && !x.pin_note" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" testpackery>
    <div id="pinicon">

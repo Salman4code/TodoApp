@@ -80,7 +80,7 @@
 <div class="row" ng-class="changeview">
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8">
-    <div class="pinned">Pinned</div>
+    <div class="pinned" ng-show="pin">Pinned</div>
     <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.pin_note && !x.archive" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" >
       <div id="pinicon">
       <a id="pin" ng-show="icons" ng-click="pin_note(x._id,'false')">

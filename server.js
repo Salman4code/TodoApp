@@ -7,6 +7,7 @@ var validator = require('express-validator');
 // var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 // mongoose.connect(config.database); // connect to database
 // app.set('superSecret', config.secret); // secret variable
+app.use(bodyParser.json({limit:'10mb'}));
 app.use(express.static("./public"));
 app.use(bodyParser.urlencoded({
   extended: false
