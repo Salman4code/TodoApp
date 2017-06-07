@@ -5,7 +5,7 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap', 'u
     $stateProvider.state('home', {
         url: '/home',
         templateUrl: 'templates/home.html',
-        // controller: 'HomeController'
+        controller: 'HomeController'
 
       })
       .state('login', {
@@ -20,6 +20,11 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'ui.bootstrap', 'u
         // onEnter: function() {
         //   console.log('inside signup');
         // }
+      }).state('archive', {
+        url: '/archive',
+        templateUrl: 'templates/home.html',
+        controller: 'archiveController'
+
       })
     $urlRouterProvider.otherwise('/home');
 

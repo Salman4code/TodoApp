@@ -1,4 +1,4 @@
-<div ng-controller="HomeController" style="background-color: #e8e8e8;">
+<div style="background-color: #e8e8e8;">
 
 
   <!-- <nav class="navbar navbar-inverse navbar-fixed-top" id="navcolor" role="navigation">
@@ -30,7 +30,7 @@
   </nav> -->
 
 
-  <nav class="navbar navbar-inverse navbar-fixed-top" id="navcolor" role="navigation">
+  <nav ng-style="navcolorbg" class="navbar navbar-inverse navbar-fixed-top navcolor" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -46,7 +46,7 @@
 
         <a id="googlekeeptext" class="btn-group" uib-tooltip="Google" tooltip-placement="bottom"><b id="google">Google </b>Keep</a>
         <div class="btn-group">
-<input type="text" placeholder="Search..." id="searchtextbox" ng-model="search">
+<input type="text" placeholder="Search..." class="searchtextbox" ng-model="search" ng-style="archivesearchtextbox">
         </div>
         <!-- </span> -->
 
@@ -61,7 +61,7 @@
             <a id="refresh" uib-tooltip="Refresh" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/refreshicon.png"></img>
             </a>
             <li>
-              <a id="grid" ng-style="gridstyle" ng-click="gridview()" uib-tooltip="Grid" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/appsicon.png"></img>
+              <a id="grid" ng-style="gridstyle" ng-click="gridview()" uib-tooltip="Grid" tooltip-placement="bottom" tooltip-append-to-body=true><img src="../image/grid.svg"></img>
               </a>
             </li>
             <li>
@@ -118,14 +118,14 @@
             <br>
           </li>
           <li>
-            <a><img id="iconimg" src="../image/noteicon.png">Notes</a>
+            <a ui-sref="home"><img id="iconimg" src="../image/noteicon.png">Notes</a>
           </li>
           <li>
             <a>Reminder</a>
           </li>
 
           <li>
-            <a ng-click="archive()">Archive</a>
+            <a  ui-sref="archive" ng-click="archive()">Archive</a>
           </li>
 
           <li>
@@ -150,7 +150,7 @@
 
       <div id="page-content-wrapper" ng-style="pagecontent">
         <div class="container-fluid pagecontent">
-          <div class="row">
+          <div ng-show="booleanvalue" class="row">
             <div class="col-lg-3 col-md-3 col-sm-3"></div>
             <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
               <div id="divnote1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
@@ -177,13 +177,18 @@
 
              <!-- <my-todo list="pinup" color="color" pinuptitle="pinup"></my-todo> -->
 
-             <div ng-include="'templates/pinup.html'">
+             <div ng-show="booleanvalue" ng-include="'templates/pinup.html'">
 
              </div>
 
-             <div ng-include="'templates/Notecards.html'">
+             <div ng-show="booleanvalue" ng-include="'templates/Notecards.html'">
 
              </div>
+
+             <div ng-show="!booleanvalue" ng-include="'templates/archive.html'">
+
+             </div>
+
            <!-- <div my-dom-directive>Click Me!</div> -->
            <!-- <pinnedcards></pinnedcards>  -->
              <!-- <div ng-include="templateURL"></div> -->

@@ -139,24 +139,24 @@ data_notes_Schema.statics.changecolor = function(note_id,request, cb) {
     }
   }, cb);
 }
-data_notes_Schema.statics.archive_notes= function(note_id, cb) {
-  console.log("delete reminder");
+data_notes_Schema.statics.archive_notes= function(note_id,booleanvalue,cb) {
+  console.log("Archive val",booleanvalue);
   this.update({
     _id: note_id
   }, {
     $set: {
-      archive:true
+      archive:booleanvalue.value
     }
   }, cb);
 }
 
-data_notes_Schema.statics.pinned_note= function(note_id,Booleanvalue, cb) {
-  console.log("Boolean value",Booleanvalue);
+data_notes_Schema.statics.pinned_note= function(note_id,booleanvalue, cb) {
+  console.log("Boolean value",booleanvalue);
   this.update({
     _id: note_id
   }, {
     $set: {
-      pin_note:Booleanvalue.value
+      pin_note:booleanvalue.value
     }
   }, cb);
 }

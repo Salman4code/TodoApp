@@ -7,7 +7,9 @@ var UserData = require('../model/data_notes');
 router.post('/:id', function(request, response) {
   console.log(request.params.id);
   var id = request.params.id;
-  UserData.archive_notes(id, function(err, result) {
+  var data=request.body;
+
+  UserData.archive_notes(id,data, function(err, result) {
     console.log("result",result);
     if (err) {
       response.send({

@@ -1,6 +1,8 @@
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal,$window, $timeout, TodoService) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, TodoService) {
 
   // $scope.isHidden = false;
+  $scope.booleanvalue = true;
+
   var user = [];
   $scope.tommorrow = "tommorrow";
   $scope.next = "nextweek";
@@ -61,7 +63,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       // console.log(response.data.status);
       // $rootScope.username=response.data.userprofile.userName;
       // $rootScope.userId=response.data.userprofile._id;
-      $rootScope.userProfile=response.data.userprofile;
+      $rootScope.userProfile = response.data.userprofile;
       if (response.data.status == true) {
         $state.go('home');
 
@@ -78,7 +80,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  $rootScope.checkuser();
+  // $rootScope.checkuser();
 
   $scope.Openprofilemodal = function() {
     var modalInstance = $uibModal.open({
@@ -182,24 +184,22 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         // noteArr;
-        var flag=0;
-         var noteArr = [];
+        var flag = 0;
+        var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
-          if(data.data.note_data[i].pin_note==true)
-          {
+          if (data.data.note_data[i].pin_note == true) {
             flag++;
           }
         }
         console.log(flag);
         // pinArr=noteArr
-        if(flag!=0){
-          $scope.pin=true;
-          $scope.other=true;
-        }
-        else {
-          $scope.pin=false;
-          $scope.other=false;
+        if (flag != 0) {
+          $scope.pin = true;
+          $scope.other = true;
+        } else {
+          $scope.pin = false;
+          $scope.other = false;
         }
         $scope.records = noteArr;
       } else {
@@ -429,29 +429,34 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $scope.archive_notes=function(note_id){
-    var url="/archive/"+note_id+"";
-    var action="POST";
-    TodoService.app(url,action).then(function(data){
+  $scope.archive_notes = function(note_id, val) {
+    var url = "/archive/" + note_id + "";
+    var action = "POST";
+    var data = {
+      value: val
+    }
+    TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
       $rootScope.getnote();
-    }).catch(function(error){
+    }).catch(function(error) {
       console.log(error);
     })
   }
 
-  $scope.pin_note=function(note_id,val){
+
+
+  $scope.pin_note = function(note_id, val) {
     console.log("inside pin function");
 
-    var url="/pinned/"+note_id+"";
-    var action="POST";
-    var data={
-      value:val
+    var url = "/pinned/" + note_id + "";
+    var action = "POST";
+    var data = {
+      value: val
     }
-    TodoService.app(url,action,data).then(function(data){
+    TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
       $rootScope.getnote();
-    }).catch(function(error){
+    }).catch(function(error) {
       console.log(error);
     })
   }
