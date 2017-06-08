@@ -1,87 +1,9 @@
-<!-- <div ng-controller="archieve">
-
-  <div class="row" ng-repeat="x in records">
-    gdfgdsjhfgdsjfgdsjfgsj
-  </div>
-
-</div> -->
-<h1>
-  <center>{{pinuptitle}}</center>
-</h1>
-<!-- <div ng-repeat="todo in list">
-  <input type="checkbox" ng-model="todo.completed"> {{todo.name}}
-</div> -->
-
-
-<!-- <div class="row" ng-class="changeview">
-  <div class="col-lg-2 col-md-2 col-sm-2"></div>
-  <div class="col-lg-8 col-md-8 col-sm-8">
-
-    <div style="background-color:{{pinup.bgcolor}}" ng-repeat="pinup in list"  ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" >
-      <a id="pin" ng-show="icons">
-        <img src="../image/pin.png">
-      </a>
-      <div id="title" ng-click="OpenPopup(pinup)">{{pinup.title}}</div>
-      <div id='notecontent' ng-bind-html="pinup.take_note" ng-click="OpenPopup(pinup)"></div>
-
-
-      <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">
-
-        <a ng-click="selectcolor(color.color,pinup._id)" ng-repeat="color in color" >
-          <img ng-src="{{color.imgpath}}" uib-tooltip="{{color.tooltip}}" tooltip-placement="bottom">
-        </a>
-
-      </div>
-
-      <div id="cardbottom"><span ng-show="icons">
-        <div class="btn-group" ng-mouseleave="deleteremicon = true" uib-dropdown dropdown-append-to-body="true" uib-tooltip="Remind Me" tooltip-placement="bottom" tooltip-append-to-body=true>
-          <i id="btn-append-to-body" style="display:inline-block" class="fa fa-ellipsis-v" uib-dropdown-toggle >
-          <img  src="../image/Remindericon.png" ></i>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body" style="width:200px;">
-            <li role="menuitem"><a ng-click="reminder(pinup._id,today)">Today</a></li>
-            <li role="menuitem"><a ng-click="reminder(pinup._id,tommorrow)">Tommorow</a></li>
-            <li role="menuitem"><a ng-click="reminder(pinup._id,next)">next week</a></li>
-            <li class="divider"></li>
-            <li role="menuitem">
-              <div class="dropdown" style="padding-top: 10px; padding-bottom: 10px">
-              <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" >
-                <div class="input-group" style="padding-left: 7px;padding-right: 7px;"><input type="text" class="form-control" data-ng-model="reminderdate" name="remainder" placeholder="Pick date & time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i>
-                </div>
-                <button type="button" class="btn" ng-click="reminder(pinup._id,reminderdate)" style="margin-left: 8px;margin-top: 10px;width: 183px;">Save</button>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="reminderdate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
-              </ul>
-          </div></li>
-          </ul>
-        </div>
-        <img src="../image/archive.png" ng-click="archive_notes(pinup._id)" ng-mouseenter="coloricons=false">
-        <img src="../image/color.png" ng-mouseover="coloricons=true" uib-tooltip="color" tooltip-placement="bottom" tooltip-append-to-body=true ng-mouseleave="deleteremicon = true">
-      <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
-        <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>
-                          <img src="../image/more.png" ng-mouseenter="coloricons=false"></a>
-        </i>
-      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-        <li role="menuitem"><a id='delete' ng-click="deletenote(pinup._id, $index)">Delete</a></li>
-        <li role="menuitem"><a ng-click="copyNote(pinup)">Make a copy</a></li>
-      </ul>
-    </div>
-
-
-      </span>
-        <div  style="border-top:1px dashed #e8e8e8;padding-left:16px;" ng-if="pinup.reminder" ng-mouseover="deleteremicon=true" ng-mouseleave="deleteremicon = false" ng-mouseleave="coloricons = false"><span uib-tooltip="Reminder" tooltip-placement="bottom" tooltip-append-to-body=true class="glyphicon glyphicon-time"></span> {{pinup.reminder | date:'dd:MMM hh:mm a'}}
-          <span ng-show="icons" class="glyphicon glyphicon-remove-circle" style="float:right;" ng-click="deletereminder(pinup._id)"></span></div>
-      </div>
-    </div>
-  </div>
-
-</div> -->
-
-
 
 <div class="row" ng-class="changeview">
-  <div class="col-lg-2 col-md-2 col-sm-2"></div>
-  <div class="col-lg-8 col-md-8 col-sm-8">
+  <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8"> -->
+  <div ng-class="leavespace"></div>
+  <div ng-class="allocatespace">
     <div class="pinned" ng-show="pin">Pinned</div>
     <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.pin_note && !x.archive" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize">
       <div id="pinicon">

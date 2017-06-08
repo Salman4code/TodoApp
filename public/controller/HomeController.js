@@ -65,7 +65,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       // $rootScope.userId=response.data.userprofile._id;
       $rootScope.userProfile = response.data.userprofile;
       if (response.data.status == true) {
-        $state.go('home');
+        // $state.go('home');
 
         $scope.user = response.data.userprofile;
         console.log(user);
@@ -80,7 +80,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  // $rootScope.checkuser();
+  $rootScope.checkuser();
 
   $scope.Openprofilemodal = function() {
     var modalInstance = $uibModal.open({
@@ -306,6 +306,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.gridstyle = {
       'display': 'block'
     }
+    $scope.leavespace="col-lg-3 col-md-3 col-sm-3";
+    $scope.allocatespace="col-lg-6 col-md-6 col-sm-6 col-xs-12";
     $scope.changeview = "cards";
     $scope.boxsize = "col-lg-12 col-md-12 col-sm-12 col-xs-12 box1 dragCard"
     localStorage.setItem("view", "list");
@@ -318,6 +320,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.gridstyle = {
       'display': 'none'
     }
+    $scope.leavespace="col-lg-2 col-md-2 col-sm-2";
+    $scope.allocatespace="col-lg-8 col-md-8 col-sm-8 col-xs-12";
+
     $scope.changeview = "cards";
     $scope.boxsize = "col-lg-4 col-md-6 col-sm-6 col-xs-12 box dragCard"
     localStorage.setItem("view", "grid");

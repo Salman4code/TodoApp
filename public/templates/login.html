@@ -1,26 +1,26 @@
 <div>
 
-<header>
-          <nav class="navbar navbar-default" id="style1">
-          <div class="container">
-              <div class="navbar-header">
-                  <a class="navbar-brand" href="/">Google Keep</a>
-              </div>
+  <header>
+    <nav class="navbar navbar-default" id="style1">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Google Keep</a>
+        </div>
 
-              <ul class="nav navbar-nav navbar-right">
-                  <!-- <li><a href="#login">Login<span class="glyphicon glyphicon-log-in"></span></a></li> -->
-                  <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span>Signup</a></li>
-              </ul>
-          </div>
-          </nav>
-      </header>
-
-
+        <ul class="nav navbar-nav navbar-right">
+          <!-- <li><a href="#login">Login<span class="glyphicon glyphicon-log-in"></span></a></li> -->
+          <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span>Signup</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
 
 
 
-<div class="container-fluid">
+
+
+  <div class="container-fluid">
     <!-- <link rel="stylesheet" type="text/css" href="/css/design.css"> -->
     <div class="row">
       <div class="col-sm-3"></div>
@@ -28,8 +28,8 @@
         <form id="loginform" name="loginform" ng-controller="loginController">
 
 
-            <!-- <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br> -->
-            <!-- <p><label for="email_id">Email id:</label>
+          <!-- <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br> -->
+          <!-- <p><label for="email_id">Email id:</label>
             <i class="glyphicon glyphicon-user"></i>
             <input type="email" ng-model="email_id" name="email_id" class="form-control" placeholder="Email id" required><br>
             <span ng-show="loginform.email_id.$touched && loginform.email_id.$invalid">The email_id is required.</span>
@@ -37,14 +37,14 @@
 
 
           <p><label>Email id:</label>
-          <i class="glyphicon glyphicon-user"></i><br>
-          <input type="email" class="form-control" name="email_id" ng-model="email_id" placeholder="Email Id" required>
-          <span  ng-show="loginform.email_id.$dirty && loginform.email_id.$invalid">
+            <i class="glyphicon glyphicon-user"></i><br>
+            <input type="email" class="form-control" name="email_id" ng-model="email_id" placeholder="Email Id" required>
+            <span ng-show="loginform.email_id.$dirty && loginform.email_id.$invalid">
           <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$error.required">Email_id is required.</span>
-          <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$error.email">Invalid email_id.</span>
-          <!-- <span ng-show="loginform.email_id.$touched">please Enter email_id</span> -->
+            <span style="color:red;margin-left:16%" ng-show="loginform.email_id.$error.email">Invalid email_id.</span>
+            <!-- <span ng-show="loginform.email_id.$touched">please Enter email_id</span> -->
 
-          </span>
+            </span>
           </p>
 
 
@@ -52,9 +52,9 @@
 
 
           <p><label>Password:</label>
-          <i class="glyphicon glyphicon-lock"></i><br>
-          <input type="password" name="password" class="form-control" placeholder="Password" ng-model="password" required>
-          <span ng-show="loginform.password.$dirty && loginform.password.$invalid">
+            <i class="glyphicon glyphicon-lock"></i><br>
+            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="password" required>
+            <span ng-show="loginform.password.$dirty && loginform.password.$invalid">
           <span style="color:red;margin-left:16%" ng-show="loginform.password.$error.required">password is required.</span></p>
           <!-- <span ng-show="loginform.password.$error.minlength">password is too short.</span></p> -->
 
@@ -62,8 +62,15 @@
           <button type="button" id="login1" ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid">Submit</button><br><br>
           <a ui-sref="signup" class="center">New User / Register here?</a><br><br>
 
-       </form>
-     </div>
+<div class="row" ng-controller="LoginCtrl">
+
+
+          <button ng-click="authenticate('facebook')" class="btn btn-primary center" >Sign in with Facebook</button>
+
+          <button ng-click="authenticate('google')" class="btn btn-danger center">Sign in with Google</button>
+</div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

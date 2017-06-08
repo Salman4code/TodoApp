@@ -28,6 +28,7 @@
     "angular-ui-bootstrap-datetimepicker": "^2.5.0",
     "moment": "^2.18.1",
     "ng-img-crop": "ngImgCrop#^0.3.2",
-    "angular-file-upload": "^2.5.0"
+    "angular-file-upload": "^2.5.0",
+    "satellizer": "^0.15.5"
   }
 }
