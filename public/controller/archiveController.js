@@ -8,6 +8,8 @@ app.controller('archiveController', ['$scope', '$controller', function($scope, $
   // $scope.archive=function(){
     $scope.navcolorbg={'background-color':'#607d8b'};
     $scope.archivesearchtextbox={'background-color':'#7a929e'};
+    $scope.archive=true;
+    $scope.googlekeep=true;
   // }
 
 

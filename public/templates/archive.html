@@ -6,7 +6,7 @@
   <div ng-class="allocatespace">
     <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.archive && !x.pinned" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" >
       <div id="pinicon">
-      <a id="pin" ng-show=icons ng-click="pin_note(x._id,'true')">
+      <a id="pin" ng-show=icons ng-click="pin_note(x._id,'true','false')">
         <img src="../image/pin.svg">
       </a>
       </div>

@@ -18,11 +18,12 @@ var errorDefined = {
       "password": { in: "body",
         notEmpty: {
           errorMessage: 'password field is require & cannot be blank.'
-        },
-        matches: {
-          options: [/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/],
-          errorMessage: 'password must contain atleast one capital letter,one small letter and one special character'
         }
+        // ,
+        // matches: {
+        //   options: [/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/],
+        //   errorMessage: 'password must contain atleast one capital letter,one small letter and one special character'
+        // }
       }
     },
     "SignupValidation": {

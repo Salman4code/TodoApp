@@ -1,4 +1,4 @@
-<div ng-controller="profilepopupController">
+<div >
 
 <div class="modal-header">
   <div>Select an image file: <input type="file" id="fileInput" /></div>
@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
   <div class="cropArea">
-    <img-crop image="Original" result-image="CroppedImage"></img-crop>
+    <img-crop ng-init="image()" image="Original" result-image="CroppedImage"></img-crop>
   </div>
   <div>Cropped Image:</div>
   <div><img ng-src="{{CroppedImage}}" /></div>

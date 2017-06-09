@@ -45,8 +45,8 @@ app.controller('loginController', function($scope, $rootScope, $state,TodoServic
       if (data.data.status == true) {
         $state.go('home');
         $rootScope.getnote();
-      } else if(data.data.status==false) {
-        alert(data.data.message);
+      } else {
+        $scope.error=data.data.message;
         $state.go('login');
       }
 

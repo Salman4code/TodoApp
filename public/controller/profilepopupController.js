@@ -1,4 +1,4 @@
-app.controller('profilepopupController', function($scope, $rootScope, TodoService) {
+app.controller('profilepopupController', function($scope, $rootScope,$uibModalInstance, TodoService) {
 
   // $rootScope.userProfile.OriginalImage
   $scope.Original = $rootScope.userProfile.OriginalImage;
@@ -14,13 +14,14 @@ app.controller('profilepopupController', function($scope, $rootScope, TodoServic
     };
     reader.readAsDataURL(file);
   };
-  angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
 
   $scope.close = function() {
-    console.log("update cancel");
-    // $uibmodalInstance.dismiss('close');
   };
+  $scope.image=function(){
+    angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+
+  }
   $scope.setCropImage = function(CroppedImage) {
     console.log("crop url", CroppedImage);
     console.log("Original",$scope.Original);
@@ -35,10 +36,13 @@ app.controller('profilepopupController', function($scope, $rootScope, TodoServic
     TodoService.app('/uploadimage/'+$rootScope.userProfile._id+'', 'post', uploadimage).then(function(data) {
       console.log(data.data.status);
       $rootScope.getnote();
+      $uibModalInstance.dismiss('close');
 
     }).catch(function(error) {
       console.log(error);
-    })
+      $uibModalInstance.dismiss('close');
 
+    })
+    
   }
 });

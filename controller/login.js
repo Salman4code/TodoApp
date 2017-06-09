@@ -61,7 +61,7 @@ router.post('/', function(request, response) {
     catch (e) {
       response.send({
         "status": false,
-        "message": "email_id does not exist",
+        "message": "Invalid Email or invalid Password",
         "exception":e
       })
 

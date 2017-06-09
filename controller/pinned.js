@@ -8,8 +8,8 @@ router.post('/:id', function(request, response) {
   console.log(request.params.id);
   var id = request.params.id;
   var data=request.body;
+  console.log("pinned",data);
   UserData.pinned_note(id,data,function(err, result) {
-    console.log("result",result);
     if (err) {
       response.send({
         "status": false,
@@ -18,7 +18,6 @@ router.post('/:id', function(request, response) {
     } else {
       response.send({
         "status": true,
-        // "message": result
         "message": "Note Successfully pinned",
         "updateresult": result
 

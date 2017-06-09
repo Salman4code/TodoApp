@@ -7,7 +7,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.tommorrow = "tommorrow";
   $scope.next = "nextweek";
   $scope.today = "today";
-  $scope.sidenav = true;
+  $scope.sidenav = false;
 
   $scope.color = [{
       "color": "#ffffff",
@@ -86,26 +86,17 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/profilePopup.html',
       controller: 'profilepopupController',
-      resolve: {
-        object: function() {
-          // return modalInstance;
-        }
-      }
+      // resolve: {
+      //   object: function() {
+      //
+      //   }
+      // }
+
     });
-    modalInstance.close = function() {
-      console.log("update cancel");
-      modalInstance.dsmiss('cancel');
-    };
     modalInstance.result.catch(function(error) {
       console.log("err", error);
-
-    }).then(function(data) {
-      if (data) {
-        console.log(data);
-      }
+      // $uibModalInstance.dismiss('close');
     });
-
-
   }
 
   $scope.OpenPopup = function(notedata) {
@@ -434,11 +425,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $scope.archive_notes = function(note_id, val) {
+  $scope.archive_notes = function(note_id, archiveval,pinvalue) {
     var url = "/archive/" + note_id + "";
     var action = "POST";
+
     var data = {
-      value: val
+      value: archiveval,
+      pin:pinvalue
+
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
@@ -450,13 +444,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
 
-  $scope.pin_note = function(note_id, val) {
+  $scope.pin_note = function(note_id, pinval,archiveval) {
     console.log("inside pin function");
 
     var url = "/pinned/" + note_id + "";
     var action = "POST";
     var data = {
-      value: val
+      value: pinval,
+      removearchive:archiveval
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);

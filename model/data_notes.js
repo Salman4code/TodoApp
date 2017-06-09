@@ -141,21 +141,25 @@ data_notes_Schema.statics.changecolor = function(note_id,request, cb) {
 }
 data_notes_Schema.statics.archive_notes= function(note_id,booleanvalue,cb) {
   console.log("Archive val",booleanvalue);
+
   this.update({
     _id: note_id
   }, {
     $set: {
-      archive:booleanvalue.value
+      archive:booleanvalue.value,
+      pin_note:booleanvalue.pin
     }
   }, cb);
 }
 
 data_notes_Schema.statics.pinned_note= function(note_id,booleanvalue, cb) {
-  console.log("Boolean value",booleanvalue);
+  // console.log("Boolean value",booleanvalue);
+  console.log("boolean",booleanvalue.removearchive);
   this.update({
     _id: note_id
   }, {
     $set: {
+      archive:booleanvalue.removearchive,
       pin_note:booleanvalue.value
     }
   }, cb);
