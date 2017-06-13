@@ -2,14 +2,14 @@ var express = require('express');
 var mongoose = require('../config').mongoose;
 var Schema = mongoose.Schema;
 
-var data_notes_Schema = Schema({
-  user_id: {
+var noteSchema = Schema({
+  userId: {
     type: String
   },
   title: {
     type: String
   },
-  take_note: {
+  content: {
     type: String
   },
   createdAt: {
@@ -35,21 +35,21 @@ var data_notes_Schema = Schema({
 });
 
 
-data_notes_Schema.statics.save_data = function(request, data_number, cb) {
-  console.log("save_data");
-  console.log("decode", data_number._id);
+noteSchema.statics.saveNoteData = function(request, data_number, cb) {
+  // console.log("save_data");
+  // console.log("decode", data_number._id);
   var note_detail = new this({
-    user_id: data_number._id,
+    userId: data_number._id,
     title: request.title,
-    take_note: request.take_note
+    content: request.content
   })
 
   note_detail.save(cb);
-  console.log("executed");
+  // console.log("executed");
 
 }
 
-data_notes_Schema.pre('save', function(next) {
+noteSchema.pre('save', function(next) {
   // get the current date
   // console.log("pre");
   var currentDate = new Date();
@@ -64,11 +64,11 @@ data_notes_Schema.pre('save', function(next) {
   next();
 });
 
-data_notes_Schema.statics.reminder = function(note_id, request, cb) {
+noteSchema.statics.reminder = function(noteId, request, cb) {
 
-  console.log("update_data", note_id);
+  // console.log("update_data", noteId);
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $set: {
       reminder: request.reminder
@@ -76,74 +76,74 @@ data_notes_Schema.statics.reminder = function(note_id, request, cb) {
   }, cb);
 
 }
-// data_notes_Schema.pre('save', function(next){
+// noteSchema.pre('save', function(next){
 //   var something = this;
 //   this.updatedAt=new Date();
 //   //  something.updatedAt(Date.now());
 //    next();
 // })
 
-data_notes_Schema.statics.get_data = function(user_id, cb) {
+noteSchema.statics.getData = function(userId, cb) {
 
-  console.log("get_data", user_id);
+  // console.log("get_data", user_id);
   this.find({
-    user_id: user_id
+    userId: userId
   }, cb);
 }
 
-data_notes_Schema.statics.read_single_note = function(note_id, cb) {
+noteSchema.statics.readSingleNote = function(noteId, cb) {
 
-  console.log("read_single_note", note_id);
+  // console.log("read_single_note", noteId);
   this.find({
-    _id: note_id
+    _id: noteId
   }, cb);
 }
 
 
-data_notes_Schema.statics.update_data_notes = function(note_id, request, cb) {
+noteSchema.statics.update_data_notes = function(noteId, request, cb) {
 
-  console.log("update_data", note_id);
+  // console.log("update_data", noteId);
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $set: {
       title: request.title,
-      take_note: request.take_note
+      content: request.content
     }
   }, cb);
 }
 
-data_notes_Schema.statics.deletes_data_notes = function(note_id, cb) {
-  console.log("delete data");
+noteSchema.statics.deleteNote = function(noteId, cb) {
+  // console.log("delete data");
   this.remove({
-    _id: note_id
+    _id: noteId
   }, cb);
 }
-data_notes_Schema.statics.delete_reminder = function(note_id, cb) {
-  console.log("delete reminder");
+noteSchema.statics.deleteReminder = function(noteId, cb) {
+  // console.log("delete reminder");
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $unset: {
       reminder: ""
     }
   }, cb);
 }
-data_notes_Schema.statics.changecolor = function(note_id,request, cb) {
-  console.log("delete reminder");
+noteSchema.statics.changeColor = function(noteId,request, cb) {
+  // console.log("delete reminder");
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $set: {
       bgcolor:request.bgcolor
     }
   }, cb);
 }
-data_notes_Schema.statics.archive_notes= function(note_id,booleanvalue,cb) {
-  console.log("Archive val",booleanvalue);
+noteSchema.statics.archiveNote= function(noteId,booleanvalue,cb) {
+  // console.log("Archive val",booleanvalue);
 
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $set: {
       archive:booleanvalue.value,
@@ -152,11 +152,11 @@ data_notes_Schema.statics.archive_notes= function(note_id,booleanvalue,cb) {
   }, cb);
 }
 
-data_notes_Schema.statics.pinned_note= function(note_id,booleanvalue, cb) {
+noteSchema.statics.pinnedNote= function(noteId,booleanvalue, cb) {
   // console.log("Boolean value",booleanvalue);
-  console.log("boolean",booleanvalue.removearchive);
+  // console.log("boolean",booleanvalue.removearchive);
   this.update({
-    _id: note_id
+    _id: noteId
   }, {
     $set: {
       archive:booleanvalue.removearchive,
@@ -165,7 +165,7 @@ data_notes_Schema.statics.pinned_note= function(note_id,booleanvalue, cb) {
   }, cb);
 }
 
-var dataSchema = mongoose.model('note_data', data_notes_Schema);
+var dataSchema = mongoose.model('note_data', noteSchema);
 
 
 

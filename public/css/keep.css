@@ -57,7 +57,7 @@ body
 
     color: black;
 }
-#Archivetext
+#textstyle
 {
     font-size: 22px;
 
@@ -357,14 +357,22 @@ body
     z-index: 4011;
 
     box-sizing: border-box;
-    width: 113px;
-    height: 53px;
+    width: 126px;
+    height: 60px;
     margin-top: -58px;
     margin-left: 90px;
-    padding-top: 3px;
+    padding: 3px;
 
     background-color: white;
     box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+#colordiv
+{   display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    border-radius: 50px;
 }
 #coloriconsgrid
 {
@@ -486,11 +494,13 @@ body
     color: #fff;
     background: none;
 }
-#shift{
-  margin-left: 20px;
+#shift
+{
+    margin-left: 20px;
 }
-#sidebar-wrapper li{
-  height: 50px;
+#sidebar-wrapper li
+{
+    height: 50px;
 }
 
 @media(max-width:850px)

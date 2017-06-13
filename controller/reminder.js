@@ -1,25 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var UserData = require('../model/data_notes');
+var userData = require('../model/data_notes');
+var logger = require('winston');
 
 
 
 router.post('/:id', function(request, response) {
-console.log("reminder");
+// console.log("reminder");
 
 var id = request.params.id;
-UserData.reminder(id, request.body, function(err, result) {
-  console.log("result",result);
+userData.reminder(id, request.body, function(err, result) {
+  // console.log("result",result);
   if (err) {
     response.send({
       "status": false,
       "message": err
     });
+      logger.error("reminder not set");
   } else if (result.nModified == 0) {
     response.send({
       "status": false,
       "message": "Reminder not changed"
     });
+
   }
   else {
     response.send({
@@ -27,8 +30,8 @@ UserData.reminder(id, request.body, function(err, result) {
       // "message": result
       "message": "Reminder Set Successfully",
       "updateresult": result
-
     });
+    logger.info("Reminder Set Successfully")
   }
 
 

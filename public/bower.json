@@ -29,6 +29,7 @@
     "moment": "^2.18.1",
     "ng-img-crop": "ngImgCrop#^0.3.2",
     "angular-file-upload": "^2.5.0",
-    "satellizer": "^0.15.5"
+    "satellizer": "^0.15.5",
+    "angular-toastr": "^2.1.1"
   }
 }

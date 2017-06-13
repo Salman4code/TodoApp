@@ -1,8 +1,9 @@
 app.controller('profilepopupController', function($scope, $rootScope,$uibModalInstance, TodoService) {
 
   // $rootScope.userProfile.OriginalImage
-  $scope.Original = $rootScope.userProfile.OriginalImage;
-  $scope.CroppedImage = $rootScope.userProfile.CroppedImage;
+  // $rootScope.userProfile.croppedImage
+  $scope.Original = "";
+  $scope.CroppedImage = "";
 
   var handleFileSelect = function(evt) {
     var file = evt.currentTarget.files[0];
@@ -23,8 +24,8 @@ app.controller('profilepopupController', function($scope, $rootScope,$uibModalIn
 
   }
   $scope.setCropImage = function(CroppedImage) {
-    console.log("crop url", CroppedImage);
-    console.log("Original",$scope.Original);
+    // console.log("crop url", CroppedImage);
+    // console.log("Original",$scope.Original);
     // $rootScope.img = $scope.Original;
 
     var uploadimage = {
@@ -43,6 +44,6 @@ app.controller('profilepopupController', function($scope, $rootScope,$uibModalIn
       $uibModalInstance.dismiss('close');
 
     })
-    
+
   }
 });

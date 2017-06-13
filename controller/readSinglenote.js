@@ -1,18 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var UserData = require('../model/data_notes');
+var userData = require('../model/data_notes');
+var logger = require('winston');
 
 
 
 router.post('/:id', function(request, response) {
 // console.log(request.decoded);
-  UserData.read_single_note(request.params.id, function(err, result) {
-    console.log(result);
+  userData.readSingleNote(request.params.id, function(err, result) {
+    // console.log(result);
     if (err) {
       response.send({
         "status": false,
         "message": err
       });
+        logger.info(err)
     } else {
       response.send({
         "status": true,

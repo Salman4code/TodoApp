@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userModel = require("../model");
 var fs = require("fs");
+var logger = require('winston');
 
 function upload(imagename, Image) {
   fs.writeFile('public/profilepicture/' + imagename, Image, {
@@ -41,11 +42,13 @@ router.post('/:id', function(request, response) {
         "status": "true",
         "message":"Profile image Successfully uploaded"
       });
+        logger.info("Profile image Successfully uploaded")
     } else {
       response.send({
         "status": "false",
         "message": "Profile image upload failed"
       });
+        logger.info("Profile image upload failed")
     }
   });
 

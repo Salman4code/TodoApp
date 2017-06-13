@@ -1,5 +1,5 @@
-var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer','ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngImgCrop', 'angularFileUpload'])
-  .config(function($stateProvider, $urlRouterProvider,$authProvider) {
+var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngImgCrop', 'angularFileUpload','toastr'])
+  .config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
     $stateProvider.state('home', {
@@ -25,6 +25,10 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer','ui.b
         templateUrl: 'templates/home.html',
         controller: 'archiveController'
 
+      }).state('reminder', {
+        url: '/reminder',
+        templateUrl: 'templates/home.html',
+        controller: 'reminderController'
       })
     $urlRouterProvider.otherwise('/home');
 
@@ -32,6 +36,7 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer','ui.b
       clientId: '463897587277156',
       name: 'facebook',
       url: '/auth/facebook',
+      responseType: 'token',
       authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
       redirectUri: window.location.origin + '/',
       requiredUrlParams: ['display', 'scope'],
@@ -45,13 +50,11 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer','ui.b
       }
     });
 
-    // $authProvider.google({
-    //   clientId: 'Google Client ID'
-    // });
 
     $authProvider.google({
       clientId: '1025675923961-s6igrgkb46k537on0li8n4giod96b9pg.apps.googleusercontent.com',
       url: '/auth/google',
+      responseType: 'token',
       authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
       redirectUri: window.location.origin,
       requiredUrlParams: ['scope'],
@@ -69,12 +72,3 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer','ui.b
 
 
   })
-
-
-  app.controller('LoginCtrl', function($scope, $auth) {
-
-      $scope.authenticate = function(provider) {
-        $auth.authenticate(provider);
-      };
-
-    });

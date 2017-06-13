@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var UserData = require('../model/data_notes');
+var userData = require('../model/data_notes');
+var logger = require('winston');
 
 
 
@@ -9,13 +10,14 @@ router.post('/:id', function(request, response) {
   var id = request.params.id;
   var data=request.body;
 
-  UserData.archive_notes(id,data, function(err, result) {
+  userData.archiveNote(id,data, function(err, result) {
     console.log("result",result);
     if (err) {
       response.send({
         "status": false,
         "message": err
       });
+      logger.error(err)
     } else {
       response.send({
         "status": true,
@@ -24,6 +26,8 @@ router.post('/:id', function(request, response) {
         "updateresult": result
 
       });
+        logger.info("Data Successfully Archieved")
+
     }
 
   })

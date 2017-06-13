@@ -29,18 +29,18 @@ var userDetailSchema = Schema({
     type: String,
     required: true
   },
-  CroppedImage:{
+  croppedImage:{
     type:String
   },
-  OriginalImage:{
+  originalImage:{
     type:String
   }
 });
 
 
-userDetailSchema.statics.checksignup = function(request, cb) {
-  console.log("inside signup");
-  console.log("from front end",request.body);
+userDetailSchema.statics.checkSignup = function(request, cb) {
+  // console.log("inside signup");
+  // console.log("from front end",request.body);
   var password = encrypt(request.body.password);
   var userdetail = new this({
     userName: request.body.username,
@@ -55,33 +55,33 @@ userDetailSchema.statics.checksignup = function(request, cb) {
 }
 
 
-userDetailSchema.statics.checklogin = function(request, cb) {
+userDetailSchema.statics.checkLogin = function(request, cb) {
 
-  console.log("inside login");
-  console.log(request.email);
-  console.log(request.password);
+  // console.log("inside login");
+  // console.log(request.email);
+  // console.log(request.password);
   var password = encrypt(request.password);
-  console.log(password);
+  // console.log(password);
   userSchema.findOne({
     userEmail: request.email,
     userPassword: password
   }, cb);
 }
 
-userDetailSchema.statics.userprofile=function(request,cb){
+userDetailSchema.statics.userProfile=function(request,cb){
 
   var UserId=request._id;
   userSchema.findById(UserId,cb)
 }
 
 userDetailSchema.statics.uploadProfileImage=function(id,imageurl,cb){
-console.log("upload",imageurl);
+// console.log("upload",imageurl);
 this.update({
     _id: id
   }, {
     $set: {
-      CroppedImage:imageurl.croppedimage,
-      OriginalImage:imageurl.originalimage
+      croppedImage:imageurl.croppedimage,
+      originalImage:imageurl.originalimage
     }
   }, cb);
 }

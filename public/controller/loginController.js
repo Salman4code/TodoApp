@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $rootScope, $state,TodoService) {
+app.controller('loginController', function($scope, $rootScope, $state,$auth,toastr,TodoService) {
 
 
 
@@ -25,7 +25,7 @@ app.controller('loginController', function($scope, $rootScope, $state,TodoServic
   }
 
 
-  $rootScope.checkuser();
+  // $rootScope.checkuser();
 
 
   $scope.login = function() {
@@ -53,73 +53,32 @@ app.controller('loginController', function($scope, $rootScope, $state,TodoServic
     }).catch(function(error) {
       console.log("error");
     })
-    // if(validatelogininput(userlogin))
-    // {
-    //   console.log("login successful");
-    // }
-    // else {
-    //   console.log("login failed");
-    // }
 
   }
 
 
+  $scope.authenticate = function(provider) {
+      $auth.authenticate(provider)
+        .then(function(data) {
+          console.log("fb token",data);
+          var token=data.access_token;
+          // localStorage.setItem("fb_token",token.access_token);
+          document.cookie="key="+token;
+          toastr.success('You have successfully signed in with ' + provider + '!');
+          // $location.path('/');
+            $state.go('home');
+        })
+        .catch(function(error) {
+          if (error.message) {
+            // Satellizer promise reject error.
+            toastr.error(error.message);
+          } else if (error.data) {
+            // HTTP response error from server
+            toastr.error(error.data.message, error.status);
+          } else {
+            toastr.error(error);
+          }
+        });
+    };
+
 })
-// app.service('loginservice', function($http) {
-//
-//   this.app = function(userlogin) {
-//     return $http({
-//       url: "/login",
-//       method: "POST",
-//       data: userlogin
-//     });
-//   }
-//   //
-// });
-// .service('checkuserservice', function($http) {
-//
-//   this.app = function() {
-//     return $http({
-//       url: "http://localhost:8081/welcome",
-//       method: "get",
-//     });
-//   }
-//   //
-// });
-// function validatelogininput(login)
-// {
-// var Useremail=login.email_id;
-// var password=login.password;
-// console.log("pass",password);
-// var emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// var passwordregex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-// console.log(Useremail);
-// if(Useremail==""||Useremail==undefined || Useremail==null){
-//   //  $('span').remove();
-//   //  $('#email_id').after('<p style="margin-left:15%;"><span style="color:red;">'+"Please Enter email_id"+'</span></p>');
-//   alert("please enter email_id")
-//    return false;
-// }
-// else if (!emailregex.test(Useremail)) {
-//
-//  //  $('span').remove();
-//  // $('#email_id').after('<p style="margin-left:15%;"><span style="color:red;">'+"Please Enter valid email_id"+'</span></p>');
-//  console.log("invalid email_id");
-//  alert("invalid email_id")
-//   return false;
-// }
-// else if (password=="" || password == undefined || password== null) {
-//   console.log("check password");
-//  //  $('span').remove();
-//  // $("#password").after('<p style="margin-left:15%;"><span style="color:red;">'+"Please Enter password"+'</span></p>');
-//  alert("please Enter password")
-//   return false;
-// }
-// else if (!passwordregex.test(password)) {
-//   // $('span').remove();
-//   // $("#password").after('<p style="margin-left:15%;"><span style="color:red;">'+"Minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character"+'</span></p>');
-//   alert("Minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character")
-//   return false;
-// }
-// return true;
-// }

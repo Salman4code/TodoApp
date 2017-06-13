@@ -1,0 +1,36 @@
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T09:11:36.582Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:11:38.953Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:11:38.959Z"}
+{"level":"error","message":"reminder not set","timestamp":"2017-06-13T09:11:47.212Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:11:47.243Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:11:47.243Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:11:47.768Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:11:47.777Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:11:48.387Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:11:48.389Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T09:27:00.223Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:34:55.414Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:34:55.419Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:35:00.871Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:35:00.881Z"}
+{"level":"info","message":"Reminder Set Successfully","timestamp":"2017-06-13T09:35:08.680Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:35:08.692Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:39:40.298Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:39:40.301Z"}
+{"level":"info","message":"Reminder Set Successfully","timestamp":"2017-06-13T09:39:50.168Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:39:50.190Z"}
+{"level":"info","message":"getnote Successfully done","timestamp":"2017-06-13T09:39:56.434Z"}
+{"level":"info","message":"valid User","timestamp":"2017-06-13T09:39:56.436Z"}
+{"level":"info","message":"user logout","timestamp":"2017-06-13T09:40:42.055Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T09:41:27.143Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T09:44:45.082Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:30:48.447Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:40:39.205Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:41:35.371Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:42:42.107Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:42:49.655Z"}
+{"level":"info","message":"user logout","timestamp":"2017-06-13T10:43:02.634Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:43:39.628Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:45:45.221Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:57:03.317Z"}
+{"level":"info","message":"Server Started at port no 8081","timestamp":"2017-06-13T10:57:09.449Z"}

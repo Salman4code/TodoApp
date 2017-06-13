@@ -3,6 +3,8 @@ var app = express();
 var router = express.Router();
 // var validator = require('express-validator');
 // app.use(validator());
+var logger = require('winston');
+
 
 var secretkey = require('../config').secret;
 var cookie = require('cookie-parser')
@@ -33,18 +35,19 @@ router.post('/', function(request, response) {
          throw errors[0].msg;
        }
 
-  login.checklogin(request.body, function(err, success) {
-    console.log("checklogin", success);
+  login.checkLogin(request.body, function(err, success) {
+    // console.log("checklogin", success);
 
     try {
-      console.log(success._id);
+      // console.log(success._id);
       if (success) {
         token = jwt.sign({_id: success._id}, app.get('superSecret'), {
           expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 
         response.cookie("key", token);
-        console.log(token);
+
+          logger.info("Successfully login")
         response.send({
           "status": true,
           "message": "Successfully login",
@@ -52,10 +55,12 @@ router.post('/', function(request, response) {
         });
       }
       else {
+
         response.send({
           "status": false,
           "message": "Unauthorised User"
         });
+          logger.error("Unauthorised User")
       }
     }
     catch (e) {
@@ -64,6 +69,8 @@ router.post('/', function(request, response) {
         "message": "Invalid Email or invalid Password",
         "exception":e
       })
+      logger.error("Invalid Email or invalid Password")
+
 
     }
 
@@ -80,7 +87,7 @@ router.post('/', function(request, response) {
 })
 }
 catch(e){
-  console.log("last catch");
+  // console.log("last catch");
   response.send({"status":false,"message":e})
 }
 

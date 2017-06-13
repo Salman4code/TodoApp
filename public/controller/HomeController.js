@@ -1,5 +1,5 @@
 app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, TodoService) {
-
+  $scope.reminderdisplay = true;
   // $scope.isHidden = false;
   $scope.booleanvalue = true;
 
@@ -11,42 +11,34 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $scope.color = [{
       "color": "#ffffff",
-      "imgpath": "../image/whitechecked.png",
       "tooltip": "white"
     },
     {
       "color": "#ff8a80",
-      "imgpath": "../image/red.png",
       "tooltip": "red"
     },
     {
       "color": "#ffd180",
-      "imgpath": "../image/orange.png",
       "tooltip": "orange"
     },
     {
-      "color": "#ffd180",
-      "imgpath": "../image/yellow.png",
+      "color": "#ffff8d",
       "tooltip": "yellow"
     },
     {
       "color": "#cfd8dc",
-      "imgpath": "../image/gray.png",
       "tooltip": "gray"
     },
     {
       "color": "#80d8ff",
-      "imgpath": "../image/blue.png",
       "tooltip": "blue"
     },
     {
       "color": "#a7ffeb",
-      "imgpath": "../image/teal.png",
       "tooltip": "teal"
     },
     {
       "color": "#ccff90",
-      "imgpath": "../image/green.png",
       "tooltip": "green"
     }
 
@@ -80,7 +72,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  $rootScope.checkuser();
+  // $rootScope.checkuser();
 
   $scope.Openprofilemodal = function() {
     var modalInstance = $uibModal.open({
@@ -111,7 +103,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         console.log("color", notedata.bgcolor);
         console.log("date", notedata.updatedAt);
         this.title = notedata.title;
-        this.content = notedata.take_note;
+        this.content = notedata.content;
         this.id = notedata._id;
         this.date = notedata.updatedAt
         this.bgcolor = notedata.bgcolor;
@@ -119,9 +111,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
           console.log("update ok", notedata._id);
           updatedNoteData = {
             title: this.title,
-            take_note: this.content
+            content: this.content
           }
-          var url = "/update_data_notes/" + this.id + "";
+          var url = "/updateNote/" + this.id + "";
           var action = "POST";
           var obj = TodoService.app(url, action, updatedNoteData);
           obj.then(function(data) {
@@ -166,12 +158,12 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
   $rootScope.getnote = function() {
-    var url = "/get_data_notes";
+    var url = "/getNotes";
     var action = "POST";
 
     var obj = TodoService.app(url, action);
     obj.then(function(data) {
-      console.log("notedata", data.data.note_data);
+      console.log("notedata",data);
       if (data.data.status == true) {
         // $scope.records = data.data.note_data;
         // noteArr;
@@ -221,9 +213,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
     var noteobj = {
       title: title,
-      take_note: content
+      content: content
     }
-    var url = "/data_notes";
+    var url = "/saveNote";
     var action = "POST";
     var obj = TodoService.app(url, action, noteobj);
     obj.then(function(data) {
@@ -243,7 +235,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.copyNote = function(notedata) {
-    var url = "/data_notes";
+    var url = "/saveNote";
     var action = "POST";
     var obj = TodoService.app(url, action, notedata);
     obj.then(function(data) {
@@ -274,7 +266,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.deletenote = function(id, index) {
-    var url = "/delete_data_notes/" + id + "";
+    var url = "/deleteNote/" + id + "";
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
@@ -297,8 +289,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.gridstyle = {
       'display': 'block'
     }
-    $scope.leavespace="col-lg-3 col-md-3 col-sm-3";
-    $scope.allocatespace="col-lg-6 col-md-6 col-sm-6 col-xs-12";
+    $scope.leavespace = "col-lg-3 col-md-3 col-sm-3";
+    $scope.allocatespace = "col-lg-6 col-md-6 col-sm-6 col-xs-12";
     $scope.changeview = "cards";
     $scope.boxsize = "col-lg-12 col-md-12 col-sm-12 col-xs-12 box1 dragCard"
     localStorage.setItem("view", "list");
@@ -311,8 +303,8 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.gridstyle = {
       'display': 'none'
     }
-    $scope.leavespace="col-lg-2 col-md-2 col-sm-2";
-    $scope.allocatespace="col-lg-8 col-md-8 col-sm-8 col-xs-12";
+    $scope.leavespace = "col-lg-2 col-md-2 col-sm-2";
+    $scope.allocatespace = "col-lg-8 col-md-8 col-sm-8 col-xs-12";
 
     $scope.changeview = "cards";
     $scope.boxsize = "col-lg-4 col-md-6 col-sm-6 col-xs-12 box dragCard"
@@ -397,7 +389,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.deletereminder = function(note_id) {
-    var url = "/deletereminder/" + note_id + "";
+    var url = "/deleteReminder/" + note_id + "";
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
@@ -425,13 +417,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $scope.archive_notes = function(note_id, archiveval,pinvalue) {
+  $scope.archive_notes = function(note_id, archiveval, pinvalue) {
     var url = "/archive/" + note_id + "";
     var action = "POST";
 
     var data = {
       value: archiveval,
-      pin:pinvalue
+      pin: pinvalue
 
     }
     TodoService.app(url, action, data).then(function(data) {
@@ -444,14 +436,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
 
-  $scope.pin_note = function(note_id, pinval,archiveval) {
+  $scope.pin_note = function(note_id, pinval, archiveval) {
     console.log("inside pin function");
 
     var url = "/pinned/" + note_id + "";
     var action = "POST";
     var data = {
       value: pinval,
-      removearchive:archiveval
+      removearchive: archiveval
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);

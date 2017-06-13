@@ -12,21 +12,23 @@
         </a>
       </div>
       <div id="title" ng-click="OpenPopup(x)">{{x.title}}</div>
-      <div id='notecontent' ng-bind-html="x.take_note" ng-click="OpenPopup(x)"></div>
+      <div id='notecontent' ng-bind-html="x.content" ng-click="OpenPopup(x)"></div>
 
 
       <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">
 
         <a ng-click="selectcolor(y.color,x._id)" ng-repeat="y in color">
-          <img ng-src="{{y.imgpath}}" uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom">
+          <li class="btn-group" id="colordiv" style="background-color:{{y.color}};"  uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom">
+            <img ng-if="y.color=='#ffffff'" src="image/Checkmark.png" ></li>
+          <!-- <img ng-src="{{y.imgpath}}" uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom"> -->
         </a>
 
       </div>
 
       <div id="cardbottom"><span ng-show="icons">
-        <div class="btn-group" ng-mouseleave="deleteremicon = true" uib-dropdown dropdown-append-to-body="true" uib-tooltip="Remind Me" tooltip-placement="bottom" tooltip-append-to-body=true>
+        <div class="btn-group" ng-mouseleave="deleteremicon = true" uib-dropdown dropdown-append-to-body="true" >
           <i id="btn-append-to-body" style="display:inline-block" class="fa fa-ellipsis-v" uib-dropdown-toggle >
-          <img  src="../image/remindericon.svg" ></i>
+          <img  src="../image/remindericon.svg" uib-tooltip="Remind Me" tooltip-placement="bottom" tooltip-append-to-body=true></i>
           <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body" style="width:200px;">
             <li role="menuitem"><a ng-click="reminder(x._id,today)">Today</a></li>
             <li role="menuitem"><a ng-click="reminder(x._id,tommorrow)">Tommorow</a></li>
