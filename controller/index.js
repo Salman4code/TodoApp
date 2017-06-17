@@ -17,6 +17,8 @@ router.use('/changebgcolor',require('./changebgcolor'));
 router.use('/archive',require('./archive'));
 router.use('/pinned',require('./pinned'));
 router.use('/uploadImage',require('./uploadImage'));
+router.use('/auth/facebook',require('./facebookLogin'));
+router.use('/auth/google',require('./googleLogin'));
 
 
 

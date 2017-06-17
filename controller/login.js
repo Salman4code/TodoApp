@@ -6,7 +6,8 @@ var router = express.Router();
 var logger = require('winston');
 
 
-var secretkey = require('../config').secret;
+var secretkey = require('../config').TOKEN_SECRET;
+// console.log("secretkey",secretkey);
 var cookie = require('cookie-parser')
 var config=require('../config/error');
 // app.use(cookie1());
@@ -41,7 +42,7 @@ router.post('/', function(request, response) {
     try {
       // console.log(success._id);
       if (success) {
-        token = jwt.sign({_id: success._id}, app.get('superSecret'), {
+        token = jwt.sign({_id: success._id},secretkey, {
           expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 

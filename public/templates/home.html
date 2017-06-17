@@ -21,18 +21,18 @@
         <li uib-dropdown>
             <a uib-dropdown-toggle>
               <!-- <div id="Profileicondesign">{{user.userName.charAt(0) | uppercase}} -->
-                <img id="Profileicondesign" ng-src="{{user.croppedImage}}">
+                <img id="Profileicondesign" ng-src="{{user.facebook.picture || user.facebook.croppedImage}}">
               <!-- </div> -->
           </a>
             <ul style="margin-top: -13px;width: 310px;height: 167px;margin-right: 18px;" class="dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
                 <div  class="row profilepicture">
                   <div class="col-sm-5 col-xs-12" style="padding-left: 26px;padding-top: 9px;">
-                  <img ng-src="{{user.croppedImage}}">
+                  <img ng-src="{{user.facebook.picture || user.local.croppedImage}}">
                   </div>
                   <div class="col-sm-7 col-xs-12" style="padding-top: 20px;padding-left: inherit;font-family: sans-serif;">
 
-                  <div style="text-transform: capitalize;font-weight: 600;">{{user.userName }}</div>
-                  <div>{{user.userEmail}}</div>
+                  <div style="text-transform: capitalize;font-weight: 600;">{{user.local.userName || user.facebook.displayName}}</div>
+                  <div>{{user.local.userEmail}}</div>
                   </div>
 
                </div>
@@ -40,7 +40,7 @@
                   <div style="padding: 3px;">
                     <button type="button" name="button" ng-click="Openprofilemodal()">Change Profile Picture</button>
 
-                     <button class="btn btn-default btn-lg" style="float: right;" type="button"  data-ng-click="logout()" uib-tooltip="LogOut" tooltip-placement="bottom" tooltip-append-to-body=true>Sign out
+                     <button  class="btn btn-default btn-lg" style="float: right;" type="button"  data-ng-click="logout()" uib-tooltip="LogOut" tooltip-placement="bottom" tooltip-append-to-body=true>Sign out
                      </button>
                   </div>
                </ul>
@@ -65,6 +65,13 @@
 
   </div>
 
+  <!-- <div data-ng-class="{'is-visible':visible}" class="menu" style="z-index: 1;">
+ 	    <div class="sidebar-nav" style="margin-top: 10px; font-size: 20px;">
+ 			<a data-ui-sref="home" style="text-decoration: none;cursor: pointer;padd"><div class="sidebar-brand" style="padding:13px;"><img src="images/noteicon.png"><span style="padding-left: 20px;">Notes</span></div></a>
+ 			<a data-ui-sref="remainders" style="text-decoration: none;cursor: pointer;"><div class="sidebar-brand" style="padding: 13px;"><span><img src="images/remindericon.svg"></span><span style="padding-left: 25px;">Reminders</span></div></a>
+ 			<hr><a data-ui-sref="archive" style="text-decoration: none;cursor: pointer;"> <div class="sidebar-brand" style="padding: 13px;"><span><img src="images/archiveA.svg"></span><span style="padding-left: 26px;">Archive</span></div></a>
+ 	    </div>
+   </div> -->
 
   <div id="wrapper" class="toggled">
     <div class="container-fluid wrappercontainer">

@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout,$auth, toastr, TodoService) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, TodoService) {
   $scope.reminderdisplay = true;
   // $scope.isHidden = false;
   $scope.booleanvalue = true;
@@ -46,17 +46,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   ];
 
 
-
-  // $scope.move = function() {
-  // 		if($scope.visible){
-  // 			$scope.move = {"margin-left":"10%","transition":"0.4s ease"}
-  // 		}
-  // 		else {
-  // 			$scope.move = {"margin-left":"0px","transition":"0.4s ease"}
-  // 		}
-  //
-  // 	}
-
   $rootScope.checkuser = function() {
     console.log("checkuser");
     var url = "/welcome";
@@ -71,7 +60,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         // $state.go('home');
 
         $scope.user = response.data.userprofile;
-        console.log("profile", response.data.userprofile.facebook);
+        console.log(user);
         // $rootScope.getnote();
       } else {
         $state.go('login');
@@ -83,7 +72,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  $rootScope.checkuser();
+  // $rootScope.checkuser();
 
   $scope.Openprofilemodal = function() {
     var modalInstance = $uibModal.open({
@@ -265,7 +254,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
   $scope.logout = function() {
-
     var url = "/logout";
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
@@ -275,12 +263,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     }).catch(function(error) {
       console.log(error);
     })
-    if (!$auth.isAuthenticated()) { return; }
-    $auth.logout()
-      .then(function() {
-        toastr.info('You have been logged out');
-        $state.go('login');
-      });
   }
 
   $scope.deletenote = function(id, index) {
@@ -290,8 +272,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log(data.data.status);
       if (data.data.status == true) {
         // noteArr.splice(index,1);
-        toastr.info('note deleted');
-
         $rootScope.getnote();
       } else {
         alert("data.data.message");
@@ -413,8 +393,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
-      toastr.info('Reminder Deleted');
-
       $rootScope.getnote();
 
     }).catch(function(error) {
@@ -450,7 +428,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
-      // toastr.info('Note Archieved Successfully');
       $rootScope.getnote();
     }).catch(function(error) {
       console.log(error);
@@ -470,8 +447,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
-      // toastr.info('Note Pinned Successfully');
-
       $rootScope.getnote();
     }).catch(function(error) {
       console.log(error);

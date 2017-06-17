@@ -62,8 +62,8 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
 
   $scope.authenticate = function(provider) {
       $auth.authenticate(provider)
-        .then(function(data) {
-          console.log("google token",data);
+        .then(function() {
+          // console.log("fb token",data);
           // var token=data.access_token;
           // localStorage.setItem("fb_token",token.access_token);
           // document.cookie="key="+token;

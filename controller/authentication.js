@@ -2,7 +2,7 @@ var express = require('express');
 // var app=express();
 var router= express.Router();
 var jwt=require("jsonwebtoken");
-var secretkey = require('../config').secret;
+var secretkey = require('../config').TOKEN_SECRET;
 var logger = require('winston');
 
 // console.log(secretkey);

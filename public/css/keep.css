@@ -502,6 +502,22 @@ body
 {
     height: 50px;
 }
+.menu {
+  width: 0px;
+  height: 100%;
+  margin-top:-49px;
+  background-color: #ffffff;
+  position: fixed;
+  left: 0;
+  transition: width 0.4s ease-in-out;
+  overflow: hidden;
+
+}
+
+.menu.is-visible {
+  width: 225px;
+  transition: width 0.4s ease-in-out;
+}
 
 @media(max-width:850px)
 {
