@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var UserData = require('../model/data_notes');
+var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
@@ -8,7 +8,7 @@ var logger = require('winston');
 router.post('/:id', function(request, response) {
   // console.log(request.params.id);
   var id = request.params.id;
-  UserData.update_data_notes(id, request.body, function(err, result) {
+  userData.updateNote(id, request.body, function(err, result) {
     // console.log("result",result);
     if (err) {
       response.send({

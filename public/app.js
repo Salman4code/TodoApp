@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngImgCrop', 'angularFileUpload','toastr'])
+var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngImgCrop', 'angularFileUpload', 'toastr'])
   .config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
@@ -27,12 +27,18 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer', 'ui.
         url: '/reminder',
         templateUrl: 'templates/home.html',
         controller: 'reminderController'
+
+      }).state('trash', {
+        url: '/trash',
+        templateUrl: 'templates/home.html',
+        controller: 'trashController'
+        
       })
-      // .state('logout', {
-      //   url: '/logout',
-      //   template: '/login',
-      //   controller: 'logoutController'
-      // })
+    // .state('logout', {
+    //   url: '/logout',
+    //   template: '/login',
+    //   controller: 'logoutController'
+    // })
     $urlRouterProvider.otherwise('/home');
 
     $authProvider.facebook({

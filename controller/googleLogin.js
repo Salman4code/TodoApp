@@ -20,8 +20,10 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 //   };
 //   return jwt.encode(payload, config.TOKEN_SECRET);
 // }
-function createJWT(user){
-  return jwt.sign({_id: user._id}, config.TOKEN_SECRET, {
+function createJWT(user) {
+  return jwt.sign({
+    _id: user._id
+  }, config.TOKEN_SECRET, {
     expiresIn: 60 * 60 * 24 // expires in 24 hours
   });
 }
@@ -36,7 +38,7 @@ router.post('/', function(req, res) {
     redirect_uri: req.body.redirectUri,
     grant_type: 'authorization_code'
   };
-console.log(params);
+  console.log(params);
   // Step 1. Exchange authorization code for access token.
   request.post(accessTokenUrl, {
     json: true,
@@ -61,7 +63,8 @@ console.log(params);
       // Step 3a. Link user accounts.
       if (req.header('Authorization')) {
         User.findOne({
-          'google.googleId': profile.sub
+          // 'google.googleId': profile.sub
+          'email': profile.email
         }, function(err, existingUser) {
           if (existingUser) {
             return res.status(409).send({
@@ -79,12 +82,15 @@ console.log(params);
             user.google.googleId = profile.sub;
             user.google.picture = user.google.picture || profile.picture.replace('sz=50', 'sz=200');
             user.google.displayName = user.google.displayName || profile.name;
+            user.email = profile.email;
+            console.log("gmail profile", profile);
             user.save(function() {
 
               var token = createJWT(user);
-              res.cookie("key",token);
+              console.log(token);
+              res.cookie("key", token);
               res.send({
-                message:"upper",
+                message: "upper",
                 token: token
               });
             });
@@ -95,24 +101,43 @@ console.log(params);
 
         // Step 3b. Create a new user account or return an existing one.
         User.findOne({
-          'google.googleId': profile.sub
+          // 'google.googleId': profile.sub
+          'email': profile.email
         }, function(err, existingUser) {
           if (existingUser) {
+            console.log(existingUser.email);
+            existingUser.google.googleId = profile.sub;
+            existingUser.google.picture = profile.picture.replace('sz=50', 'sz=200');
+            existingUser.google.displayName = profile.name;
+            existingUser.save(function(err, result) {
+              if (err) {
+                console.log("error", err);
+              } else {
+                console.log("Successfully Saved");
+              }
+            })
+            var token = createJWT(existingUser);
+            res.cookie("key", token);
+
             return res.send({
-              token: createJWT(existingUser._id)
+              token: token,
+              "message":"Google Data Saved Successfully"
             });
           }
           var user = new User();
           user.google.googleId = profile.sub;
           user.google.picture = profile.picture.replace('sz=50', 'sz=200');
           user.google.displayName = profile.name;
-          user.save(function(err,result) {
-            console.log("error",err,"result",result);
+          user.email = profile.email;
+          // console.log("gmail profile",profile);
+
+          user.save(function(err, result) {
+            console.log("error", err, "result", result);
             var token = createJWT(user);
-            res.cookie("key",token);
+            res.cookie("key", token);
 
             res.send({
-              message:"lower",
+              message: "lower",
               token: token
             });
           });

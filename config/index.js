@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://127.0.0.1/Mydb';
+var mongoDB = 'mongodb://127.0.0.1/todoDB';
 
 mongoose.connect(mongoDB);
 

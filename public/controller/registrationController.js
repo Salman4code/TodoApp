@@ -1,5 +1,3 @@
-// var app = angular.module('myApp', ['ngRoute']);
-
 app.controller('registrationController', function($scope, $location, $state, TodoService) {
   // $scope.message = 'Hello from registrationController';
   // $scope.email_regex = /[a-z0-9._-]+@[a-z]+\.+[a-z]{2,3}$/;
@@ -14,9 +12,7 @@ app.controller('registrationController', function($scope, $location, $state, Tod
     var mobile = $scope.mobile;
     var password = $scope.password;
     var rpassword = $scope.rpassword;
-    console.log(email_id);
-    // console.log(password);
-    // alert($scope.email_id);
+
     var userSignupdetail = {
       username: name,
       email: email_id,
@@ -27,7 +23,6 @@ app.controller('registrationController', function($scope, $location, $state, Tod
     var method = "post"
     var obj = TodoService.app(url, method, userSignupdetail);
     obj.then(function(data) {
-      // console.log("sigup TodoService");
       console.log(data.data.status);
       if (data.data.status == true) {
         $state.go('home');
@@ -37,7 +32,7 @@ app.controller('registrationController', function($scope, $location, $state, Tod
       }
 
     }).catch(function(error) {
-      console.log("error");
+      console.log("error",error);
     })
   }
 });

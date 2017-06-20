@@ -71,7 +71,8 @@ router.post('/', function(req, res) {
       }
       if (req.header('Authorization')) {
         User.findOne({
-          'facebook.facebookId': profile.id
+          // 'facebook.facebookId': profile.id
+          'email':profile.email
         }, function(err, existingUser) {
           if (existingUser) {
             return res.status(409).send({
@@ -90,6 +91,9 @@ router.post('/', function(req, res) {
             user.facebookId = profile.id;
             user.facebook.picture = user.facebook.picture || 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
             user.facebook.displayName = user.facebook.displayName || profile.name;
+            user.email=profile.email;
+            console.log("profile",profile.email);
+
             user.save(function() {
               var token = createJWT(user);
               res.cookie("key",token);
@@ -104,9 +108,22 @@ router.post('/', function(req, res) {
 
         // Step 3. Create a new user account or return an existing one.
         User.findOne({
-          'facebook.facebookId': profile.id
+          // 'facebook.facebookId': profile.id
+          'email':profile.email
+
         }, function(err, existingUser) {
           if (existingUser) {
+            console.log("exist",existingUser);
+            existingUser.facebook.facebookId = profile.id;
+            existingUser.facebook.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+            existingUser.facebook.displayName = profile.name;
+            existingUser.save(function(err, result) {
+              if (err) {
+                console.log("error", err);
+              } else {
+                console.log("Successfully Saved");
+              }
+            })
             var token = createJWT(existingUser);
             res.cookie("key",token);
             return res.send({
@@ -117,6 +134,8 @@ router.post('/', function(req, res) {
           user.facebook.facebookId = profile.id;
           user.facebook.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
           user.facebook.displayName = profile.name;
+          user.email=profile.email;
+          console.log("profile",profile.email);
           user.save(function() {
             var token = createJWT(user);
             res.cookie("key",token);

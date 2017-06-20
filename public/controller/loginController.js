@@ -4,7 +4,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
 
 
 
-  $rootScope.checkuser = function() {
+  $rootScope.checkUser = function() {
     console.log("checkuser");
     var url = "/welcome";
     var action = "get";
@@ -28,7 +28,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
 
 
 
-  // $rootScope.checkuser();
+  // $rootScope.checkUser();
 
 
   $scope.login = function() {

@@ -37,10 +37,10 @@ router.post('/', function(request, response) {
        }
 
   login.checkLogin(request.body, function(err, success) {
-    // console.log("checklogin", success);
+    console.log("checklogin",success);
 
     try {
-      // console.log(success._id);
+      console.log(success._id);
       if (success) {
         token = jwt.sign({_id: success._id},secretkey, {
           expiresIn: 60 * 60 * 24 // expires in 24 hours

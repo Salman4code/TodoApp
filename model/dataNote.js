@@ -14,23 +14,34 @@ var noteSchema = Schema({
   },
   createdAt: {
     type: Date,
-    // default: Date.now
+    default: Date.now
   },
   updatedAt: {
     type: Date,
-    // default: Date.now
+    default: Date.now
   },
   reminder: {
-    type: Date
+    type: Date,
   },
-  bgcolor:{
-    type:String
+  bgcolor: {
+    type: String,
+    // default:white
   },
-  archive:{
-    type:Boolean
+  isArchived: {
+    type: Boolean,
+    default: false
   },
-  pin_note:{
-    type:Boolean
+  isPinned: {
+    type: Boolean,
+    default: false
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  },
+  isTrashed: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -38,6 +49,7 @@ var noteSchema = Schema({
 noteSchema.statics.saveNoteData = function(request, data_number, cb) {
   // console.log("save_data");
   // console.log("decode", data_number._id);
+
   var note_detail = new this({
     userId: data_number._id,
     title: request.title,
@@ -87,24 +99,24 @@ noteSchema.statics.getData = function(userId, cb) {
 
   // console.log("get_data", user_id);
   this.find({
-    userId: userId
+    userId: userId,
+    // isDeleted:false
   }, cb);
 }
 
 noteSchema.statics.readSingleNote = function(noteId, cb) {
 
-  // console.log("read_single_note", noteId);
   this.find({
     _id: noteId
   }, cb);
 }
 
 
-noteSchema.statics.update_data_notes = function(noteId, request, cb) {
+noteSchema.statics.updateNote = function(noteId, request, cb) {
 
-  // console.log("update_data", noteId);
   this.update({
-    _id: noteId
+    _id: noteId,
+    // isDeleted:false
   }, {
     $set: {
       title: request.title,
@@ -113,14 +125,33 @@ noteSchema.statics.update_data_notes = function(noteId, request, cb) {
   }, cb);
 }
 
-noteSchema.statics.deleteNote = function(noteId, cb) {
-  // console.log("delete data");
-  this.remove({
-    _id: noteId
-  }, cb);
+noteSchema.statics.deleteNote = function(noteId, request, cb) {
+  // console.log(request.deleteNote);
+  // console.log(request.trashNote);
+  if (request.deleteNote == true) {
+    this.remove({
+      _id: noteId
+    }, cb);
+  }
+else {
+
+    this.update({
+      _id: noteId
+    }, {
+      $set: {
+        isDeleted: request.deleteNote,
+        isTrashed: request.trashNote,
+        isPinned:false
+        // reminder:false
+      }
+    }, cb);
+
+  }
+
+
 }
 noteSchema.statics.deleteReminder = function(noteId, cb) {
-  // console.log("delete reminder");
+
   this.update({
     _id: noteId
   }, {
@@ -129,43 +160,41 @@ noteSchema.statics.deleteReminder = function(noteId, cb) {
     }
   }, cb);
 }
-noteSchema.statics.changeColor = function(noteId,request, cb) {
-  // console.log("delete reminder");
-  this.update({
-    _id: noteId
-  }, {
-    $set: {
-      bgcolor:request.bgcolor
-    }
-  }, cb);
-}
-noteSchema.statics.archiveNote= function(noteId,booleanvalue,cb) {
-  // console.log("Archive val",booleanvalue);
+noteSchema.statics.changeColor = function(noteId, request, cb) {
 
   this.update({
     _id: noteId
   }, {
     $set: {
-      archive:booleanvalue.value,
-      pin_note:booleanvalue.pin
+      bgcolor: request.bgcolor
     }
   }, cb);
 }
+noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
 
-noteSchema.statics.pinnedNote= function(noteId,booleanvalue, cb) {
-  // console.log("Boolean value",booleanvalue);
-  // console.log("boolean",booleanvalue.removearchive);
   this.update({
     _id: noteId
   }, {
     $set: {
-      archive:booleanvalue.removearchive,
-      pin_note:booleanvalue.value
+      isArchived: booleanvalue.value,
+      isPinned: booleanvalue.pin
     }
   }, cb);
 }
 
-var dataSchema = mongoose.model('note_data', noteSchema);
+noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
+
+  this.update({
+    _id: noteId
+  }, {
+    $set: {
+      isArchived: booleanvalue.removearchive,
+      isPinned: booleanvalue.value
+    }
+  }, cb);
+}
+
+var dataSchema = mongoose.model('noteData', noteSchema);
 
 
 

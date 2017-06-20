@@ -1,3 +1,15 @@
+/*
+ * User Schema
+ * @path model/index.js
+ * @file index.js
+ */
+// 'use strict';
+
+/*
+ * Module dependencies
+ */
+
+
 var express = require('express');
 validators = require('mongoose-validators');
 var mongoose = require('../config').mongoose;
@@ -9,18 +21,22 @@ var jwt = require('jsonwebtoken');
 var Schema = mongoose.Schema;
 
 var userDetailSchema = Schema({
+  email: {
+    type: String,
+    unique: true
+  },
   local: {
     userName: {
       type: String,
       // required: true,
       validate: validators.isAlpha()
     },
-    userEmail: {
-      type: String,
-      // required: true,
-      // unique: true,
-      validate: validators.isEmail()
-    },
+    // userEmail: {
+    //   type: String,
+    //   // required: true,
+    //   // unique: true,
+    //   validate: validators.isEmail()
+    // },
     userMobile: {
       type: Number,
       // required: true,
@@ -47,6 +63,7 @@ var userDetailSchema = Schema({
     googleId: String,
     displayName: String,
     picture: String
+    // email:String
   }
 
 });
@@ -56,31 +73,55 @@ userDetailSchema.statics.checkSignup = function(request, cb) {
   // console.log("inside signup");
   // console.log("from front end",request.body);
   var password = encrypt(request.body.password);
-  var userdetail = new this({
-    local: {
-      userName: request.body.username,
-      userEmail: request.body.email,
-      userMobile: request.body.mobile,
-      userPassword: password
+
+  User.findOne({
+    'email': request.body.email
+  }, function(err, existingUser) {
+    if (existingUser) {
+      console.log("existingUser", existingUser.email);
+      existingUser.local.userName = request.body.username,
+        existingUser.local.userName = request.body.username,
+        existingUser.local.userMobile = request.body.mobile,
+        existingUser.local.userPassword = password
+      existingUser.save(cb);
+    } else {
+      console.log();
+      var userdetail = new User({
+        email: request.body.email,
+        local: {
+          userName: request.body.username,
+          userMobile: request.body.mobile,
+          userPassword: password
+        }
+
+      });
+
+      userdetail.save(cb);
+      console.log("executed");
     }
-
   })
-
-  userdetail.save(cb);
-  console.log("executed");
+  // var password = encrypt(request.body.password);
+  // var userdetail = new this({
+  //   local: {
+  //     userName: request.body.username,
+  //     userEmail: request.body.email,
+  //     userMobile: request.body.mobile,
+  //     userPassword: password
+  //   }
+  //
+  // })
+  //
+  // userdetail.save(cb);
+  // console.log("executed");
 
 }
 
 
 userDetailSchema.statics.checkLogin = function(request, cb) {
-
-  // console.log("inside login");
-  // console.log(request.email);
-  // console.log(request.password);
   var password = encrypt(request.password);
-  // console.log(password);
+
   userSchema.findOne({
-    'local.userEmail': request.email,
+    'email': request.email,
     'local.userPassword': password
   }, cb);
 }
@@ -92,7 +133,6 @@ userDetailSchema.statics.userProfile = function(request, cb) {
 }
 
 userDetailSchema.statics.uploadProfileImage = function(id, imageurl, cb) {
-  // console.log("upload",imageurl);
   this.update({
     _id: id
   }, {

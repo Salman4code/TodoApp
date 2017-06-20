@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userData = require('../model/data_notes');
+var userData = require('../model/dataNote');
 var logger = require('winston');
 
 

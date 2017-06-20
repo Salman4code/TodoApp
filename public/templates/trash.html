@@ -1,0 +1,25 @@
+<div class="row" style="margin-top:100px;">
+  <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8"> -->
+
+  <div ng-class="leavespace"></div>
+  <div ng-class="allocatespace">
+    <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.isTrashed" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize">
+
+      <div id="title">{{x.title}}</div>
+      <div id='notecontent' ng-bind-html="x.take_note"></div>
+      <div id="cardbottom"><span ng-show="icons">
+      <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
+        <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>
+          <img src="../image/more.svg"  uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a>
+        </i>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+        <li role="menuitem"><a id='delete' ng-click="deleteNote(x._id, $index,true,false)">Delete forever</a></li>
+        <li role="menuitem"><a ng-click="deleteNote(x._id, $index,false,false)">Restore</a></li>
+      </ul>
+    </div>
+      </span>
+      </div>
+    </div>
+  </div>
+</div>

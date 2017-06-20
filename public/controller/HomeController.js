@@ -2,7 +2,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.reminderdisplay = true;
   // $scope.isHidden = false;
   $scope.booleanvalue = true;
-
+ $scope.trashDisplay=true;
   var user = [];
   $scope.tommorrow = "tommorrow";
   $scope.next = "nextweek";
@@ -57,7 +57,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   //
   // 	}
 
-  $rootScope.checkuser = function() {
+  $rootScope.checkUser = function() {
     console.log("checkuser");
     var url = "/welcome";
     var action = "get";
@@ -72,7 +72,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
         $scope.user = response.data.userprofile;
         console.log("profile", response.data.userprofile.facebook);
-        // $rootScope.getnote();
+        // $rootScope.getNote();
       } else {
         $state.go('login');
 
@@ -83,9 +83,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  $rootScope.checkuser();
+  $rootScope.checkUser();
 
-  $scope.Openprofilemodal = function() {
+  $scope.openProfilemodal = function() {
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/profilePopup.html',
       controller: 'profilepopupController',
@@ -102,7 +102,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     });
   }
 
-  $scope.OpenPopup = function(notedata) {
+  $scope.openPopup = function(notedata) {
 
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/popup.html',
@@ -131,7 +131,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
             console.log(data.data.status);
             if (data.data.status == true) {
               console.log(data.data.message);
-              $rootScope.getnote();
+              $rootScope.getNote();
             } else {
               console.log(data.data.message);
             }
@@ -168,7 +168,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   }
 
 
-  $rootScope.getnote = function() {
+  $rootScope.getNote = function() {
     var url = "/getNotes";
     var action = "POST";
 
@@ -182,7 +182,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
-          if (data.data.note_data[i].pin_note == true) {
+          if (data.data.note_data[i].isPinned == true) {
             flag++;
           }
         }
@@ -205,12 +205,12 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $rootScope.getnote();
+  $rootScope.getNote();
 
   // $scope.pinup = noteArr;
 
 
-  $scope.savenote = function() {
+  $scope.saveNote = function() {
     $scope.note1 = true;
     $scope.note2 = false;
 
@@ -235,7 +235,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         $scope.title = "";
         $scope.content = "";
         console.log(data.data.message);
-        $rootScope.getnote();
+        $rootScope.getNote();
       } else {
         console.log(data.data.message);
       }
@@ -253,7 +253,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log(data.data.status);
       if (data.data.status == true) {
         console.log(data.data.message);
-        $rootScope.getnote();
+        $rootScope.getNote();
       } else {
         console.log(data.data.message);
       }
@@ -283,18 +283,23 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       });
   }
 
-  $scope.deletenote = function(id, index) {
+  $scope.deleteNote = function(id,index,deleteNote,trashNote) {
     var url = "/deleteNote/" + id + "";
     var action = "POST";
-    TodoService.app(url, action).then(function(data) {
+    var obj={
+      deleteNote:deleteNote,
+      trashNote:trashNote
+    }
+    console.log("deleted value",obj);
+    TodoService.app(url, action,obj).then(function(data) {
       console.log(data.data.status);
       if (data.data.status == true) {
         // noteArr.splice(index,1);
         toastr.info('note deleted');
 
-        $rootScope.getnote();
+        $rootScope.getNote();
       } else {
-        alert("data.data.message");
+        alert(data.data.message);
       }
     }).catch(function(error) {
       console.log(error);
@@ -396,7 +401,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     obj.then(function(data) {
       if (data.data.status == true) {
         console.log(data);
-        $rootScope.getnote();
+        $rootScope.getNote();
 
       } else {
         console.log(data.data.status);
@@ -408,21 +413,21 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  $scope.deletereminder = function(note_id) {
+  $scope.deleteReminder = function(note_id) {
     var url = "/deleteReminder/" + note_id + "";
     var action = "POST";
     TodoService.app(url, action).then(function(data) {
       console.log(data.data.status);
       toastr.info('Reminder Deleted');
 
-      $rootScope.getnote();
+      $rootScope.getNote();
 
     }).catch(function(error) {
       console.log(error);
     })
 
   }
-  $scope.selectcolor = function(color, note_id, ) {
+  $scope.selectColor = function(color, note_id, ) {
     console.log(color);
 
     var backgroundcolor = {
@@ -432,14 +437,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var action = "POST";
     TodoService.app(url, action, backgroundcolor).then(function(data) {
       console.log(data.data.status);
-      $rootScope.getnote();
+      $rootScope.getNote();
 
     }).catch(function(error) {
       console.log(error);
     })
 
   }
-  $scope.archive_notes = function(note_id, archiveval, pinvalue) {
+  $scope.archiveNote = function(note_id, archiveval, pinvalue) {
     var url = "/archive/" + note_id + "";
     var action = "POST";
 
@@ -451,7 +456,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
       // toastr.info('Note Archieved Successfully');
-      $rootScope.getnote();
+      $rootScope.getNote();
     }).catch(function(error) {
       console.log(error);
     })
@@ -459,7 +464,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
 
-  $scope.pin_note = function(note_id, pinval, archiveval) {
+  $scope.pinNote = function(note_id, pinval, archiveval) {
     console.log("inside pin function");
 
     var url = "/pinned/" + note_id + "";
@@ -472,7 +477,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log(data.data.status);
       // toastr.info('Note Pinned Successfully');
 
-      $rootScope.getnote();
+      $rootScope.getNote();
     }).catch(function(error) {
       console.log(error);
     })
