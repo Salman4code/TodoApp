@@ -27,6 +27,15 @@ var noteSchema = Schema({
     type: String,
     // default:white
   },
+  scrapeLinkurl:{
+    type:String
+  },
+  scrapeTitle:{
+    type:String
+  },
+  scrapeImageurl:{
+    type:String
+  },
   isArchived: {
     type: Boolean,
     default: false
@@ -46,14 +55,17 @@ var noteSchema = Schema({
 });
 
 
-noteSchema.statics.saveNoteData = function(request, data_number, cb) {
-  // console.log("save_data");
-  // console.log("decode", data_number._id);
+noteSchema.statics.saveNoteData = function(request,userId,data, cb) {
+  console.log("save_data",data);
+  console.log("decode", userId);
 
   var note_detail = new this({
-    userId: data_number._id,
+    userId: userId._id,
     title: request.title,
-    content: request.content
+    content: request.content,
+    scrapeLinkurl:data.url,
+    scrapeTitle: data.title,
+    scrapeImageurl: data.imageUrl
   })
 
   note_detail.save(cb);
@@ -63,7 +75,6 @@ noteSchema.statics.saveNoteData = function(request, data_number, cb) {
 
 noteSchema.pre('save', function(next) {
   // get the current date
-  // console.log("pre");
   var currentDate = new Date();
 
   // change the updated_at field to current date
@@ -97,10 +108,8 @@ noteSchema.statics.reminder = function(noteId, request, cb) {
 
 noteSchema.statics.getData = function(userId, cb) {
 
-  // console.log("get_data", user_id);
   this.find({
-    userId: userId,
-    // isDeleted:false
+    userId: userId
   }, cb);
 }
 
@@ -115,8 +124,7 @@ noteSchema.statics.readSingleNote = function(noteId, cb) {
 noteSchema.statics.updateNote = function(noteId, request, cb) {
 
   this.update({
-    _id: noteId,
-    // isDeleted:false
+    _id: noteId
   }, {
     $set: {
       title: request.title,
@@ -126,27 +134,52 @@ noteSchema.statics.updateNote = function(noteId, request, cb) {
 }
 
 noteSchema.statics.deleteNote = function(noteId, request, cb) {
-  // console.log(request.deleteNote);
-  // console.log(request.trashNote);
-  if (request.deleteNote == true) {
-    this.remove({
-      _id: noteId
-    }, cb);
-  }
-else {
+  console.log("deleteNote", request.noteValue);
 
+  if (request.noteValue == 'trashNote') {
     this.update({
       _id: noteId
     }, {
       $set: {
-        isDeleted: request.deleteNote,
-        isTrashed: request.trashNote,
-        isPinned:false
-        // reminder:false
+        isDeleted: false,
+        isTrashed: true,
+        isPinned: false
       }
     }, cb);
 
+  } else if (request.noteValue == 'restore') {
+    this.update({
+      _id: noteId
+    }, {
+      $set: {
+        isDeleted: false,
+        isTrashed: false
+      }
+    }, cb);
+  } else {
+    this.remove({
+      _id: noteId
+    }, cb);
   }
+  //   if (request.deleteNote == true) {
+  //     this.remove({
+  //       _id: noteId
+  //     }, cb);
+  //   }
+  // else {
+  //
+  //     this.update({
+  //       _id: noteId
+  //     }, {
+  //       $set: {
+  //         isDeleted: request.deleteNote,
+  //         isTrashed: request.trashNote,
+  //         isPinned:false
+  //         // reminder:false
+  //       }
+  //     }, cb);
+  //
+  //   }
 
 
 }
@@ -193,7 +226,29 @@ noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
     }
   }, cb);
 }
+noteSchema.statics.scrapeContent = function(data,request, cb) {
+  console.log(data.url);
+  console.log(request);
+  // this.update({
+  //   _id: noteId
+  // }, {
+  //   $set: {
+  //     scrapeLinkurl:data.url,
+  //     scrapeTitle: data.title,
+  //     scrapeImageurl: data.imageUrl
+  //   }
+  // },cb)
+  var note_detail = new this({
+        userId:request._id,
+        scrapeLinkurl:data.url,
+        scrapeTitle: data.title,
+        scrapeImageurl: data.imageUrl
+  })
 
+  note_detail.save(cb);
+
+
+}
 var dataSchema = mongoose.model('noteData', noteSchema);
 
 

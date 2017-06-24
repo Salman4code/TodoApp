@@ -6,7 +6,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
 
   $rootScope.checkUser = function() {
     console.log("checkuser");
-    var url = "/welcome";
+    var url = "/userProfile";
     var action = "get";
     TodoService.app(url, action).then(function(response) {
       console.log(response);
@@ -47,7 +47,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
       console.log(data.data.status);
       if (data.data.status == true) {
         $state.go('home');
-        $rootScope.getnote();
+        $rootScope.getNote();
       } else {
         $scope.error=data.data.message;
         $state.go('login');

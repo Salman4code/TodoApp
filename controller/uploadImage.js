@@ -4,6 +4,7 @@ var userModel = require("../model");
 var fs = require("fs");
 var logger = require('winston');
 
+
 function upload(imagename, Image) {
   fs.writeFile('public/profilepicture/' + imagename, Image, {
     encoding: 'base64'
@@ -17,23 +18,23 @@ function upload(imagename, Image) {
 }
 router.post('/:id', function(request, response) {
 
-
+  if (!fs.existsSync('public/profilepicture/'+request.params.id)){
+      fs.mkdirSync('public/profilepicture/'+request.params.id);
+  }
 
   var originalImage = request.body.Original.replace(/^data:image\/(png|jpeg);base64,/g, "");
   var cropppedImage = request.body.image.replace(/^data:image\/(png|jpeg);base64,/g, "");
-  var croppedimagename = request.body.imagename + "_croppedimage.png";
-  var originalimagename = request.body.imagename + "_originalimage.jpeg";
+  var croppedimagename = request.params.id+"/croppedimage.png";
+  var originalimagename = request.params.id+"/originalimage.jpeg";
   upload(croppedimagename, cropppedImage);
   upload(originalimagename, originalImage);
-  croppedimageurl = "profilepicture/" + croppedimagename;
-  originalimageurl="profilepicture/" + originalimagename
+  croppedimageurl ="profilepicture/"+croppedimagename;
+  originalimageurl="profilepicture/"+originalimagename;
   var imageurl={
     "croppedimage":croppedimageurl,
     "originalimage":originalimageurl
   }
-  console.log(imageurl);
   var user_id = request.params.id;
-  console.log(user_id);
 
   userModel.uploadProfileImage(user_id, imageurl, function(err, success) {
     if (success) {

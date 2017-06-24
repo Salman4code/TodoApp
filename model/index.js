@@ -119,7 +119,8 @@ userDetailSchema.statics.checkSignup = function(request, cb) {
 
 userDetailSchema.statics.checkLogin = function(request, cb) {
   var password = encrypt(request.password);
-
+  // console.log(password);
+  // console.log(request.email);
   userSchema.findOne({
     'email': request.email,
     'local.userPassword': password
@@ -142,6 +143,7 @@ userDetailSchema.statics.uploadProfileImage = function(id, imageurl, cb) {
     }
   }, cb);
 }
+
 
 userDetailSchema.statics.facebookLogin = function(profile, cb) {
 
@@ -183,6 +185,8 @@ userDetailSchema.statics.facebookLogin = function(profile, cb) {
 
 
 }
+
+
 
 var userSchema = mongoose.model('registration', userDetailSchema);
 

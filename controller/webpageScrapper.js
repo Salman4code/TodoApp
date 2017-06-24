@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var userData = require('../model/dataNote');
-var logger = require('winston');
+var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
+var userData = require('../model/dataNote');
+var logger = require('winston');
 
 
 router.post('/', function(req, res) {
-  // url=req.body.url;
-  url = 'http://timesofindia.indiatimes.com/india/govt-announces-30-smart-cities-thiruvanathapuram-tops-list/articleshow/59280576.cms';
+  console.log("inside webpageScrapper1",req.body.url);
+  var url=req.body.url;
+  // url = 'http://timesofindia.indiatimes.com/india/govt-announces-30-smart-cities-thiruvanathapuram-tops-list/articleshow/59280576.cms';
+
   request(url, function(error, response, html) {
     if (!error) {
       var $ = cheerio.load(html);
@@ -17,7 +20,6 @@ router.post('/', function(req, res) {
       // console.log(keys);
       var ogImage;
       var ogTitle;
-      var ogUrl;
 
       keys.forEach(function(key) {
         if (meta[key].attribs &&
@@ -46,32 +48,31 @@ router.post('/', function(req, res) {
       console.log("Title", ogTitle);
       console.log("imageurl", ogImage);
     }
-     obj = {
+    var obj = {
       'title': ogTitle,
       'imageUrl': ogImage,
       'url':ogUrl
     };
-
-
-  userData.saveNoteData(req.body,req.decoded,obj, function(err, result) {
-
-    if (err) {
-      res.send({
-        "status": false,
-        "message": err
-      });
-        logger.error(err);
-    } else {
-      res.send({
-        "status": true,
-        "message": result
-      });
-        logger.info("Note Created")
-    }
-
+    // var id = req.params.id;
+    userData.scrapeContent(obj,req.decoded, function(err, success) {
+      if (success) {
+        res.send({
+          "status": true,
+          "message": success
+        });
+      } else {
+        res.send({
+          "status": false,
+          "message": "failed to save data"
+        })
+      }
+    })
+    // res.send('Check your console!')
   })
-});
+
+
 
 })
+
 
 module.exports = router;

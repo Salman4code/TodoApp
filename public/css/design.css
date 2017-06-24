@@ -5,16 +5,6 @@
 }
 /*Login css*/
 
-/*.imgicon
-{
-    width: 20%;
-    border-radius: 2px;
-    margin-left:40%;*/
-/*background-color: #ffbb00;*/
-
-/*margin-right:50%;*/
-/*}*/
-
 /*Registration form css*/
 
 #loginform
@@ -50,7 +40,16 @@
 {
     margin-left: 15%;
 }
-
+#loginform .btn  {
+  width:70%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#loginform .center
+{
+    /*margin-left: 15%;*/
+    text-align: center;
+}
 #signupform
 {
     position: relative;
@@ -80,9 +79,14 @@
 {
     margin-left: 15%;
 }
-.center
+#signupform .center
 {
-    margin-left: 15%;
+    display: inline-block;
+    width: 70%;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 20px;
+    font-style: bold;
 }
 #checked
 {

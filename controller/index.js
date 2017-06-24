@@ -5,7 +5,7 @@ router.use('/signup', require('./signup'));
 router.use('/login', require('./login'));
 router.use('/userProfile', require('./authentication'), require('./userProfile'));
 router.use('/logout',require('./logout'));
-router.use('/welcome',require('./authentication'),require('./welcome')); //Main page After login or Registration
+// router.use('/welcome',require('./authentication'),require('./welcome')); //Main page After login or Registration
 router.use('/saveNote',require('./authentication'),require('./saveNote')); //Api for saving data_notes in db
 router.use('/getNotes',require('./authentication'),require('./getNotes'));//Api for fetching data_notes from db
 router.use('/updateNote',require('./updateNote'));
@@ -19,6 +19,7 @@ router.use('/pinned',require('./pinned'));
 router.use('/uploadImage',require('./uploadImage'));
 router.use('/auth/facebook',require('./facebookLogin'));
 router.use('/auth/google',require('./googleLogin'));
+router.use('/scrape',require('./authentication'),require('./webpageScrapper'));
 
 
 

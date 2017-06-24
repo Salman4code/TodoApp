@@ -22,7 +22,6 @@ logger.configure({
     })
   ]
 });
-// var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
 
 app.use(morgan('dev'));
 app.use(bodyParser.json({
@@ -40,8 +39,7 @@ app.use(validator());
 app.use(require('./controller'));
 
 
-// setup the logger
-// app.use(morgan('combined', {stream: accessLogStream}))
+
 port = process.env.PORT || 8081;
 
 app.listen(port, function() {

@@ -4,17 +4,29 @@
     <nav class="navbar navbar-default" id="style1">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Google Keep</a>
+          <a class="navbar-brand" ui-sref="/">Google Keep</a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="#login">Login<span class="glyphicon glyphicon-log-in"></span></a></li> -->
           <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span>Signup</a></li>
         </ul>
       </div>
     </nav>
   </header>
+  <!-- <div class="row customnavbar" ng-style="navcolorbg">
+    <div class="col-lg-12 col-sm-12 col-md-12">
+      <div class="navbarpadding">
+        <div style="display:inline-block;">
+          <a id="googlekeeptext"><img id="google" src="image/google.svg" alt="Google"><span style="padding-left:10px;">Keep</span></a>
+        </div>
+        <span class="nav navbar-nav navbar-right navicon">
+          <a ui-sref="signup"><span class="glyphicon glyphicon-user"></span>Signup</a>
+        <span>
+      </div>
 
+    </div>
+
+  </div> -->
 
 
 
@@ -22,20 +34,12 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-6 ">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4 ">
         <form id="loginform" name="loginform" ng-controller="loginController">
 
-
-          <!-- <img src="/image/usericon.png" alt="Avatar" class="imgicon"></div><br> -->
-          <!-- <p><label for="email_id">Email id:</label>
-            <i class="glyphicon glyphicon-user"></i>
-            <input type="email" ng-model="email_id" name="email_id" class="form-control" placeholder="Email id" required><br>
-            <span ng-show="loginform.email_id.$touched && loginform.email_id.$invalid">The email_id is required.</span>
-            </p>      <br><br> -->
-
-
-          <p><label>Email id:</label>
+          <p>
+            <label>Email id:</label>
             <i class="glyphicon glyphicon-user"></i><br>
             <input type="email" class="form-control" name="email_id" ng-model="email_id" placeholder="Email Id" required>
             <span ng-show="loginform.email_id.$dirty && loginform.email_id.$invalid">
@@ -50,7 +54,8 @@
 
 
 
-          <p><label>Password:</label>
+          <p>
+            <label>Password:</label>
             <i class="glyphicon glyphicon-lock"></i><br>
             <input type="password" name="password" class="form-control" placeholder="Password" ng-model="password" required>
             <span ng-show="loginform.password.$dirty && loginform.password.$invalid">
@@ -59,16 +64,16 @@
 
 
           <!-- <button type="button" id="login1" ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid">Submit</button><br><br> -->
-            <button type="submit"  ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid">Submit</button>
+            <p><input type="submit"  ng-click="login()" class="btn btn-success center" ng-disabled="loginform.$invalid"></p>
           <p style="color:red;margin-left:16%">{{error}}</p>
 
 
-          <a ui-sref="signup" class="center">New User / Register here?</a><br><br>
 
-          <!-- <div class="row" ng-controller="LoginCtrl"> -->
-            <button ng-click="authenticate('facebook')" class="btn btn-primary center">Sign in with Facebook</button>
-            <button ng-click="authenticate('google')" class="btn btn-danger center">Sign in with Google</button>
-          <!-- </div> -->
+
+            <p><input ng-click="authenticate('facebook')" class="btn btn-primary center" value="Sign in with Facebook"></p>
+            <p><input ng-click="authenticate('google')" class="btn btn-danger center" value="Sign in with Google"></p>
+
+              <p  class="center"><a ui-sref="signup">New User / Register here?</a></p>
         </form>
       </div>
     </div>

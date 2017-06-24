@@ -1,6 +1,7 @@
 app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout,$auth, toastr, TodoService) {
   $scope.reminderdisplay = true;
   // $scope.isHidden = false;
+  var url;
   $scope.booleanvalue = true;
  $scope.trashDisplay=true;
   var user = [];
@@ -59,19 +60,19 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   $rootScope.checkUser = function() {
     console.log("checkuser");
-    var url = "/welcome";
+    var url = "/userProfile";
     var action = "get";
     TodoService.app(url, action).then(function(response) {
       console.log("checkuser", response);
       // console.log(response.data.status);
-      // $rootScope.username=response.data.userprofile.userName;
-      // $rootScope.userId=response.data.userprofile._id;
+
       $rootScope.userProfile = response.data.userprofile;
+      // console.log($rootScope.userProfile);
       if (response.data.status == true) {
         // $state.go('home');
 
         $scope.user = response.data.userprofile;
-        console.log("profile", response.data.userprofile.facebook);
+        // console.log("profile", response.data.userprofile.facebook);
         // $rootScope.getNote();
       } else {
         $state.go('login');
@@ -208,6 +209,10 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $rootScope.getNote();
 
   // $scope.pinup = noteArr;
+  // function linkDetected(linkString) {
+  //   console.log(linkString);
+  //   url=linkString;
+  // }
 
 
   $scope.saveNote = function() {
@@ -218,14 +223,28 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var content = $scope.content;
     console.log(title);
     console.log(content);
+    // console.log("url",url);
+    var url =content.match(/\bhttps?:\/\/\S+/gi);
+    // var a=url.replace("<div>","");
+    console.log("matches->",url);
+
     if (title == "" && content == "" || title == undefined && content == undefined) {
       return;
     }
-
-    var noteobj = {
-      title: title,
-      content: content
+    if(url){
+      var noteobj = {
+        title: title,
+        content: content,
+        url:url
+      }
     }
+    else {
+      var noteobj = {
+        title: title,
+        content: content
+      }
+    }
+
     var url = "/saveNote";
     var action = "POST";
     var obj = TodoService.app(url, action, noteobj);
@@ -283,12 +302,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       });
   }
 
-  $scope.deleteNote = function(id,index,deleteNote,trashNote) {
+  // $scope.deleteNote = function(id,index,deleteNote,trashNote) {
+  $scope.deleteNote = function(id,trashNote) {
+// console.log(trashNote);
     var url = "/deleteNote/" + id + "";
     var action = "POST";
     var obj={
-      deleteNote:deleteNote,
-      trashNote:trashNote
+      // deleteNote:deleteNote,
+      'noteValue':trashNote
     }
     console.log("deleted value",obj);
     TodoService.app(url, action,obj).then(function(data) {
@@ -482,5 +503,116 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log(error);
     })
   }
+
+
+  $scope.facebookshare=function(todo){
+  		console.log("facebook share")
+  		FB.init({
+  			appId : '1639081702785828',
+  			status: true,
+  			xfbml : true
+  		});
+  		 FB.ui({
+  	           method: 'share_open_graph',
+  	           action_type: 'og.shares',
+  	           action_properties: JSON.stringify({
+  	               object : {
+  	                  // your url to share
+  	                  'og:title': todo.title,
+  	                  'og:description': todo.description,
+  	                  /*'og:image': 'http://example.com/link/to/your/image.jpg'*/
+  	               }
+  	           })
+  	           },
+  	           // callback
+  	           function(response) {
+  	           if (response && !response.error_message) {
+  	               // then get post content
+  	               alert('successfully posted. Status id : '+response.post_id);
+  	           } else {
+  	               alert('Something went error.');
+  	           }
+  	       });
+
+  	};
+
+
+
+      // $(window).on("load",function(){
+      // $(document).ready(function(){
+      // // function extractUrl(){
+      //    links = [];
+      //   var comment = $('#comment');
+      //   $('#content').keyup(function () {
+      //       checkForLinks($(this));
+      //   }).blur(function () {
+      //       checkForLinks($(this), true);
+      //   });
+      //   // });
+      //   function checkForLinks(elem, isBlur) {
+      //       var text = elem.html();
+      //       var urlCheckString = '((?:http[s]?:\\/\\/(?:www\\.)?|www\\.){1}(?:[0-9A-Za-z\\-%_]+\\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:/[0-9A-Za-z\\-\\.%_]*)+)?(?:\\?(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?(?:&amp;(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?)*)?(?:#[0-9A-Za-z\\-\\.%_\\+=\\?&;]*)?)'; //full url
+      //       if (isBlur) {
+      //           var regex = new RegExp(urlCheckString, 'gi');
+      //       } else {
+      //           var regex = new RegExp(urlCheckString + '(?!<br>)[^0-9A-Za-z\-\.%_\+\/=&\?;#]', 'gi');
+      //       }
+      //
+      //       //console.log("Text: " + text);
+      //       var newText = text;
+      //       // newText = newText.replace(new RegExp('<p class="link">([^<]*)</p>', 'gi'), '$1');
+      //       // newText = newText.replace(new RegExp('<p class="link">([^<]*<br>[^<]*)</p>', 'gi'), '$1');
+      //       newText = newText.replace(new RegExp('<p></p>', 'gi'), '');
+      //       newText = newText.replace(new RegExp('<a[^>]*>([^<]*)</a>', 'gi'), '$1'); //change back the IE	autochange
+      //       // console.log("newText: " + newText);
+      //
+      //       newText = newText.replace(regex, function (match, link, offset, string) {
+      //           var trailingChar = match.substr(link.length);
+      //           if (!links[link]) {
+      //               links[link] = link;
+      //               linkDetected(link);
+      //                 // $scope.linkDetected(link);
+      //
+      //           }
+      //           // return;
+      //           console.log(link);
+      //           return '<p class="link">' + link + '</p>' + trailingChar;
+      //       });
+      //
+      //       //console.log("newTextafter: " + newText);
+      //       if (text.localeCompare(newText) != 0) {
+      //           elem.html(newText);
+      //       }
+      //   }
+
+
+        // function linkDetected(linkString) {
+        // $scope.linkDetected=function(linkString) {
+
+            // console.log(linkString);
+            // var url = "/scrape";
+            // var action = "post";
+            // var data = {
+            //   url: linkString
+            // };
+            // var obj = TodoService.app(url,action,data);
+            // obj.then(function(data) {
+            //   console.log("linkDetected",data.data.status);
+            //   if (data.data.status == true) {
+            //     $scope.title = "";
+            //     $scope.content = "";
+            //     console.log(data.data.message);
+            //     $rootScope.getNote();
+            //   } else {
+            //     console.log(data.data.message);
+            //   }
+            //
+            // }).catch(function(error) {
+            //   console.log("error");
+            // })
+        // }
+
+    // });
+  // }
 
 });

@@ -12,6 +12,7 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.1",
     "crypto": "0.0.3",
     "express-validator": "^3.2.0",
     "hooks": "^0.3.2",

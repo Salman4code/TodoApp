@@ -53,7 +53,9 @@
                           <img src="../image/more.svg" ng-mouseenter="coloricons=false" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a>
         </i>
       <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-        <li role="menuitem"><a id='delete' ng-click="deleteNote(x._id, $index,false,true)">Delete</a></li>
+        <!-- <li role="menuitem"><a id='delete' ng-click="deleteNote(x._id, $index,false,true)">Delete</a></li> -->
+        <li role="menuitem"><a id='delete' ng-click="deleteNote(x._id,'trashNote')">Delete</a></li>
+
         <li role="menuitem"><a ng-click="copyNote(x)">Make a copy</a></li>
       </ul>
     </div>

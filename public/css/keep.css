@@ -268,8 +268,9 @@ body
     font-family: 'Roboto',arial,sans-serif;
     font-size: 14px;
     font-weight: 700;
-
-    margin: 22px 16px;
+    margin-left: 20px;
+    margin-top: -28px;
+    /*margin: 22px 16px;*/
 
     color: rgba(0,0,0,.54);
 }
@@ -347,7 +348,7 @@ body
 
 .modal-content
 {
-    margin-top: 150px;
+    margin-top: 80px;
 }
 /* Toggle Styles */
 
@@ -425,6 +426,21 @@ body
     width: 100%;
     padding: 15px;
 }
+.scrapdiv
+{
+background-color: rgba(250,250,250,0.8);
+/*-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.12), 0 1px 4px 0 rgba(0,0,0,0.12);*/
+box-shadow: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.12), 0 1px 4px 0 rgba(0,0,0,0.12);
+cursor: pointer;
+height: 56px;
+/*margin: 15px;*/
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+position: relative
+}
 
 
 
@@ -434,7 +450,7 @@ body
 {
     position: fixed;
     z-index: 1;
-    top: 75px;
+    top: 66px;
     left: 0;
 
     width: 250px;
@@ -519,6 +535,21 @@ body
   transition: width 0.4s ease-in-out;
 }
 
+#notify:hover{
+  fill:red;
+}
+
+#content .link {
+  color:blue;
+  display: inline-block;
+  /*margin:0;*/
+}
+#text {
+  border: 1px solid black;
+  padding: 0.5em;
+  min-height:100px;
+  min-width:200px;
+}
 @media(max-width:850px)
 {
     .searchtextbox
