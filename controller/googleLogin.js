@@ -1,25 +1,28 @@
+/*
+* Google Login
+* @path controller/googleLogin.js
+* @file googleLogin.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
+
 var express = require('express');
 var router = express.Router();
 var app = express();
 
 var config = require('../config');
 var request = require('request');
-User = require("../model");
+var User = require("../model");
 
-// var jwt = require('jwt-simple');
 var moment = require('moment');
 var request = require('request');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var logger = require('winston');
 
-// function createJWT(user) {
-//   console.log("JWT function", user._id);
-//   var payload = {
-//     sub: user._id,
-//     iat: moment().unix(),
-//     exp: moment().add(14, 'days').unix()
-//   };
-//   return jwt.encode(payload, config.TOKEN_SECRET);
-// }
+
 function createJWT(user) {
   return jwt.sign({
     _id: user._id
@@ -29,6 +32,7 @@ function createJWT(user) {
 }
 
 router.post('/', function(req, res) {
+  try {
   var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
   var peopleApiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
   var params = {
@@ -145,5 +149,12 @@ router.post('/', function(req, res) {
       }
     });
   });
+} catch (error) {
+  response.send({
+    "status": false,
+    "message": error
+  });
+    logger.error(error)
+}
 });
 module.exports = router;

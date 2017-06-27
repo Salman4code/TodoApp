@@ -1,3 +1,13 @@
+/*
+* readSingleNote for updation
+* @path controller/readSinglenote.js
+* @file readSinglenote.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
@@ -6,9 +16,9 @@ var logger = require('winston');
 
 
 router.post('/:id', function(request, response) {
-// console.log(request.decoded);
+
+try {
   userData.readSingleNote(request.params.id, function(err, result) {
-    // console.log(result);
     if (err) {
       response.send({
         "status": false,
@@ -23,6 +33,13 @@ router.post('/:id', function(request, response) {
     }
 
   })
+} catch (error) {
+  response.send({
+    "status": false,
+    "message": error
+  });
+    logger.info(error)
+}
 
 })
 

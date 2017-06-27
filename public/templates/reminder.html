@@ -17,7 +17,11 @@
       <div id="title" ng-click="openPopup(x)">{{x.title}}</div>
       <div id='notecontent' ng-bind-html="x.take_note" ng-click="openPopup(x)"></div>
 
-
+      <div ng-if="x.scrapeImageurl" class="scrapdiv">
+        <img ng-src={{x.scrapeImageurl}} style="height:56px;width:56px;" alt="no image" />
+        <span>{{x.scrapeTitle}}</span>
+        <a target="blank" href="{{x.scrapeLinkurl}}"><img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
+      </div>
       <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">
 
         <a ng-click="selectColor(y.color,x._id)" ng-repeat="y in color" >

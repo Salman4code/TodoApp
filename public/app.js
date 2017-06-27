@@ -32,7 +32,11 @@ var app = angular.module('myApp', ['ui.router', 'ngSanitize', 'satellizer', 'ui.
         url: '/trash',
         templateUrl: 'templates/home.html',
         controller: 'trashController'
-        
+
+      }).state('userActivity',{
+        url:'/activity',
+        templateUrl:'templates/home.html',
+        controller:'activityController'
       })
     // .state('logout', {
     //   url: '/logout',

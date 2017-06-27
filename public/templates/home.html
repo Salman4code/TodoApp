@@ -89,6 +89,7 @@
 
              </a>
            </li>
+
      </span>
       </div>
 
@@ -134,21 +135,11 @@
               <span id="shift">Trash</span>
             </a>
           </li>
-          <!--  <li>
-            <a>
-              <span><svg width="24px" xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 24 24" height="24px" class="gb_nc"><path d="m0 0h24v24h-24z" fill="none"></path>
-                <path d="m19.43 12.98c0.04-0.32 0.07-0.64 0.07-0.98s-0.03-0.66-0.07-0.98l2.11-1.65c0.19-0.15 0.24-0.42 0.12-0.64l-2-3.46c-0.12-0.22-0.39-0.3-0.61-0.22l-2.49 1c-0.52-0.4-1.08-0.73-1.69-0.98l-0.38-2.65c-0.03-0.24-0.24-0.42-0.49-0.42h-4c-0.25 0-0.46 0.18-0.49 0.42l-0.38 2.65c-0.61 0.25-1.17 0.59-1.69 0.98l-2.49-1c-0.23-0.09-0.49 0-0.61 0.22l-2 3.46c-0.13 0.22-0.07 0.49 0.12 0.64l2.11 1.65c-0.04 0.32-0.07 0.65-0.07 0.98s0.03 0.66 0.07 0.98l-2.11 1.65c-0.19 0.15-0.24 0.42-0.12 0.64l2 3.46c0.12 0.22 0.39 0.3 0.61 0.22l2.49-1c0.52 0.4 1.08 0.73 1.69 0.98l0.38 2.65c0.03 0.24 0.24 0.42 0.49 0.42h4c0.25 0 0.46-0.18 0.49-0.42l0.38-2.65c0.61-0.25 1.17-0.59 1.69-0.98l2.49 1c0.23 0.09 0.49 0 0.61-0.22l2-3.46c0.12-0.22 0.07-0.49-0.12-0.64l-2.11-1.65zm-7.43 2.52c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
-              </svg></span>
-
-              <span id="shift" >Settings</span></a>
-          </li> -->
-          <!-- <li id="change">
-            <a type="button" id="logOut"><img src="../image/logout.png" alt=""></img>
-            </a>
-          </li> -->
-
-
-
+          <li>
+            <a ui-sref="userActivity">
+            <span id=shift>User Activity
+            </span></a>
+          </li>
         </ul>
       </div>
       <!-- /#sidebar-wrapper -->
@@ -158,7 +149,7 @@
 
       <div id="page-content-wrapper" ng-style="pagecontent">
         <div class="container-fluid pagecontent">
-          <div ng-show="booleanvalue && reminderdisplay && trashDisplay" class="row">
+          <div ng-show="booleanvalue && reminderdisplay && trashDisplay && activityLog" class="row">
             <div class="col-lg-3 col-md-3 col-sm-3"></div>
             <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
               <div id="divnote1" ng-show="note1" ng-hide="note2" ng-click="note2 = !note2">
@@ -186,11 +177,11 @@
 
           <!-- <my-todo list="pinup" color="color" pinuptitle="pinup"></my-todo> -->
 
-          <div ng-show="booleanvalue && reminderdisplay &&trashDisplay" ng-include="'templates/pinup.html'">
+          <div ng-show="booleanvalue && reminderdisplay &&trashDisplay && activityLog" ng-include="'templates/pinup.html'">
 
           </div>
 
-          <div ng-show="booleanvalue && reminderdisplay && trashDisplay" ng-include="'templates/noteCard.html'">
+          <div ng-show="booleanvalue && reminderdisplay && trashDisplay  && activityLog" ng-include="'templates/noteCard.html'">
 
           </div>
 
@@ -202,6 +193,8 @@
 
           </div>
           <div ng-show="!trashDisplay" ng-include="'templates/trash.html'">
+          </div>
+          <div ng-show="!activityLog"  ng-include="'templates/activityLog.html'">
 
           </div>
 

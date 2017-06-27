@@ -1,15 +1,27 @@
+/*
+* updateNote
+* @path controller/updateNote.js
+* @file updateNote.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
+
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
+//Api for updating notes
 
 router.post('/:id', function(request, response) {
-  // console.log(request.params.id);
+
+try {
   var id = request.params.id;
   userData.updateNote(id, request.body, function(err, result) {
-    // console.log("result",result);
     if (err) {
       response.send({
         "status": false,
@@ -24,7 +36,6 @@ router.post('/:id', function(request, response) {
     } else {
       response.send({
         "status": true,
-        // "message": result
         "message": "Data Successfully Updated",
         "updateresult": result
 
@@ -33,6 +44,13 @@ router.post('/:id', function(request, response) {
     }
 
   })
+} catch (err) {
+  response.send({
+    "status": false,
+    "message": err
+  });
+    logger.error(err)
+}
 
 })
 

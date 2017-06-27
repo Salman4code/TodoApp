@@ -1,11 +1,21 @@
+/*
+* uploadProfileImage
+* @path controller/uploadImage.js
+* @file uploadImage.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var router = express.Router();
 var userModel = require("../model");
 var fs = require("fs");
 var logger = require('winston');
 
-
 function upload(imagename, Image) {
+
   fs.writeFile('public/profilepicture/' + imagename, Image, {
     encoding: 'base64'
   }, function(err) {
@@ -16,8 +26,10 @@ function upload(imagename, Image) {
     }
   });
 }
-router.post('/:id', function(request, response) {
 
+//Api for uploading profile pic
+router.post('/:id', function(request, response) {
+try {
   if (!fs.existsSync('public/profilepicture/'+request.params.id)){
       fs.mkdirSync('public/profilepicture/'+request.params.id);
   }
@@ -49,12 +61,18 @@ router.post('/:id', function(request, response) {
         "status": "false",
         "message": "Profile image upload failed"
       });
-        logger.info("Profile image upload failed")
+        logger.error("Profile image upload failed")
     }
   });
 
 
-
+} catch (error) {
+  response.send({
+    "status": "false",
+    "message": "Profile image upload failed"
+  });
+    logger.error(error)
+}
 
 
 })

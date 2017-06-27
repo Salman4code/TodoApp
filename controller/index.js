@@ -19,6 +19,7 @@ router.use('/pinned',require('./pinned'));
 router.use('/uploadImage',require('./uploadImage'));
 router.use('/auth/facebook',require('./facebookLogin'));
 router.use('/auth/google',require('./googleLogin'));
+router.use('/activityLog',require('./activityLog'));
 router.use('/scrape',require('./authentication'),require('./webpageScrapper'));
 
 

@@ -13,6 +13,11 @@
       <div id="title" ng-click="openPopup(x)">{{x.title}}</div>
       <div id='notecontent' ng-bind-html="x.take_note" ng-click="openPopup(x)"></div>
 
+      <div ng-if="x.scrapeImageurl" class="scrapdiv">
+        <img ng-src={{x.scrapeImageurl}} style="height:56px;width:56px;" alt="no image" />
+        <span>{{x.scrapeTitle}}</span>
+        <a target="blank" href="{{x.scrapeLinkurl}}"><img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
+      </div>
 
       <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">
 
@@ -46,7 +51,9 @@
           </div></li>
           </ul>
         </div>
-        <img src="../image/unarchive.svg" ng-click="archiveNote(x._id,'false')" ng-mouseenter="coloricons=false" uib-tooltip="Unarchive" tooltip-placement="bottom" tooltip-append-to-body=true>
+        <img src="../image/unarchive.svg" ng-click="archiveNote(x._id,'unarchiveNote')" ng-mouseenter="coloricons=false" uib-tooltip="Unarchive" tooltip-placement="bottom" tooltip-append-to-body=true>
+
+        <!-- <img src="../image/unarchive.svg" ng-click="archiveNote(x._id,'false')" ng-mouseenter="coloricons=false" uib-tooltip="Unarchive" tooltip-placement="bottom" tooltip-append-to-body=true> -->
         <img src="../image/painticon.svg" ng-mouseover="coloricons=true" uib-tooltip="color" tooltip-placement="bottom" tooltip-append-to-body=true ng-mouseleave="deleteremicon = true">
       <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
         <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>

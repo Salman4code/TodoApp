@@ -2,23 +2,26 @@
  * User Schema
  * @path model/index.js
  * @file index.js
+ *@Scripted by Salman M Khan
  */
-// 'use strict';
-
+'use strict';
 /*
  * Module dependencies
  */
 
 
 var express = require('express');
-validators = require('mongoose-validators');
+var validators = require('mongoose-validators');
 var mongoose = require('../config').mongoose;
 var config = require('../config')
-// var hooks = require('hooks')
 var crypto = require('crypto');
-var jwt = require('jsonwebtoken');
-// used to create, sign, and verify tokens
+var jwt = require('jsonwebtoken');// used to create, sign, and verify tokens
 var Schema = mongoose.Schema;
+
+/**
+ * @schema userDetailSchema
+ * @description contain User details
+ */
 
 var userDetailSchema = Schema({
   email: {
@@ -28,23 +31,14 @@ var userDetailSchema = Schema({
   local: {
     userName: {
       type: String,
-      // required: true,
       validate: validators.isAlpha()
     },
-    // userEmail: {
-    //   type: String,
-    //   // required: true,
-    //   // unique: true,
-    //   validate: validators.isEmail()
-    // },
     userMobile: {
       type: Number,
-      // required: true,
       validate: validators.matches(/^[789]\d{9}$/)
     },
     userPassword: {
       type: String,
-      // required: true
     },
     croppedImage: {
       type: String
@@ -63,29 +57,33 @@ var userDetailSchema = Schema({
     googleId: String,
     displayName: String,
     picture: String
-    // email:String
   }
 
 });
 
-
+/**
+ * Register User
+ *
+ * @return {Error} err
+ * @return {User} user
+ * @api For signup
+ */
 userDetailSchema.statics.checkSignup = function(request, cb) {
-  // console.log("inside signup");
-  // console.log("from front end",request.body);
+
   var password = encrypt(request.body.password);
 
   User.findOne({
     'email': request.body.email
   }, function(err, existingUser) {
     if (existingUser) {
-      console.log("existingUser", existingUser.email);
+
       existingUser.local.userName = request.body.username,
         existingUser.local.userName = request.body.username,
         existingUser.local.userMobile = request.body.mobile,
         existingUser.local.userPassword = password
+
       existingUser.save(cb);
     } else {
-      console.log();
       var userdetail = new User({
         email: request.body.email,
         local: {
@@ -97,30 +95,20 @@ userDetailSchema.statics.checkSignup = function(request, cb) {
       });
 
       userdetail.save(cb);
-      console.log("executed");
     }
   })
-  // var password = encrypt(request.body.password);
-  // var userdetail = new this({
-  //   local: {
-  //     userName: request.body.username,
-  //     userEmail: request.body.email,
-  //     userMobile: request.body.mobile,
-  //     userPassword: password
-  //   }
-  //
-  // })
-  //
-  // userdetail.save(cb);
-  // console.log("executed");
-
 }
 
-
+/**
+ * Find `User` by its email
+ *
+ * @param {String} email
+ * @return {Error} err
+ * @return {User} user
+ * @api for login
+ */
 userDetailSchema.statics.checkLogin = function(request, cb) {
   var password = encrypt(request.password);
-  // console.log(password);
-  // console.log(request.email);
   userSchema.findOne({
     'email': request.email,
     'local.userPassword': password

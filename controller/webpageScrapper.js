@@ -8,6 +8,7 @@ var logger = require('winston');
 
 
 router.post('/', function(req, res) {
+  try {
   console.log("inside webpageScrapper1",req.body.url);
   var url=req.body.url;
   // url = 'http://timesofindia.indiatimes.com/india/govt-announces-30-smart-cities-thiruvanathapuram-tops-list/articleshow/59280576.cms';
@@ -67,10 +68,15 @@ router.post('/', function(req, res) {
         })
       }
     })
-    // res.send('Check your console!')
   })
 
-
+} catch (error) {
+  res.send({
+    "status": false,
+    "message": "server error"
+  })
+  logger.error(error)
+}
 
 })
 

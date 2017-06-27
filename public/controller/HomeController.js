@@ -1,7 +1,7 @@
 app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout,$auth, toastr, TodoService) {
   $scope.reminderdisplay = true;
   // $scope.isHidden = false;
-  var url;
+  $scope.activityLog=true;
   $scope.booleanvalue = true;
  $scope.trashDisplay=true;
   var user = [];
@@ -63,23 +63,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var url = "/userProfile";
     var action = "get";
     TodoService.app(url, action).then(function(response) {
-      console.log("checkuser", response);
-      // console.log(response.data.status);
-
       $rootScope.userProfile = response.data.userprofile;
       // console.log($rootScope.userProfile);
       if (response.data.status == true) {
         // $state.go('home');
-
         $scope.user = response.data.userprofile;
-        // console.log("profile", response.data.userprofile.facebook);
-        // $rootScope.getNote();
+        var hash=window.location.hash.split("/");
+        if (hash[1]=="activity") {
+          console.log("userActivity",response.data.userprofile._id);
+          $state.go('userActivity')
+          $rootScope.activityLogger(response.data.userprofile._id);
+        }
+
       } else {
         $state.go('login');
 
       }
     }).catch(function(error) {
-      console.log("error");
+      console.log(error);
     })
 
   }
@@ -90,12 +91,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/profilePopup.html',
       controller: 'profilepopupController',
-      // resolve: {
-      //   object: function() {
-      //
-      //   }
-      // }
-
     });
     modalInstance.result.catch(function(error) {
       console.log("err", error);
@@ -119,6 +114,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         this.id = notedata._id;
         this.date = notedata.updatedAt
         this.bgcolor = notedata.bgcolor;
+        this.scrapeImageurl=notedata.scrapeImageurl;
+        this.scrapeTitle=notedata.scrapeTitle;
+        this.scrapeLinkurl=notedata.scrapeLinkurl;
         this.updateNote = function() {
           console.log("update ok", notedata._id);
           updatedNoteData = {
@@ -183,6 +181,22 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         var noteArr = [];
         for (var i = data.data.note_data.length - 1; i >= 0; i--) {
           noteArr[noteArr.length] = data.data.note_data[i];
+          console.log(data.data.note_data[i].content);
+
+          $("#notecontent").append('<a href="' + data.data.note_data[i].content + '">' + text + '</a>');
+          // var mydiv = document.getElementById("notecontent");
+          // var aTag = document.createElement('a');
+          // aTag.setAttribute('href',"data.data.note_data[i].content");
+          // aTag.innerHTML = "link text";
+          // mydiv.appendChild(aTag);
+          // var a = document.createElement('a');
+          // var linkText = document.createTextNode("link");
+          // a.appendChild(linkText);
+          // a.title = "data.data.note_data[i].content";
+          // a.href = "data.data.note_data[i].content";
+          // document.body.appendChild(a);
+
+
           if (data.data.note_data[i].isPinned == true) {
             flag++;
           }
@@ -224,26 +238,34 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     console.log(title);
     console.log(content);
     // console.log("url",url);
-    var url =content.match(/\bhttps?:\/\/\S+/gi);
+
+    var scrapurl =content.match(/\bhttps?:\/\/\S+/gi);
+    console.log(scrapurl);
     // var a=url.replace("<div>","");
-    console.log("matches->",url);
+    // console.log("matches->",url);
 
     if (title == "" && content == "" || title == undefined && content == undefined) {
       return;
     }
-    if(url){
+    if(scrapurl){
       var noteobj = {
         title: title,
         content: content,
-        url:url
+        url:scrapurl
       }
-    }
-    else {
+    }else{
       var noteobj = {
         title: title,
         content: content
       }
     }
+    console.log(scrapurl,"anhsfhishuafluasj");
+    // else {
+    //   var noteobj = {
+    //     title: title,
+    //     content: content
+    //   }
+    // }
 
     var url = "/saveNote";
     var action = "POST";
@@ -302,7 +324,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       });
   }
 
-  // $scope.deleteNote = function(id,index,deleteNote,trashNote) {
   $scope.deleteNote = function(id,trashNote) {
 // console.log(trashNote);
     var url = "/deleteNote/" + id + "";
@@ -448,7 +469,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $scope.selectColor = function(color, note_id, ) {
+  $scope.selectColor = function(color, note_id) {
     console.log(color);
 
     var backgroundcolor = {
@@ -465,14 +486,18 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  $scope.archiveNote = function(note_id, archiveval, pinvalue) {
+  // $scope.archiveNote = function(note_id, archiveval, pinvalue) {
+  $scope.archiveNote = function(note_id, archiveNote) {
     var url = "/archive/" + note_id + "";
     var action = "POST";
 
-    var data = {
-      value: archiveval,
-      pin: pinvalue
-
+    // var data = {
+    //   value: archiveval,
+    //   pin: pinvalue
+    //
+    // }
+    var data={
+      archiveval:archiveNote
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);
@@ -485,14 +510,18 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
 
-  $scope.pinNote = function(note_id, pinval, archiveval) {
+  // $scope.pinNote = function(note_id, pinval, archiveval) {
+  $scope.pinNote = function(note_id, pinval) {
     console.log("inside pin function");
 
     var url = "/pinned/" + note_id + "";
     var action = "POST";
-    var data = {
-      value: pinval,
-      removearchive: archiveval
+    // var data = {
+    //   value: pinval,
+    //   removearchive: archiveval
+    // }
+    var data={
+      'pinValue':pinval
     }
     TodoService.app(url, action, data).then(function(data) {
       console.log(data.data.status);

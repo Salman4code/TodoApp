@@ -1,3 +1,13 @@
+/*
+* Get Note
+* @path controller/getNotes.js
+* @file changebgcolor.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
@@ -6,9 +16,8 @@ var logger = require('winston');
 
 
 router.post('/', function(request, response) {
-// console.log("get_datarequest",request.decoded._id);
+  try {
   userData.getData(request.decoded, function(err, result) {
-    // console.log("get_data",result[0]._id);
     if (err) {
       logger.info(err);
       response.send({
@@ -26,6 +35,10 @@ router.post('/', function(request, response) {
     }
 
   })
+} catch (error) {
+  logger.error(error)
+    response.send({"status":false,"message":error})
+}
 
 })
 

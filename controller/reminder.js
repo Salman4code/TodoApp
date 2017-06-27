@@ -1,22 +1,32 @@
+
+/*
+*  Set Reminder
+* @path controller/reminder.js
+* @file reminder.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
-
+//Api for set reminder
 router.post('/:id', function(request, response) {
-// console.log("reminder");
+try {
 
 var id = request.params.id;
 userData.reminder(id, request.body, function(err, result) {
-  // console.log("result",result);
   if (err) {
     response.send({
       "status": false,
       "message": err
     });
-      logger.error("reminder not set");
+      logger.error("reminder not set",err);
   } else if (result.nModified == 0) {
     response.send({
       "status": false,
@@ -27,7 +37,6 @@ userData.reminder(id, request.body, function(err, result) {
   else {
     response.send({
       "status": true,
-      // "message": result
       "message": "Reminder Set Successfully",
       "updateresult": result
     });
@@ -36,6 +45,14 @@ userData.reminder(id, request.body, function(err, result) {
 
 
 })
+} catch (error) {
+  response.send({
+    "status": false,
+    "message": "server error"
+  });
+    logger.error("reminder error",error);
+}
+
 })
 
 module.exports = router;

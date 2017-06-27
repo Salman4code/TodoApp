@@ -1,96 +1,88 @@
+/*
+* Login
+* @path controller/login.js
+* @file login.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var app = express();
 var router = express.Router();
-// var validator = require('express-validator');
-// app.use(validator());
 var logger = require('winston');
-
-
-var secretkey = require('../config').TOKEN_SECRET;
-// console.log("secretkey",secretkey);
+var secretkey = require('../config').TOKEN_SECRET; // secret variable
 var cookie = require('cookie-parser')
-var config=require('../config/error');
-// app.use(cookie1());
-// console.log(secretkey);
+var config = require('../config/error');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-// app.use(cookie());
-app.set('superSecret', secretkey); // secret variable
-// app.use(validator());
-
-
-login = require("../model");
+var login = require("../model");
 
 router.post('/', function(request, response) {
-  var result={};
-  result.status=false;
+  var result = {};
+  result.status = false;
   try {
-    // console.log("try1",config.validationSchema.login);
-   request.check(config.validationSchema.login);
-   request.getValidationResult().then(function(isValid) {
-    //  console.log("inside function");
-     try {
-      //  console.log("try2");
-       if (!isValid.isEmpty()) {
-        //  console.log("not empty");
-         var errors = request.validationErrors(); // isValid = isValid.useFirstErrorOnly();
-         throw errors[0].msg;
-       }
+    request.check(config.validationSchema.login);
+    request.getValidationResult().then(function(isValid) {
+      try {
+        if (!isValid.isEmpty()) {
+          var errors = request.validationErrors(); // isValid = isValid.useFirstErrorOnly();
+          throw errors[0].msg;
+        }
 
-  login.checkLogin(request.body, function(err, success) {
-    console.log("checklogin",success);
+        login.checkLogin(request.body, function(err, success) {
+          try {
+            if (success) {
+              token = jwt.sign({
+                _id: success._id
+              }, secretkey, {
+                expiresIn: 60 * 60 * 24 // expires in 24 hours
+              });
 
-    try {
-      console.log(success._id);
-      if (success) {
-        token = jwt.sign({_id: success._id},secretkey, {
-          expiresIn: 60 * 60 * 24 // expires in 24 hours
-        });
+              response.cookie("key", token);
 
-        response.cookie("key", token);
+              logger.info("Successfully login")
+              response.send({
+                "status": true,
+                "message": "Successfully login",
+                "token": token
+              });
+            } else {
 
-          logger.info("Successfully login")
-        response.send({
-          "status": true,
-          "message": "Successfully login",
-          "token": token
-        });
+              response.send({
+                "status": false,
+                "message": "Unauthorised User"
+              });
+              logger.error("Unauthorised User")
+            }
+          } catch (err) {
+            response.send({
+              "status": false,
+              "message": "Invalid Email or invalid Password",
+              "error": err
+            })
+            logger.error("Invalid Email or invalid Password", err)
+
+
+          }
+
+        })
+      } catch (err) {
+        if (!config.checkSystemErrors(err)) {
+          result.status = false;
+          result.message = err;
+        }
+        response.status(401).send(result);
+        return;
       }
-      else {
 
-        response.send({
-          "status": false,
-          "message": "Unauthorised User"
-        });
-          logger.error("Unauthorised User")
-      }
-    }
-    catch (e) {
-      response.send({
-        "status": false,
-        "message": "Invalid Email or invalid Password",
-        "exception":e
-      })
-      logger.error("Invalid Email or invalid Password")
-
-
-    }
-
-  })
-} catch (e) {
-    if (!config.checkSystemErrors(e)) {
-      result.status = false;
-      result.message = e;
-    }
-    response.status(401).send(result);
-    return;
+    })
+  } catch (err) {
+    response.send({
+      "status": false,
+      "message": "server error"
+    })
   }
-
-})
-}
-catch(e){
-  // console.log("last catch");
-  response.send({"status":false,"message":e})
-}
 
 })
 

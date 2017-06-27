@@ -1,24 +1,21 @@
+/*
+* userProfile
+* @path controller/userProfile.js
+* @file userProfile.js
+* @Scripted by Salman M Khan
+*/
+'use strict';
+/*
+* Module dependencies
+*/
 var express = require('express');
 var router = express.Router();
 var userModel = require("../model");
 var logger = require('winston');
 
-
-
-// router.get("/",function(request,response){
-//   if(request.headers.cookie===undefined)
-//   {
-//     response.send({"status":false,"message":"Please Login first"})
-//   }
-//   else
-//   response.send({"status":true,"message":"valid user"})
-// })
-
-
-
-
+//Api for user profile 
 router.get('/', function(request, response) {
-
+try {
   userModel.userProfile(request.decoded, function(err, user) {
     // console.log(request.decoded);
     if (user) {
@@ -34,12 +31,18 @@ router.get('/', function(request, response) {
         "status": "false",
         "message": "not found"
       });
-        logger.info("user not found")
+        logger.error("user not found")
     }
 
 
   })
-
+} catch (error) {
+  response.send({
+    "status": "false",
+    "message": "not found"
+  });
+    logger.error(error)
+}
 });
 
 module.exports = router;
