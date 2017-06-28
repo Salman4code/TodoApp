@@ -21,10 +21,12 @@ router.post('/', function(request, response) {
   var result={};
   result.status=false;
   try {
-    request.check(config.validationSchema.SignupValidation);
+    request.check(config.validationSchema.SignupValidation); //manually validate the user details using Valiadtion schema
     request.getValidationResult().then(function(isValid) {
+
       try {
         if (!isValid.isEmpty()) {
+          //if any error found throw error message
           var errors = request.validationErrors(); // isValid = isValid.useFirstErrorOnly();
           throw errors[0].msg;
         }

@@ -17,6 +17,7 @@ var logger = require('winston');
 router.post('/', function(request, response) {
 
   try {
+    //clearCookie in cookie session
     response.clearCookie("key");
     response.send({
       "status": true,

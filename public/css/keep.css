@@ -550,6 +550,28 @@ position: relative
   min-height:100px;
   min-width:200px;
 }
+.activityTitle{
+  padding: 6px;
+  display: block;
+  font-weight: 600;
+    font-size: larger;
+}
+.activityMessage{
+  padding: 7px;
+  display: block;
+  font-size:medium;
+}
+.activityTime{
+  display: block;
+  float: right;
+}
+.scrapeTitle{
+  font-size: 10px;
+}
+#link
+{
+  word-wrap: break-word;
+}
 @media(max-width:850px)
 {
     .searchtextbox

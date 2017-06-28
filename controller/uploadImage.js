@@ -17,12 +17,12 @@ var logger = require('winston');
 function upload(imagename, Image) {
 
   fs.writeFile('public/profilepicture/' + imagename, Image, {
-    encoding: 'base64'
+    encoding: 'base64'   // encode image using base64 encoding technic
   }, function(err) {
     if (err) {
-      console.log('error');
+      logger.err(err);
     } else {
-      console.log('File created');
+      logger.info("Image created for profile")
     }
   });
 }
@@ -30,18 +30,24 @@ function upload(imagename, Image) {
 //Api for uploading profile pic
 router.post('/:id', function(request, response) {
 try {
-  if (!fs.existsSync('public/profilepicture/'+request.params.id)){
+  if (!fs.existsSync('public/profilepicture/'+request.params.id)){ //if user directory is not available then create directory using userId
       fs.mkdirSync('public/profilepicture/'+request.params.id);
   }
 
-  var originalImage = request.body.Original.replace(/^data:image\/(png|jpeg);base64,/g, "");
-  var cropppedImage = request.body.image.replace(/^data:image\/(png|jpeg);base64,/g, "");
+  var originalImage = request.body.Original.replace(/^data:image\/(png|jpeg);base64,/g, ""); //replace unnecessary contain present in base64 image
+  var cropppedImage = request.body.image.replace(/^data:image\/(png|jpeg);base64,/g, "");////replace unnecessary contain present in base64 image
   var croppedimagename = request.params.id+"/croppedimage.png";
   var originalimagename = request.params.id+"/originalimage.jpeg";
-  upload(croppedimagename, cropppedImage);
-  upload(originalimagename, originalImage);
-  croppedimageurl ="profilepicture/"+croppedimagename;
-  originalimageurl="profilepicture/"+originalimagename;
+  // passing parameter to the upload function for conversion of base64 to normal image
+  upload(croppedimagename, cropppedImage); // passing parameter for croppedImage
+  upload(originalimagename, originalImage);// passing parameter for originalImage
+
+
+  croppedimageurl ="profilepicture/"+croppedimagename; //Creating croppedimageurl  for save in mongoDB
+
+  originalimageurl="profilepicture/"+originalimagename; //originalimageurl  for save in mongoDB
+
+  //creating imageurl Object for passing in the model
   var imageurl={
     "croppedimage":croppedimageurl,
     "originalimage":originalimageurl

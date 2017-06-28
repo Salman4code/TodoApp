@@ -117,7 +117,8 @@ else {
 }
   var loggerDetail = new activityLogger({
     userId: userId,
-    message: "New card added"
+    message: "New card added",
+    title:request.title
   });
   loggerDetail.save();
 }
@@ -155,7 +156,8 @@ noteSchema.statics.reminder = function(noteId, request, cb) {
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
-        'message': "Reminder set by user"
+        'message': "Reminder set by user",
+        title:note.title
       });
       loggerDetail.save();
     }
@@ -208,7 +210,8 @@ noteSchema.statics.updateNote = function(noteId, request, cb) {
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
-        'message': "Note updated by user"
+        'message': "Note updated by user",
+        title:note.title
       });
       loggerDetail.save();
     }
@@ -230,7 +233,8 @@ noteSchema.statics.deleteNote = function(noteId, request, cb) {
 
         var loggerDetail = new activityLogger({
          userId: userId,
-          message: "Note Deleted By user"
+          message: "Note Deleted By user",
+          title:note.title
         });
         loggerDetail.save();
 
@@ -241,7 +245,8 @@ noteSchema.statics.deleteNote = function(noteId, request, cb) {
 
       var loggerDetail = new activityLogger({
         userId: userId,
-        message: "Note restore By user"
+        message: "Note restore By user",
+        title:note.title
       });
         loggerDetail.save();
       } else {
@@ -267,7 +272,8 @@ noteSchema.statics.deleteReminder = function(noteId, cb) {
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
-        'message': "Reminder Deleted by user"
+        'message': "Reminder Deleted by user",
+        title:note.title
       });
       loggerDetail.save();
     }
@@ -284,7 +290,8 @@ noteSchema.statics.changeColor = function(noteId, request, cb) {
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
-        'message': "Note color changed by user"
+        'message': "Note color changed by user",
+        title:note.title
       });
       loggerDetail.save();
     }
@@ -302,7 +309,8 @@ noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
         note.save(cb);
         var loggerDetail = new activityLogger({
           userId:userId,
-          message: "Note Archived"
+          message: "Note Archived",
+          title:note.title
         });
         loggerDetail.save();
       } else {
@@ -311,24 +319,14 @@ noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
         note.save(cb);
         var loggerDetail = new activityLogger({
           userId:userId,
-          message: "Note UnArchived"
+          message: "Note UnArchived",
+          title:note.title
         });
         loggerDetail.save();
       }
     }
 
   })
-
-
-  // this.update({
-  //   _id: noteId
-  // }, {
-  //   $set: {
-  //     isArchived: booleanvalue.value,
-  //     isPinned: booleanvalue.pin
-  //   }
-  // }, cb);
-
 }
 
 noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
@@ -344,7 +342,8 @@ noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
         note.save(cb);
         var loggerDetail = new activityLogger({
           userId:userId,
-          message: "Note pinned"
+          message: "Note pinned",
+          title:note.title
         });
         loggerDetail.save();
       } else {
@@ -352,45 +351,41 @@ noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
         note.save(cb);
         var loggerDetail = new activityLogger({
           userId:userId,
-          message: "Note Unpin"
+          message: "Note Unpin",
+          title:note.title
         });
         loggerDetail.save();
       }
     }
 
   })
-  // this.update({
-  //   _id: noteId
-  // }, {
-  //   $set: {
-  //     isArchived: booleanvalue.removearchive,
-  //     isPinned: booleanvalue.value
-  //   }
-  // }, cb);
-
+}
+noteSchema.statics.removeScrapdata=function(noteId,cb){
+  this.findById({_id:noteId},function(err,note){
+    if(note){
+      note.scrapeLinkurl="";
+      note.scrapeTitle="";
+      note.scrapeImageurl="";
+      note.save(cb);
+      var loggerDetail = new activityLogger({
+        userId:note.userId,
+        message: "scrape remove by User",
+        title:note.title
+      });
+      loggerDetail.save();
+    }
+  })
 }
 noteSchema.statics.scrapeContent = function(data, request, cb) {
   console.log(data.url);
   console.log(request);
-  // this.update({
-  //   _id: noteId
-  // }, {
-  //   $set: {
-  //     scrapeLinkurl:data.url,
-  //     scrapeTitle: data.title,
-  //     scrapeImageurl: data.imageUrl
-  //   }
-  // },cb)
   var note_detail = new this({
     userId: request._id,
     scrapeLinkurl: data.url,
     scrapeTitle: data.title,
     scrapeImageurl: data.imageUrl
   })
-
   note_detail.save(cb);
-
-
 }
 
 

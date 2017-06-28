@@ -10,12 +10,13 @@
           <a id="textstyle" ng-show="!reminderdisplay">Reminder</a>
           <a id="textstyle" ng-show="!booleanvalue">Archive</a>
           <a id="textstyle" ng-show="!trashDisplay">Trash</a>
-          <a id="googlekeeptext" ng-show="booleanvalue && reminderdisplay && trashDisplay"><img id="google" src="image/google.svg" alt="Google"><span style="padding-left:10px;">Keep</span></a>
+          <a id="textstyle" ng-show="!activityLog">User Activity</a>
+          <a id="googlekeeptext" ng-show="booleanvalue && reminderdisplay && trashDisplay && activityLog"><img id="google" src="image/google.svg" alt="Google"><span style="padding-left:10px;">Keep</span></a>
           <!-- <a id="googlekeeptext" ng-show="booleanvalue"><img id="google" src="image/google.svg" alt="Google"><span style="padding-left:10px;">Keep</span></a> -->
 
         </div>
 
-        <input type="text" class="searchtextbox" placeholder="Search.." ng-style="archivesearchtextbox"></input>
+        <input type="text" class="searchtextbox" placeholder="Search.." ng-style="searchtextbox"></input>
 
 
         <span class="navicon">

@@ -31,7 +31,7 @@ function createJWT(user) {
 }
 
 
-
+//post call for API facebookLogin
 router.post('/', function(req, res) {
   try {
     var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'];
@@ -49,14 +49,11 @@ router.post('/', function(req, res) {
       qs: params,
       json: true
     }, function(err, response, accessToken) {
-      // console.log(response.statusCode);
-      // console.log(accessToken);
       if (response.statusCode !== 200) {
         return res.status(500).send({
           message: accessToken.error.message
         });
       }
-
       // Step 2. Retrieve profile information about the current user.
       request.get({
         url: graphApiUrl,
@@ -69,22 +66,26 @@ router.post('/', function(req, res) {
           });
         }
         if (req.header('Authorization')) {
+          //if Authorization is there then find user in schema using email id
           User.findOne({
             'email': profile.email
           }, function(err, existingUser) {
+            //if user already registered with facebook account to app and  send 409 status and message
             if (existingUser) {
               return res.status(409).send({
                 message: 'There is already a Facebook account that belongs to you'
               });
             }
-            var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, config.TOKEN_SECRET);
+            var token = req.header('Authorization').split(' ')[1]; // request Authorization code and store in token variable
+            var payload = jwt.decode(token, config.TOKEN_SECRET);// decode token with secretkey
+            // payload.sub contain userId of the registered user
             User.findById(payload.sub, function(err, user) {
               if (!user) {
                 return res.status(400).send({
                   message: 'User not found'
                 });
               }
+              //if user found then Retrieve data from fb and save
               user.facebookId = profile.id;
               user.facebook.picture = user.facebook.picture || 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
               user.facebook.displayName = user.facebook.displayName || profile.name;
@@ -103,10 +104,12 @@ router.post('/', function(req, res) {
         } else {
 
           // Step 3. Create a new user account or return an existing one.
+            //if Authorization code not present in header then find user in schema using email id
           User.findOne({
             'email': profile.email
 
           }, function(err, existingUser) {
+            //existingUser found then add facebook profile to registered user and save
             if (existingUser) {
               existingUser.facebook.facebookId = profile.id;
               existingUser.facebook.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
@@ -120,8 +123,8 @@ router.post('/', function(req, res) {
                   logger.error(err)
                 }
               })
-              var token = createJWT(existingUser);
-              res.cookie("key", token);
+              var token = createJWT(existingUser); // createJWT token for authentication via cookie
+              res.cookie("key", token);   //saving token in cookies
               logger.info("login successful with facebook account")
               return res.send({
                 token: token,
@@ -129,14 +132,15 @@ router.post('/', function(req, res) {
               });
 
             }
+            //if user is not registered with toApp the create new Account using facebook detail
             var user = new User();
             user.facebook.facebookId = profile.id;
             user.facebook.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
             user.facebook.displayName = profile.name;
             user.email = profile.email;
             user.save(function() {
-              var token = createJWT(user);
-              res.cookie("key", token);
+              var token = createJWT(user);// createJWT token for authentication via cookie
+              res.cookie("key", token);//saving token in cookies
               logger.info("Successfully registered with Facebook Acount")
               res.send({
                 token: token,

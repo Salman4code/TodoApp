@@ -1,38 +1,36 @@
-/*
-* Delete Note
-* @path controller/deleteNote.js
-* @file deleteNote.js
-* @Scripted by Salman M Khan
-*/
+/* @path controller/removeScrap.js
+ * @file removeScrap.js
+ * @Scripted by Salman M Khan
+ */
 'use strict';
 /*
-* Module dependencies
-*/
-
+ * Module dependencies
+ */
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
-//post call for API Delete note
+//post call for API get data from schema
+
 router.post('/:id', function(request, response) {
-  var id = request.params.id;
   try {
-    userData.deleteNote(id, request.body, function(err, result) {
-      console.log(result);
+    var id = request.params.id;
+    userData.removeScrapdata(id, function(err, result) {
       if (err) {
+        logger.info(err);
         response.send({
           "status": false,
           "message": err
         });
-        logger.error("Note not deleted")
+        logger.error("scrape error", err)
       } else {
         response.send({
           "status": true,
-          "message": result
+          "message": "success",
         });
-        logger.info("Note deleted Successfully")
+        logger.info("getnote Successfully done")
       }
 
     })

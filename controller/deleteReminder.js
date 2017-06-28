@@ -15,13 +15,11 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
-
+//post call for API deleteReminder
 router.post('/:id', function(request, response) {
 
-  // console.log("delete reminder call");
 try {
   userData.deleteReminder(request.params.id,function(err, result) {
-    // console.log(result);
     if (err) {
       response.send({
         "status": false,

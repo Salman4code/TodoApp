@@ -14,6 +14,7 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
+//post call for API get data from schema
 
 router.post('/', function(request, response) {
   try {

@@ -2,9 +2,9 @@
   <div ng-class="leavespace"></div>
   <div ng-class="allocatespace">
     <div ng-repeat="x in log | orderBy:'time':true" ng-class="boxsize">
-
-      <div>{{x.message}}</div>
-      <div>{{x.time |  date:'dd:MMM hh:mm a' }}</div>
+      <div class="activityTitle">Title:{{x.title}}</div>
+      <div class="activityMessage">{{x.message}}</div>
+      <div class="activityTime">{{x.time |  date:'dd:MMM hh:mm a' }}</div>
     </div>
   </div>
 </div>

@@ -22,7 +22,7 @@ app.controller('profilepopupController', function($scope, $rootScope,$uibModalIn
   $scope.setCropImage = function(CroppedImage) {
 
     var uploadimage = {
-      "imagename":$rootScope.userProfile.local.userName,
+      "imagename":$rootScope.userProfile.local.name,
       "Original":$scope.Original,
       "image": CroppedImage
     }

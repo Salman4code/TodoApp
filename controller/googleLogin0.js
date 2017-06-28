@@ -23,7 +23,7 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var logger = require('winston');
 
 
-function createJWT(user) { //jwt function for creating token using user._id
+function createJWT(user) {
   return jwt.sign({
     _id: user._id
   }, config.TOKEN_SECRET, {
@@ -42,7 +42,7 @@ router.post('/', function(req, res) {
     redirect_uri: req.body.redirectUri,
     grant_type: 'authorization_code'
   };
-
+  console.log(params);
   // Step 1. Exchange authorization code for access token.
   request.post(accessTokenUrl, {
     json: true,
@@ -59,15 +59,15 @@ router.post('/', function(req, res) {
       headers: headers,
       json: true
     }, function(err, response, profile) {
-      if (profile.error) { //if profile not found  send errorMessage
+      if (profile.error) {
         return res.status(500).send({
           message: profile.error.message
         });
       }
       // Step 3a. Link user accounts.
       if (req.header('Authorization')) {
-        //if header contain Authorization code then find user using google email id in schema of todoApp
         User.findOne({
+          // 'google.googleId': profile.sub
           'email': profile.email
         }, function(err, existingUser) {
           if (existingUser) {
@@ -75,25 +75,24 @@ router.post('/', function(req, res) {
               message: 'There is already a Google account that belongs to you'
             });
           }
-
-          var token = req.header('Authorization').split(' ')[1];// request Authorization code and store in token variable
-          var payload = jwt.decode(token, config.TOKEN_SECRET);// decode token with secretkey
-          // payload.sub contain userId of the registered user
+          var token = req.header('Authorization').split(' ')[1];
+          var payload = jwt.decode(token, config.TOKEN_SECRET);
           User.findById(payload.sub, function(err, user) {
             if (!user) {
               return res.status(400).send({
                 message: 'User not found'
               });
             }
-            //if user found in schema then save data of google profile
             user.google.googleId = profile.sub;
             user.google.picture = user.google.picture || profile.picture.replace('sz=50', 'sz=200');
             user.google.displayName = user.google.displayName || profile.name;
             user.email = profile.email;
+            console.log("gmail profile", profile);
             user.save(function() {
 
-              var token = createJWT(user);// createJWT token for authentication via cookie
-              res.cookie("key", token);//saving token in cookies
+              var token = createJWT(user);
+              console.log(token);
+              res.cookie("key", token);
               res.send({
                 message: "upper",
                 token: token
@@ -102,43 +101,45 @@ router.post('/', function(req, res) {
           });
         });
       } else {
+        console.log("in else of google");
 
         // Step 3b. Create a new user account or return an existing one.
         User.findOne({
+          // 'google.googleId': profile.sub
           'email': profile.email
         }, function(err, existingUser) {
-          //existingUser found then add google profile to registered user and save
           if (existingUser) {
+            console.log(existingUser.email);
             existingUser.google.googleId = profile.sub;
             existingUser.google.picture = profile.picture.replace('sz=50', 'sz=200');
             existingUser.google.displayName = profile.name;
             existingUser.save(function(err, result) {
               if (err) {
-                res.send({
-                  'status': false,
-                  'message': 'Data not saved'
-                });
-                logger.error(err)
+                console.log("error", err);
+              } else {
+                console.log("Successfully Saved");
               }
             })
-            var token = createJWT(user);// createJWT token for authentication via cookie
-            res.cookie("key", token);//saving token in cookies
+            var token = createJWT(existingUser);
+            res.cookie("key", token);
 
             return res.send({
               token: token,
               "message":"Google Data Saved Successfully"
             });
           }
-          //if user is not registered with toApp the create new Account using google detail
           var user = new User();
           user.google.googleId = profile.sub;
           user.google.picture = profile.picture.replace('sz=50', 'sz=200');
           user.google.displayName = profile.name;
           user.email = profile.email;
+          // console.log("gmail profile",profile);
 
           user.save(function(err, result) {
-            var token = createJWT(user);// createJWT token for authentication via cookie
-            res.cookie("key", token);//saving token in cookies
+            console.log("error", err, "result", result);
+            var token = createJWT(user);
+            res.cookie("key", token);
+
             res.send({
               message: "lower",
               token: token

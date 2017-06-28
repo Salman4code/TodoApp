@@ -5,14 +5,10 @@ app.controller('archiveController', ['$scope', '$controller', function($scope, $
   $scope.booleanvalue=false;
   console.log("archive");
 
-  // $scope.archive=function(){
-    $scope.navcolorbg={'background-color':'#607d8b'};
-    $scope.archivesearchtextbox={'background-color':'#7a929e'};
-    $scope.changeColor={'fill':'white'}
-    // $scope.archive=true;
-    // $scope.googlekeep=true;
-    // $scope.reminder=false;
-  // }
+    $scope.navcolorbg={'background-color':'#607d8b'}; // changing background-color of navigation bar
+    $scope.searchtextbox={'background-color':'#7a929e'};//changing background-color of search textbox
+    $scope.changeColor={'fill':'white'} // changing background-color of navigation icons
+
 
 
 

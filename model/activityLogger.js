@@ -28,6 +28,9 @@ var activityLoggerschema = Schema({
     type: Date,
     default: Date.now
   },
+  title:{
+    type:String
+  }
 });
 activityLoggerschema.pre('save', function(next) {
   // get the current date

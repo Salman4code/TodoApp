@@ -14,30 +14,33 @@ var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 var request = require('request');
-var cheerio = require('cheerio');
+var cheerio = require('cheerio');// using cheerio for scraping the web content for weblink
 
-//Api for adding card
-
+//Api for adding new note
 router.post('/', function(req, res) {
   var url = req.body;
   // console.log("check",url);
   try {
+    //check for url if its is undefined then else part will execute
     if (url.url != undefined) {
+
       for (var i = 0; i <url.url.length; i++) {
 // }
-      var demourl=url.url[i].split('<');
+      var demourl=url.url[i].split('<');// removing some tag from url link
       demourl=demourl[i];
-      request(demourl, function(error, response, html) {
+      request(demourl, function(error, response, html) { // request using url
+
         if (!error) {
+          //if successful response then use cheerio to load html
           var $ = cheerio.load(html);
-          var meta = $('meta')
-          var keys = Object.keys(meta)
-          // console.log(keys);
+          var meta = $('meta')  // definig meta variable to access the meta tag from website
+          var keys = Object.keys(meta) //Geting key of multiple meta present in website
+
           var ogImage;
           var ogTitle;
           var ogUrl;
 
-          keys.forEach(function(key) {
+          keys.forEach(function(key) { //using key find the property of meta and store in variable
             if (meta[key].attribs &&
               meta[key].attribs.property &&
               meta[key].attribs.property === 'og:title') {
@@ -45,7 +48,7 @@ router.post('/', function(req, res) {
             }
           });
 
-          keys.forEach(function(key) {
+          keys.forEach(function(key) { //using key find the property of meta and store in variable
             if (meta[key].attribs &&
               meta[key].attribs.property &&
               meta[key].attribs.property === 'og:image') {
@@ -53,7 +56,7 @@ router.post('/', function(req, res) {
             }
           });
 
-          keys.forEach(function(key) {
+          keys.forEach(function(key) { //using key find the property of meta and store in variable
             if (meta[key].attribs &&
               meta[key].attribs.property &&
               meta[key].attribs.property === 'og:url') {
@@ -61,9 +64,10 @@ router.post('/', function(req, res) {
             }
           });
 
-          console.log("Title", ogTitle);
-          console.log("imageurl", ogImage);
+          // console.log("Title", ogTitle);
+          // console.log("imageurl", ogImage);
         }
+        //craeting object to save data in schema and pass this object to model
         var obj = {
           'title': ogTitle,
           'imageUrl': ogImage,

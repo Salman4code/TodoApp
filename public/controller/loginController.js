@@ -28,7 +28,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
 
 
 
-  // $rootScope.checkUser();
+  $rootScope.checkUser();
 
 
   $scope.login = function() {

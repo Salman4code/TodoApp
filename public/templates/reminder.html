@@ -6,10 +6,12 @@
   <div ng-class="allocatespace">
     <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.reminder && !x.isTrashed" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" >
       <div id="pinicon">
-      <a id="pin" ng-if="x.isPinned" ng-click="pinNote(x._id,'false','false')">
+      <!-- <a id="pin" ng-if="x.isPinned" ng-click="pinNote(x._id,'false','false')"> -->
+      <a id="pin" ng-show="icons" ng-if="x.isPinned" ng-click="pinNote(x._id,'unpin')">
           <img src="../image/pinned.svg">
       </a>
-      <a id="pin" ng-show="!x.isPinned" ng-click="pinNote(x._id,'true',false)">
+      <!-- <a id="pin"  ng-click="pinNote(x._id,'true',false)"> -->
+      <a id="pin" ng-show="icons" ng-if="!x.isPinned" ng-click="pinNote(x._id,'pinned')">
         <img src="../image/pin.svg">
 
       </a>
@@ -17,10 +19,25 @@
       <div id="title" ng-click="openPopup(x)">{{x.title}}</div>
       <div id='notecontent' ng-bind-html="x.take_note" ng-click="openPopup(x)"></div>
 
+      <a id="link" target="blank" href="{{x.scrapeLinkurl}}">{{x.scrapeLinkurl}}</a>
       <div ng-if="x.scrapeImageurl" class="scrapdiv">
         <img ng-src={{x.scrapeImageurl}} style="height:56px;width:56px;" alt="no image" />
-        <span>{{x.scrapeTitle}}</span>
-        <a target="blank" href="{{x.scrapeLinkurl}}"><img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
+        <span class="scrapeTitle">{{x.scrapeTitle}}</span>
+        <a target="blank" id ="scrapurl" href="{{x.scrapeLinkurl}}">
+          <img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
+        <!-- <img  src="../image/more.svg" > -->
+
+        <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
+      <button id="btn-append-to-body" uib-dropdown-toggle>
+        <img src="../image/more.svg" id="btn-append-to-body" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true uib-dropdown-toggle></button>
+      <!-- <i type=button style="display:inline-block;" uib-dropdown-toggle ng-disabled="disabled">
+     <img src="../image/more.svg" ng-mouseenter="coloricons=false" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a>
+      </i> -->
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+        <li role="menuitem"><a ng-click='removeScrapcontent(x._id)'>Remove Url</a></li>
+      </ul>
+    </div>
+
       </div>
       <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">
 
@@ -57,9 +74,11 @@
         </div>
 
 
+        <img src="../image/archive.svg" ng-if=!x.isArchived ng-click="archiveNote(x._id,'archiveNote')" ng-mouseenter="coloricons=false" uib-tooltip="Archive" tooltip-placement="bottom" tooltip-append-to-body=true>
+        <!-- <img src="../image/archive.svg" ng-if=!x.isArchived ng-click="archiveNote(x._id,'true')" ng-mouseenter="coloricons=false" uib-tooltip="Archive" tooltip-placement="bottom" tooltip-append-to-body=true> -->
+        <!-- <img src="../image/unarchive.svg" ng-if=x.isArchived ng-click="archiveNote(x._id,'false')" ng-mouseenter="coloricons=false" uib-tooltip="Unarchive" tooltip-placement="bottom" tooltip-append-to-body=true> -->
+        <img src="../image/unarchive.svg" ng-if=x.isArchived ng-click="archiveNote(x._id,'unarchiveNote')" ng-mouseenter="coloricons=false" uib-tooltip="UnArchive" tooltip-placement="bottom" tooltip-append-to-body=true>
 
-        <img src="../image/archive.svg" ng-if=!x.isArchived ng-click="archiveNote(x._id,'true')" ng-mouseenter="coloricons=false" uib-tooltip="Archive" tooltip-placement="bottom" tooltip-append-to-body=true>
-        <img src="../image/unarchive.svg" ng-if=x.isArchived ng-click="archiveNote(x._id,'false')" ng-mouseenter="coloricons=false" uib-tooltip="Unarchive" tooltip-placement="bottom" tooltip-append-to-body=true>
         <img src="../image/painticon.svg" ng-mouseover="coloricons=true" uib-tooltip="color" tooltip-placement="bottom" tooltip-append-to-body=true ng-mouseleave="deleteremicon = true">
       <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
         <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>

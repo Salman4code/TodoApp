@@ -14,7 +14,7 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
-
+//API for readSinglenote for updation of data
 router.post('/:id', function(request, response) {
 
 try {

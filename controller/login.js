@@ -18,6 +18,8 @@ var config = require('../config/error');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var login = require("../model");
 
+
+//post call for API login
 router.post('/', function(request, response) {
   var result = {};
   result.status = false;
@@ -33,13 +35,14 @@ router.post('/', function(request, response) {
         login.checkLogin(request.body, function(err, success) {
           try {
             if (success) {
-              token = jwt.sign({
+              //if user data found and get proper result then create token and save in the cookies
+              var token = jwt.sign({
                 _id: success._id
               }, secretkey, {
                 expiresIn: 60 * 60 * 24 // expires in 24 hours
               });
 
-              response.cookie("key", token);
+              response.cookie("key", token); //saving token in the cookies
 
               logger.info("Successfully login")
               response.send({
@@ -56,6 +59,7 @@ router.post('/', function(request, response) {
               logger.error("Unauthorised User")
             }
           } catch (err) {
+            //if user is not registered using todoApp the send resoponse
             response.send({
               "status": false,
               "message": "Invalid Email or invalid Password",

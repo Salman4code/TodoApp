@@ -32,13 +32,11 @@ userData.reminder(id, request.body, function(err, result) {
       "status": false,
       "message": "Reminder not changed"
     });
-
   }
   else {
     response.send({
       "status": true,
       "message": "Reminder Set Successfully",
-      "updateresult": result
     });
     logger.info("Reminder Set Successfully")
   }
