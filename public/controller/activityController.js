@@ -1,7 +1,8 @@
-app.controller('activityController', ['$scope', '$controller', '$rootScope', 'TodoService', function($scope, $controller, $rootScope, TodoService) {
+app.controller('activityController', ['$scope', '$controller', '$rootScope', 'todoService', function($scope, $controller, $rootScope, todoService) {
   $controller('HomeController', {
     $scope: $scope
   })
+
   $scope.activityLog = false;
   $scope.navcolorbg = {
     'background-color': '#607d8b'
@@ -17,7 +18,7 @@ app.controller('activityController', ['$scope', '$controller', '$rootScope', 'To
     var url = "/activityLog/" + userId + "";
     var action = "POST";
 
-    var obj = TodoService.app(url, action);
+    var obj = todoService.app(url, action);
     obj.then(function(data) {
       $rootScope.log = data.data.activity;
     }).catch(function(error) {

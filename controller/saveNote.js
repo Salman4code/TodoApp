@@ -15,19 +15,27 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 var request = require('request');
 var cheerio = require('cheerio');// using cheerio for scraping the web content for weblink
-
+var getUrls = require("get-urls");
 //Api for adding new note
 router.post('/', function(req, res) {
+  // console.log(req.body.content);
+  // var l=getUrls(req.body.content);
+  // console.log("getUrls",l);
   var url = req.body;
   // console.log("check",url);
   try {
     //check for url if its is undefined then else part will execute
     if (url.url != undefined) {
-
-      for (var i = 0; i <url.url.length; i++) {
+      // console.log("from body",url.url);
+      var arr=[];
+      // for (var i = 0; i <url.url.length; i++) {
 // }
-      var demourl=url.url[i].split('<');// removing some tag from url link
-      demourl=demourl[i];
+          for (var i in url.url) {
+
+
+      // var demourl=url.url[i].split('<');// removing some tag from url link
+      var demourl=url.url[i];
+      // console.log("single Url",demourl);
       request(demourl, function(error, response, html) { // request using url
 
         if (!error) {
@@ -67,14 +75,20 @@ router.post('/', function(req, res) {
           // console.log("Title", ogTitle);
           // console.log("imageurl", ogImage);
         }
-        //craeting object to save data in schema and pass this object to model
+        //craeting object for sending data in model and pass this object to model
         var obj = {
-          'title': ogTitle,
-          'imageUrl': ogImage,
-          'url': ogUrl
+          'scrapeTitle': ogTitle,
+          'scrapeImageurl': ogImage,
+          'scrapeLinkurl': ogUrl
         };
+        arr.push(obj);
 
-        userData.saveNoteData(req.body, req.decoded, obj, function(err, result) {
+        console.log("var",i);
+        console.log("inside loop",arr.length);
+        if(arr.length-1==i){
+
+          console.log("inside if loop");
+        userData.saveNoteData(req.body, req.decoded, arr, function(err, result) {
 
           if (err) {
             res.send({
@@ -86,13 +100,38 @@ router.post('/', function(req, res) {
             res.send({
               "status": true,
               "message": result
+
             });
             logger.info("Note Created")
           }
 
         })
+        return;
+      }
+
+
       });
     }
+    console.log("arr",arr);
+    // userData.saveNoteData(req.body, req.decoded, obj, function(err, result) {
+    //
+    //   if (err) {
+    //     res.send({
+    //       "status": false,
+    //       "message": err
+    //     });
+    //     logger.error(err);
+    //   } else {
+    //     res.send({
+    //       "status": true,
+    //       // "message": result
+    //
+    //
+    //     });
+    //     logger.info("Note Created")
+    //   }
+    //
+    // })
     } else {
       var obj = undefined;
       userData.saveNoteData(req.body, req.decoded, obj, function(err, result) {

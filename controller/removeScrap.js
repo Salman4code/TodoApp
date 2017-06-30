@@ -16,8 +16,10 @@ var logger = require('winston');
 
 router.post('/:id', function(request, response) {
   try {
+    var scrapeId=request.body.scrapeId
     var id = request.params.id;
-    userData.removeScrapdata(id, function(err, result) {
+    userData.removeScrapdata(id,scrapeId,function(err, result) {
+      console.log(result);
       if (err) {
         logger.info(err);
         response.send({

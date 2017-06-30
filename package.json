@@ -15,6 +15,7 @@
     "cheerio": "^1.0.0-rc.1",
     "crypto": "0.0.3",
     "express-validator": "^3.2.0",
+    "get-urls": "^7.0.0",
     "hooks": "^0.3.2",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.10.3",

@@ -1,4 +1,4 @@
-app.controller('registrationController', function($scope, $location, $state, TodoService) {
+app.controller('registrationController', function($scope, $location, $state, todoService) {
   // $scope.message = 'Hello from registrationController';
   // $scope.email_regex = /[a-z0-9._-]+@[a-z]+\.+[a-z]{2,3}$/;
   // $scope.password = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -21,7 +21,7 @@ app.controller('registrationController', function($scope, $location, $state, Tod
     }
     var url = '/signup'
     var method = "post"
-    var obj = TodoService.app(url, method, userSignupdetail);
+    var obj = todoService.app(url, method, userSignupdetail);
     obj.then(function(data) {
       console.log(data.data.status);
       if (data.data.status == true) {

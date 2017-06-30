@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $rootScope, $state,$auth,$http,toastr,TodoService) {
+app.controller('loginController', function($scope, $rootScope, $state,$auth,$http,toastr,todoService) {
 
 
 
@@ -8,7 +8,7 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
     console.log("checkuser");
     var url = "/userProfile";
     var action = "get";
-    TodoService.app(url, action).then(function(response) {
+    todoService.app(url, action).then(function(response) {
       console.log(response);
       if (response.data.status == true) {
 
@@ -41,9 +41,9 @@ app.controller('loginController', function($scope, $rootScope, $state,$auth,$htt
     }
     var url='/login'
     var method="post"
-    var obj = TodoService.app(url,method,userlogin);
+    var obj = todoService.app(url,method,userlogin);
     obj.then(function(data) {
-      console.log("TodoService");
+      console.log("todoService");
       console.log(data.data.status);
       if (data.data.status == true) {
         $state.go('home');

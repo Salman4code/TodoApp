@@ -1,4 +1,4 @@
-app.controller('profilepopupController', function($scope, $rootScope,$uibModalInstance, TodoService) {
+app.controller('profilepopupController', function($scope, $rootScope,$uibModalInstance, todoService) {
 
 
   // $rootScope.userProfile.croppedImage
@@ -27,7 +27,7 @@ app.controller('profilepopupController', function($scope, $rootScope,$uibModalIn
       "image": CroppedImage
     }
 
-    TodoService.app('/uploadimage/'+$rootScope.userProfile._id+'', 'post', uploadimage).then(function(data) {
+    todoService.app('/uploadimage/'+$rootScope.userProfile._id+'', 'post', uploadimage).then(function(data) {
       console.log(data.data.status);
       // $rootScope.getNote();
       $uibModalInstance.dismiss('close');

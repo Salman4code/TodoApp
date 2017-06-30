@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, $auth, toastr, TodoService) {
+app.controller('HomeController', function($scope, $rootScope, $state, $location, $uibModal, $window, $timeout, $auth, toastr, todoService) {
   $scope.reminderdisplay = true;
   // $scope.isHidden = false;
   $scope.activityLog = true;
@@ -58,11 +58,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   //
   // 	}
 
+
+
   $rootScope.checkUser = function() {
     console.log("checkuser");
     var url = "/userProfile";
     var action = "get";
-    TodoService.app(url, action).then(function(response) {
+
+    todoService.app(url, action).then(function(response) {
       $rootScope.userProfile = response.data.userprofile;
       console.log(response.data.userProfile);
       if (response.data.status == true) {
@@ -81,6 +84,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       }
     }).catch(function(error) {
       console.log(error);
+      toastr.info(error);
     })
 
   }
@@ -95,6 +99,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     });
     modalInstance.result.catch(function(error) {
       console.log("err", error);
+      toastr.info(error);
       // $uibModalInstance.dismiss('close');
     });
   }
@@ -106,10 +111,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       controller: function($uibModalInstance) {
 
         var $ctrl = this;
-        console.log(notedata._id);
-        console.log(notedata.title)
-        console.log("color", notedata.bgcolor);
-        console.log("date", notedata.updatedAt);
         this.title = notedata.title;
         this.content = notedata.content;
         this.id = notedata._id;
@@ -126,18 +127,20 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
           }
           var url = "/updateNote/" + this.id + "";
           var action = "POST";
-          var obj = TodoService.app(url, action, updatedNoteData);
+          var obj = todoService.app(url, action, updatedNoteData);
           obj.then(function(data) {
-            console.log(data.data.status);
             if (data.data.status == true) {
               console.log(data.data.message);
+              toastr.info(data.data.message)
               $rootScope.getNote();
             } else {
               console.log(data.data.message);
+              toastr.error(data.data.message)
             }
 
           }).catch(function(error) {
             console.log("error");
+            toastr.error(error)
           })
 
 
@@ -172,7 +175,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var url = "/getNotes";
     var action = "POST";
 
-    var obj = TodoService.app(url, action);
+    var obj = todoService.app(url, action);
     obj.then(function(data) {
       console.log("notedata", data);
       if (data.data.status == true) {
@@ -217,10 +220,12 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         $scope.records = noteArr;
       } else {
         console.log(data.data.message);
+        toastr.error(data.data.message)
       }
 
     }).catch(function(error) {
       console.log("error");
+      toastr.error(error)
     })
 
   }
@@ -234,17 +239,23 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
     var title = $scope.title;
     var content = $scope.content;
-    // console.log(title);
-    // console.log(content);
-
-    var scrapurl = content.match(/\bhttps?:\/\/\S+/gi);
-    console.log(scrapurl);
-    // var a=url.replace("<div>","");
-    // console.log("matches->",url);
 
     if (title == "" && content == "" || title == undefined && content == undefined) {
       return;
     }
+
+    var arr=[];
+    var data=content.replace(/(<div>)|(<\/div>)|(<br>)/g," ");
+    console.log("asjhdfghjsaf",data);
+    // for (var i = 0; i < data.length; i++) {
+      var scrapurl=data.match(/\bhttps?:\/\/\S+/gi);
+    // }
+    console.log("new arr",scrapurl);
+    // var d=data.match(/\bhttps?:\/\/\S+/gi);
+    // console.log(d);
+    // var scrapurl = content.match(/\bhttps?:\/\/\S+/gi);
+    console.log(scrapurl);
+
     if (scrapurl) {
       var noteobj = {
         title: title,
@@ -259,18 +270,21 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     }
     var url = "/saveNote";
     var action = "POST";
-    var obj = TodoService.app(url, action, noteobj);
+    var obj = todoService.app(url, action, noteobj);
     obj.then(function(data) {
       if (data.data.status == true) {
         $scope.title = "";
         $scope.content = "";
         $rootScope.getNote();
+        toastr.info(data.data.message)
       } else {
-        console.log(data.data.message);
+        // console.log(data.data.message);
+        toastr.error(data.data.message)
       }
 
     }).catch(function(error) {
-      console.log("error");
+      // console.log("error");
+      toastr.error(error)
     })
   }
 
@@ -278,16 +292,19 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.copyNote = function(notedata) {
     var url = "/saveNote";
     var action = "POST";
-    var obj = TodoService.app(url, action, notedata);
+    var obj = todoService.app(url, action, notedata);
     obj.then(function(data) {
       if (data.data.status == true) {
         $rootScope.getNote();
+        toastr.info(data.data.message)
       } else {
-        console.log(data.data.message);
+        // console.log(data.data.message);
+        toastr.error(data.data.message)
       }
 
     }).catch(function(error) {
-      console.log("error");
+      // console.log("error");
+      toastr.error(data.data.message)
     })
 
   }
@@ -296,12 +313,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.logout = function() {
     var url = "/logout";
     var action = "POST";
-    TodoService.app(url, action).then(function(data) {
+    todoService.app(url, action).then(function(data) {
       if (data.data.status = true) {
         $state.go('login');
+        // toastr.info("logout Successfully")
       }
     }).catch(function(error) {
-      console.log(error);
+      // console.log(error);
+      toastr.error(error);
     })
     //use for logout the social login
     if (!$auth.isAuthenticated()) {
@@ -321,15 +340,16 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var obj = {
       'noteValue': trashNote
     }
-    TodoService.app(url, action, obj).then(function(data) {
+    todoService.app(url, action, obj).then(function(data) {
       if (data.data.status == true) {
-        toastr.info('note deleted');
+        toastr.info('Note Trashed Successfully');
         $rootScope.getNote();
       } else {
         toastr.error(data.data.message);
       }
     }).catch(function(error) {
-      console.log(error);
+      // console.log(error);
+      toastr.error(error)
     })
   }
 
@@ -415,16 +435,19 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     };
     var url = "/reminder/" + id + "";
     var action = "POST";
-    var obj = TodoService.app(url, action, data);
+    var obj = todoService.app(url, action, data);
     obj.then(function(data) {
       if (data.data.status == true) {
         $rootScope.getNote();
+        toastr.info(data.data.message)
       } else {
-        console.log(data.data.status);
+        // console.log(data.data.status);
+        toastr.error(data.data.message)
         return;
       }
     }).catch(function(error) {
-      console.log("error");
+      // console.log("error");
+      toastr.error(error)
     })
 
   }
@@ -432,13 +455,17 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $scope.deleteReminder = function(note_id) {
     var url = "/deleteReminder/" + note_id + "";
     var action = "POST";
-    TodoService.app(url, action).then(function(data) {
+    todoService.app(url, action).then(function(data) {
       if(data.data.status==true){
-        toastr.info('Reminder Deleted');
+        toastr.info(data.data.message);
         $rootScope.getNote();
       }
+      else {
+        toastr.error(data.data.message)
+      }
     }).catch(function(error) {
-      console.log(error);
+      // console.log(error);
+      toastr.error(error)
     })
 
   }
@@ -449,12 +476,16 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     };
     var url = "/changebgcolor/" + note_id + "";
     var action = "POST";
-    TodoService.app(url, action, backgroundcolor).then(function(data) {
+    todoService.app(url, action, backgroundcolor).then(function(data) {
       if(data.data.status==true){
         $rootScope.getNote();
       }
+      else {
+        toastr.error(data.data.message)
+      }
     }).catch(function(error) {
-      console.log(error);
+      // console.log(error);
+      toastr.error(error)
     })
 
   }
@@ -465,9 +496,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var data = {
       archiveval: archiveNote
     }
-    TodoService.app(url, action, data).then(function(data) {
+    todoService.app(url, action, data).then(function(data) {
       if(data.data.status==true){
-        toastr.info('Note Archieved Successfully');
+        toastr.info('Note '+archiveNote+'Successfully');
         $rootScope.getNote();
       }
 
@@ -477,11 +508,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
     //function for removing scrape content from note
-  $scope.removeScrapcontent = function(noteId) {
+  $scope.removeScrapcontent = function(noteId,scrape) {
     var url = "/removeScrapcontent/" + noteId;
     action = "post";
-    console.log(noteId);
-    TodoService.app(url, action).then(function(data) {
+    var data={
+      scrapeId:scrape._id
+    }
+    console.log(scrape);
+    todoService.app(url, action,data).then(function(data) {
       if(data.data.status==true){
         // toastr.info('Note Pinned Successfully');
         $rootScope.getNote();
@@ -499,7 +533,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     var data = {
       'pinValue': pinval
     }
-    TodoService.app(url, action, data).then(function(data) {
+    todoService.app(url, action, data).then(function(data) {
       if(data.data.status==true){
         // toastr.info('Note Pinned Successfully');
         $rootScope.getNote();
@@ -509,11 +543,11 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
 
-
+  //function for sharing note on facebook
   $scope.facebookshare = function(todo) {
     console.log("facebook share")
     FB.init({
-      appId: '463897587277156',
+      appId: '463897587277156', //facebook client Id
       status: true,
       xfbml: true
     });
@@ -525,7 +559,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
             // your url to share
             'og:title': todo.title,
             'og:description': todo.content,
-            /*'og:image': 'http://example.com/link/to/your/image.jpg'*/
+            'og:image': todo.scrapeImageurl
           }
         })
       },
@@ -538,86 +572,5 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
           alert('Something went error.');
         }
       });
-
   };
-
-
-
-  // $(window).on("load",function(){
-  // $(document).ready(function(){
-  // // function extractUrl(){
-  //    links = [];
-  //   var comment = $('#comment');
-  //   $('#content').keyup(function () {
-  //       checkForLinks($(this));
-  //   }).blur(function () {
-  //       checkForLinks($(this), true);
-  //   });
-  //   // });
-  //   function checkForLinks(elem, isBlur) {
-  //       var text = elem.html();
-  //       var urlCheckString = '((?:http[s]?:\\/\\/(?:www\\.)?|www\\.){1}(?:[0-9A-Za-z\\-%_]+\\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:/[0-9A-Za-z\\-\\.%_]*)+)?(?:\\?(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?(?:&amp;(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?)*)?(?:#[0-9A-Za-z\\-\\.%_\\+=\\?&;]*)?)'; //full url
-  //       if (isBlur) {
-  //           var regex = new RegExp(urlCheckString, 'gi');
-  //       } else {
-  //           var regex = new RegExp(urlCheckString + '(?!<br>)[^0-9A-Za-z\-\.%_\+\/=&\?;#]', 'gi');
-  //       }
-  //
-  //       //console.log("Text: " + text);
-  //       var newText = text;
-  //       // newText = newText.replace(new RegExp('<p class="link">([^<]*)</p>', 'gi'), '$1');
-  //       // newText = newText.replace(new RegExp('<p class="link">([^<]*<br>[^<]*)</p>', 'gi'), '$1');
-  //       newText = newText.replace(new RegExp('<p></p>', 'gi'), '');
-  //       newText = newText.replace(new RegExp('<a[^>]*>([^<]*)</a>', 'gi'), '$1'); //change back the IE	autochange
-  //       // console.log("newText: " + newText);
-  //
-  //       newText = newText.replace(regex, function (match, link, offset, string) {
-  //           var trailingChar = match.substr(link.length);
-  //           if (!links[link]) {
-  //               links[link] = link;
-  //               linkDetected(link);
-  //                 // $scope.linkDetected(link);
-  //
-  //           }
-  //           // return;
-  //           console.log(link);
-  //           return '<p class="link">' + link + '</p>' + trailingChar;
-  //       });
-  //
-  //       //console.log("newTextafter: " + newText);
-  //       if (text.localeCompare(newText) != 0) {
-  //           elem.html(newText);
-  //       }
-  //   }
-
-
-  // function linkDetected(linkString) {
-  // $scope.linkDetected=function(linkString) {
-
-  // console.log(linkString);
-  // var url = "/scrape";
-  // var action = "post";
-  // var data = {
-  //   url: linkString
-  // };
-  // var obj = TodoService.app(url,action,data);
-  // obj.then(function(data) {
-  //   console.log("linkDetected",data.data.status);
-  //   if (data.data.status == true) {
-  //     $scope.title = "";
-  //     $scope.content = "";
-  //     console.log(data.data.message);
-  //     $rootScope.getNote();
-  //   } else {
-  //     console.log(data.data.message);
-  //   }
-  //
-  // }).catch(function(error) {
-  //   console.log("error");
-  // })
-  // }
-
-  // });
-  // }
-
 });

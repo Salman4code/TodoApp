@@ -17,17 +17,17 @@ var Schema = mongoose.Schema;
  * @description contain note details
  */
 var noteSchema = Schema({
-  // scrap:[{
-  //   scrapeLinkurl: {
-  //     type: String
-  //   },
-  //   scrapeTitle: {
-  //     type: String
-  //   },
-  //   scrapeImageurl: {
-  //     type: String
-  //   }
-  // }],
+  scrape: [{
+    scrapeLinkurl: {
+      type: String
+    },
+    scrapeTitle: {
+      type: String
+    },
+    scrapeImageurl: {
+      type: String
+    }
+  }],
   userId: {
     type: String
   },
@@ -52,15 +52,15 @@ var noteSchema = Schema({
     type: String,
     // default:white
   },
-  scrapeLinkurl: {
-    type: String
-  },
-  scrapeTitle: {
-    type: String
-  },
-  scrapeImageurl: {
-    type: String
-  },
+  // scrapeLinkurl: {
+  //   type: String
+  // },
+  // scrapeTitle: {
+  //   type: String
+  // },
+  // scrapeImageurl: {
+  //   type: String
+  // },
   isArchived: {
     type: Boolean,
     default: false
@@ -77,8 +77,7 @@ var noteSchema = Schema({
     type: Boolean,
     default: false
   }
-}
-);
+});
 
 /**
  * Save Note
@@ -89,36 +88,32 @@ var noteSchema = Schema({
  */
 
 noteSchema.statics.saveNoteData = function(request, userId, data, cb) {
-console.log("modal",data);
-if(data==undefined)
-{
-  console.log("normal");
-  var note_detail = new this({
-    userId: userId._id,
-    title: request.title,
-    content: request.content
-  })
-  //sending callback to controller
-  note_detail.save(cb);
+  console.log("modal", data);
+  if (data === undefined) {
+    console.log("normal");
+    var noteDetail = new this({
+      userId: userId._id,
+      title: request.title,
+      content: request.content
+    })
+    //sending callback to controller
+    noteDetail.save(cb);
 
-}
-else {
-  console.log("url");
-  var note_detail = new this({
-    userId: userId._id,
-    title: request.title,
-    content: request.content,
-    scrapeLinkurl: data.url,
-    scrapeTitle: data.title,
-    scrapeImageurl: data.imageUrl
-  })
-  //sending callback to controller
-  note_detail.save(cb);
-}
+  } else {
+    console.log("url");
+    var noteDetail = new this({
+      userId: userId._id,
+      title: request.title,
+      content: request.content,
+      scrape: data
+    })
+    //sending callback to controller
+    noteDetail.save(cb);
+  }
   var loggerDetail = new activityLogger({
     userId: userId,
     message: "New card added",
-    title:request.title
+    title: request.title
   });
   loggerDetail.save();
 }
@@ -148,16 +143,16 @@ noteSchema.pre('save', function(next) {
 noteSchema.statics.reminder = function(noteId, request, cb) {
   this.findById({
     _id: noteId
-  }, function(err,note) {
+  }, function(err, note) {
     if (note) {
       var userId = note.userId;
-      note.reminder=request.reminder;
+      note.reminder = request.reminder;
       //sending callback to controller
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
         'message': "Reminder set by user",
-        title:note.title
+        title: note.title
       });
       loggerDetail.save();
     }
@@ -202,22 +197,30 @@ noteSchema.statics.readSingleNote = function(noteId, cb) {
 noteSchema.statics.updateNote = function(noteId, request, cb) {
   this.findById({
     _id: noteId
-  }, function(err,note) {
+  }, function(err, note) {
     if (note) {
-       var userId = note.userId;
-      note.title=request.title;
-      note.content= request.content;
+      var userId = note.userId;
+      note.title = request.title;
+      note.content = request.content;
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
         'message': "Note updated by user",
-        title:note.title
+        title: note.title
       });
       loggerDetail.save();
     }
   });
-  }
+}
 
+/**
+ * noteSchema - description
+ *
+ * @param  {type} noteId  contain noteId of note
+ * @param  {type} request description
+ * @param  {type} cb      description
+ * @return {type}         description
+ */
 noteSchema.statics.deleteNote = function(noteId, request, cb) {
 
   this.findById({
@@ -226,101 +229,126 @@ noteSchema.statics.deleteNote = function(noteId, request, cb) {
     if (note) {
       var userId = note.userId;
       if (request.noteValue == 'trashNote') {
-          note.isDeleted=false,
-          note.isTrashed=true,
-          note.isPinned=false
+        note.isDeleted = false,
+          note.isTrashed = true,
+          note.isPinned = false
         note.save(cb);
 
         var loggerDetail = new activityLogger({
-         userId: userId,
+          userId: userId,
           message: "Note Deleted By user",
-          title:note.title
+          title: note.title
         });
         loggerDetail.save();
 
       } else if (request.noteValue == 'restore') {
-        note.isDeleted=false,
-        note.isTrashed=false,
-        note.save(cb);
+        note.isDeleted = false,
+          note.isTrashed = false,
+          note.save(cb);
 
-      var loggerDetail = new activityLogger({
-        userId: userId,
-        message: "Note restore By user",
-        title:note.title
-      });
+        var loggerDetail = new activityLogger({
+          userId: userId,
+          message: "Note restore By user",
+          title: note.title
+        });
         loggerDetail.save();
       } else {
-        this.remove({
+        note.remove({
           _id: noteId
         }, cb);
 
       }
-    }
-    else {
-      cb("note not found",null)
+    } else {
+      cb("note not found", null)
     }
   })
 }
+
+/**
+ * noteSchema - description
+ *
+ * @param  {type} noteId description
+ * @param  {type} cb     description
+ * @return {type}        description
+ */
 noteSchema.statics.deleteReminder = function(noteId, cb) {
 
   this.findById({
     _id: noteId
-  }, function(err,note) {
+  }, function(err, note) {
     if (note) {
       var userId = note.userId;
-      note.reminder="";
+      note.reminder = "";
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
         'message': "Reminder Deleted by user",
-        title:note.title
+        title: note.title
       });
       loggerDetail.save();
     }
   });
 }
+
+/**
+ * noteSchema - description
+ *
+ * @param  {type} noteId  description
+ * @param  {type} request description
+ * @param  {type} cb      description
+ * @return {type}         description
+ */
 noteSchema.statics.changeColor = function(noteId, request, cb) {
 
   this.findById({
     _id: noteId
   }, function(err, note) {
     if (note) {
-    var userId = note.userId;
-      note.bgcolor=request.bgcolor;
+      var userId = note.userId;
+      note.bgcolor = request.bgcolor;
       note.save(cb);
       var loggerDetail = new activityLogger({
         userId: userId,
         'message': "Note color changed by user",
-        title:note.title
+        title: note.title
       });
       loggerDetail.save();
     }
   });
 }
+
+/**
+ * noteSchema - description
+ *
+ * @param  {type} noteId       description
+ * @param  {type} booleanvalue description
+ * @param  {type} cb           description
+ * @return {type}              description
+ */
 noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
   this.findById({
-    _id:noteId
-  },function (err,note) {
-    if(note){
+    _id: noteId
+  }, function(err, note) {
+    if (note) {
       var userId = note.userId;
       if (booleanvalue.archiveval == 'archiveNote') {
-        note.isArchived=true,
-        note.isPinned=false
+        note.isArchived = true,
+          note.isPinned = false
         note.save(cb);
         var loggerDetail = new activityLogger({
-          userId:userId,
+          userId: userId,
           message: "Note Archived",
-          title:note.title
+          title: note.title
         });
         loggerDetail.save();
       } else {
-        note.isArchived=false;
-        note.isPinned=false;
+        note.isArchived = false;
+        note.isPinned = false;
         note.save(cb);
         var loggerDetail = new activityLogger({
-          userId:userId,
+          userId: userId,
           message: "Note UnArchived",
-          title:note.title
+          title: note.title
         });
         loggerDetail.save();
       }
@@ -329,30 +357,38 @@ noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
   })
 }
 
+/**
+ * noteSchema - description
+ *
+ * @param  {type} noteId       description
+ * @param  {type} booleanvalue description
+ * @param  {type} cb           description
+ * @return {type}              description
+ */
 noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
   console.log(booleanvalue.pinValue);
   this.findById({
-    _id:noteId
-  },function (err,note) {
-    if(note){
+    _id: noteId
+  }, function(err, note) {
+    if (note) {
       var userId = note.userId;
       if (booleanvalue.pinValue == 'pinned') {
-        note.isArchived=false,
-        note.isPinned=true
+        note.isArchived = false,
+          note.isPinned = true
         note.save(cb);
         var loggerDetail = new activityLogger({
-          userId:userId,
+          userId: userId,
           message: "Note pinned",
-          title:note.title
+          title: note.title
         });
         loggerDetail.save();
       } else {
-        note.isPinned=false;
+        note.isPinned = false;
         note.save(cb);
         var loggerDetail = new activityLogger({
-          userId:userId,
+          userId: userId,
           message: "Note Unpin",
-          title:note.title
+          title: note.title
         });
         loggerDetail.save();
       }
@@ -360,22 +396,56 @@ noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
 
   })
 }
-noteSchema.statics.removeScrapdata=function(noteId,cb){
-  this.findById({_id:noteId},function(err,note){
-    if(note){
-      note.scrapeLinkurl="";
-      note.scrapeTitle="";
-      note.scrapeImageurl="";
-      note.save(cb);
-      var loggerDetail = new activityLogger({
-        userId:note.userId,
-        message: "scrape remove by User",
-        title:note.title
-      });
-      loggerDetail.save();
+
+/**
+ * noteSchema - description
+ *
+ * @param  {object} noteId description
+ * @param  {type} cb     description
+ * @return {type}        description
+ */
+noteSchema.statics.removeScrapdata = function(noteId, scrapeId, cb) {
+  // this.findById({
+  //     _id: noteId
+  //   },
+  //   function(err, note) {
+  //     if (note) {
+  //       note.update({
+  //         _id: noteId
+  //       }, {
+  //         $pull: {
+  //           'scrape': {
+  //             _id: scrapeId
+  //           }
+  //         }
+  //       }, cb);
+  this.findOneAndUpdate({
+    _id: noteId
+  }, {
+    $pull: {
+      'scrape': {
+        _id: scrapeId
+      }
     }
-  })
+  }, cb);
+        // note.scrape.scrapeLinkurl = "";
+        // note.scrape.scrapeTitle = "";
+        // note.scrape.scrapeImageurl = "";
+        // note.save(cb);
+        // var loggerDetail = new activityLogger({
+        //   userId: note.userId,
+        //   message: "scrape remove by User",
+        //   title: note.title
+        // });
+        // loggerDetail.save();
+    //   }
+    // })
+
+
+
 }
+
+
 noteSchema.statics.scrapeContent = function(data, request, cb) {
   console.log(data.url);
   console.log(request);

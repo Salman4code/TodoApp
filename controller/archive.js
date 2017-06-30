@@ -16,11 +16,30 @@ var logger = require('winston');
 
 
 //post call for API archive
+
+/**
+ * router - description
+ *
+ * @param  {params} '/:id'            id contain noteId
+ * @param  {object} function(request  contain object having archive and unarchive value to perform operation in schema
+ * @param  {type} response            response give
+ * @return {type}                  description
+ */
 router.post('/:id', function(request, response) {
 
   try {
     var id = request.params.id;
     var data = request.body;
+
+    /**
+     * userData - description
+     *
+     * @param  {String} id           noteId
+     * @param  {Object} data         Object having archive and archive value fto perform operation in schema
+     * @param  {type} function(err    calllback error from model
+     * @param  {type} result       
+     * @return {type}              description
+     */
     userData.archiveNote(id, data, function(err, result) {
       if (err) {
         response.send({

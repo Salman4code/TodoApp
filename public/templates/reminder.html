@@ -6,11 +6,9 @@
   <div ng-class="allocatespace">
     <div style="background-color:{{x.bgcolor}}" ng-repeat="x in records | filter:search as results track by $index" ng-if="x.reminder && !x.isTrashed" ng-mouseover="icons=true" ng-mouseleave="icons = false;coloricons=false" ng-class="boxsize" >
       <div id="pinicon">
-      <!-- <a id="pin" ng-if="x.isPinned" ng-click="pinNote(x._id,'false','false')"> -->
       <a id="pin" ng-show="icons" ng-if="x.isPinned" ng-click="pinNote(x._id,'unpin')">
           <img src="../image/pinned.svg">
       </a>
-      <!-- <a id="pin"  ng-click="pinNote(x._id,'true',false)"> -->
       <a id="pin" ng-show="icons" ng-if="!x.isPinned" ng-click="pinNote(x._id,'pinned')">
         <img src="../image/pin.svg">
 
@@ -44,7 +42,6 @@
         <a ng-click="selectColor(y.color,x._id)" ng-repeat="y in color" >
           <li class="btn-group" id="colordiv" style="background-color:{{y.color}};"  uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom">
             <img ng-if="y.color=='#ffffff'" src="image/Checkmark.png" ></li>
-          <!-- <img ng-src="{{y.imgpath}}" uib-tooltip="{{y.tooltip}}" tooltip-placement="bottom"> -->
         </a>
 
       </div>
