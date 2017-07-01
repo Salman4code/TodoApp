@@ -1,4 +1,5 @@
 
+
 <div class="row" ng-class="changeview">
   <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8"> -->
@@ -14,11 +15,14 @@
       <div id="title" ng-click="openPopup(x)">{{x.title}}</div>
       <div id='notecontent' ng-bind-html="x.content" ng-click="openPopup(x)"></div>
 
-      <a id="link" target="blank" href="{{x.scrapeLinkurl}}">{{x.scrapeLinkurl}}</a>
-      <div ng-if="x.scrapeImageurl" class="scrapdiv">
-        <img ng-src={{x.scrapeImageurl}} style="height:56px;width:56px;" alt="no image" />
-        <span class="scrapeTitle">{{x.scrapeTitle}}</span>
-        <a target="blank" id ="scrapurl" href="{{x.scrapeLinkurl}}">
+      <div ng-if="x.scrape" ng-repeat="z in x.scrape" >
+          <a id="link" target="blank" href="{{z.scrapeLinkurl}}">{{z.scrapeLinkurl}}</a>
+      </div>
+
+      <div ng-if="x.scrape" ng-repeat="z in x.scrape" class="scrapdiv">
+        <img ng-src={{z.scrapeImageurl}} style="height:56px;width:56px;" alt="no image" />
+        <span class="scrapeTitle">{{z.scrapeTitle}}</span>
+        <a target="blank" id ="scrapurl" href="{{z.scrapeLinkurl}}">
           <img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
         <!-- <img  src="../image/more.svg" > -->
 
@@ -29,7 +33,7 @@
      <img src="../image/more.svg" ng-mouseenter="coloricons=false" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a>
       </i> -->
       <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-        <li role="menuitem"><a ng-click='removeScrapcontent(x._id)'>Remove Url</a></li>
+        <li role="menuitem"><a ng-click='removeScrapcontent(x._id,z)'>Remove Url</a></li>
       </ul>
     </div>
 

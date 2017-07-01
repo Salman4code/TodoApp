@@ -1,13 +1,13 @@
 /*
-* FacebookLogin
-* @path controller/facebookLogin.js
-* @file facebookLogin.js
-* @Scripted by Salman M Khan
-*/
+ * FacebookLogin
+ * @path controller/facebookLogin.js
+ * @file facebookLogin.js
+ * @Scripted by Salman M Khan
+ */
 'use strict';
 /*
-* Module dependencies
-*/
+ * Module dependencies
+ */
 
 var express = require('express');
 var router = express.Router();
@@ -32,6 +32,14 @@ function createJWT(user) {
 
 
 //post call for API facebookLogin
+
+/**
+ * router - post call for API facebookLogin
+ *
+ * @param  {Object} function(req request having object with background-color code
+ * @param  {Object} res           response having status and message
+ *
+ */
 router.post('/', function(req, res) {
   try {
     var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'];
@@ -44,6 +52,18 @@ router.post('/', function(req, res) {
       redirect_uri: req.body.redirectUri
     };
     // Step 1. Exchange authorization code for access token.
+
+
+    /**
+     * request - description
+     *
+     * @param  {String} accessTokenUrl accessTokenUrl is for
+     * @param  {Object} params          params contain object with field(code,clientId,client_secret,redirect_uri)
+     * @param  {type} err               error contain error message
+     * @param  {type} response          response from fb
+     * @param  {type} accessToken       this token came from facebook
+     *
+     */
     request.get({
       url: accessTokenUrl,
       qs: params,
@@ -77,7 +97,7 @@ router.post('/', function(req, res) {
               });
             }
             var token = req.header('Authorization').split(' ')[1]; // request Authorization code and store in token variable
-            var payload = jwt.decode(token, config.TOKEN_SECRET);// decode token with secretkey
+            var payload = jwt.decode(token, config.TOKEN_SECRET); // decode token with secretkey
             // payload.sub contain userId of the registered user
             User.findById(payload.sub, function(err, user) {
               if (!user) {
@@ -85,7 +105,10 @@ router.post('/', function(req, res) {
                   message: 'User not found'
                 });
               }
-              //if user found then Retrieve data from fb and save
+          
+              /**
+               *  if user found then Retrieve data from fb and save
+               */
               user.facebookId = profile.id;
               user.facebook.picture = user.facebook.picture || 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
               user.facebook.displayName = user.facebook.displayName || profile.name;
@@ -104,7 +127,7 @@ router.post('/', function(req, res) {
         } else {
 
           // Step 3. Create a new user account or return an existing one.
-            //if Authorization code not present in header then find user in schema using email id
+          //if Authorization code not present in header then find user in schema using email id
           User.findOne({
             'email': profile.email
 
@@ -124,7 +147,7 @@ router.post('/', function(req, res) {
                 }
               })
               var token = createJWT(existingUser); // createJWT token for authentication via cookie
-              res.cookie("key", token);   //saving token in cookies
+              res.cookie("key", token); //saving token in cookies
               logger.info("login successful with facebook account")
               return res.send({
                 token: token,
@@ -139,8 +162,8 @@ router.post('/', function(req, res) {
             user.facebook.displayName = profile.name;
             user.email = profile.email;
             user.save(function() {
-              var token = createJWT(user);// createJWT token for authentication via cookie
-              res.cookie("key", token);//saving token in cookies
+              var token = createJWT(user); // createJWT token for authentication via cookie
+              res.cookie("key", token); //saving token in cookies
               logger.info("Successfully registered with Facebook Acount")
               res.send({
                 token: token,

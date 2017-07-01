@@ -1,4 +1,4 @@
-/*
+/**
 * Authentication
 * @path controller/authentication.js
 * @file authentication.js
@@ -6,7 +6,7 @@
 */
 'use strict';
 
-/*
+/**
 * Module dependencies
 */
 
@@ -20,6 +20,14 @@ var logger = require('winston');
 
 //Middleware for Athentication from token
 
+/**
+ * router -Middleware for Athentication from token
+ *
+ * @param  {Object} request           Request from clientside having Object
+ * @param  {Object} response         response contain object with status and message
+ * @param  {type} next               after token verify going to the next Api
+ *
+ */
 router.use(function(request,response,next){
 // check header or url parameters or post parameters for token
   // var token = request.body.token || request.query.token || request.headers['x-access-token']||request.headers.cookie;
@@ -38,6 +46,15 @@ router.use(function(request,response,next){
     // verifies secret and checks exp
     //Decodeing token with secret key usnig Jwt-token
 
+    /**
+     * jwt - jason web token
+     *
+     * @param  {String} token        decoded token
+     * @param  {String} secretkey    secretkey for encoding token
+     * @param  {Object} err  Contain err message
+     * @param  {String} decoded      if token verify sucess then decoded have valid token
+     *
+     */
     jwt.verify(token, secretkey, function(err, decoded) {
       if (err) {
         return response.send({ success: false, message: 'Failed to authenticate token.' });
@@ -46,7 +63,7 @@ router.use(function(request,response,next){
       } else {
         // if everything is good, save to request for use in other routes
         request.decoded = decoded;
-        //Going next the Api after authentication
+        //Going to the next Api after authentication
         next();
       }
     });

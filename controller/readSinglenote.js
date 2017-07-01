@@ -1,4 +1,4 @@
-/*
+/**
 * readSingleNote for updation
 * @path controller/readSinglenote.js
 * @file readSinglenote.js
@@ -13,8 +13,13 @@ var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 
-
-//API for readSinglenote for updation of data
+/**
+ * router - API for readSinglenote for updation of data
+ *
+ * @param  {type} '/:id'            noteId of particular note
+ * @param {Object} request          request having object containing note detail to perform some operation
+ * @param  {Object} response        response having object with status and message
+ */
 router.post('/:id', function(request, response) {
 
 try {

@@ -1,4 +1,4 @@
-/*
+/**
  * note Schema
  * @path model/index.js
  * @file index.js
@@ -52,15 +52,6 @@ var noteSchema = Schema({
     type: String,
     // default:white
   },
-  // scrapeLinkurl: {
-  //   type: String
-  // },
-  // scrapeTitle: {
-  //   type: String
-  // },
-  // scrapeImageurl: {
-  //   type: String
-  // },
   isArchived: {
     type: Boolean,
     default: false
@@ -214,11 +205,11 @@ noteSchema.statics.updateNote = function(noteId, request, cb) {
 }
 
 /**
- * noteSchema - description
+ * noteSchema - Schema for note with detail
  *
- * @param  {type} noteId  contain noteId of note
- * @param  {type} request description
- * @param  {type} cb      description
+ * @param  {Object} noteId  contain noteId of note
+ * @param  {Object} request description
+ * @param  {type} cb        callback from
  * @return {type}         description
  */
 noteSchema.statics.deleteNote = function(noteId, request, cb) {
@@ -267,7 +258,7 @@ noteSchema.statics.deleteNote = function(noteId, request, cb) {
 /**
  * noteSchema - description
  *
- * @param  {type} noteId description
+ * @param  {Object} noteId  contain noteId of note
  * @param  {type} cb     description
  * @return {type}        description
  */
@@ -293,7 +284,7 @@ noteSchema.statics.deleteReminder = function(noteId, cb) {
 /**
  * noteSchema - description
  *
- * @param  {type} noteId  description
+ * @param  {Object} noteId  contain noteId of note
  * @param  {type} request description
  * @param  {type} cb      description
  * @return {type}         description
@@ -320,7 +311,7 @@ noteSchema.statics.changeColor = function(noteId, request, cb) {
 /**
  * noteSchema - description
  *
- * @param  {type} noteId       description
+ * @param  {Object} noteId  contain noteId of note
  * @param  {type} booleanvalue description
  * @param  {type} cb           description
  * @return {type}              description
@@ -360,7 +351,7 @@ noteSchema.statics.archiveNote = function(noteId, booleanvalue, cb) {
 /**
  * noteSchema - description
  *
- * @param  {type} noteId       description
+ * @param  {Object} noteId  contain noteId of note
  * @param  {type} booleanvalue description
  * @param  {type} cb           description
  * @return {type}              description
@@ -400,7 +391,7 @@ noteSchema.statics.pinnedNote = function(noteId, booleanvalue, cb) {
 /**
  * noteSchema - description
  *
- * @param  {object} noteId description
+ * @param  {Object} noteId  contain noteId of note
  * @param  {type} cb     description
  * @return {type}        description
  */
@@ -427,7 +418,11 @@ noteSchema.statics.removeScrapdata = function(noteId, scrapeId, cb) {
         _id: scrapeId
       }
     }
-  }, cb);
+  },
+  // function(err,note){
+  //     console.log("form model",note);
+  // },
+  cb);
         // note.scrape.scrapeLinkurl = "";
         // note.scrape.scrapeTitle = "";
         // note.scrape.scrapeImageurl = "";

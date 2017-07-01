@@ -60,8 +60,12 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
 
 
+  /**
+   * checkUser - function will check for valid user if valid user the provide userProfile
+   *
+   * @return {type}  description
+   */
   $rootScope.checkUser = function() {
-    console.log("checkuser");
     var url = "/userProfile";
     var action = "get";
 
@@ -73,7 +77,6 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         $scope.user = response.data.userprofile;
         var hash = window.location.hash.split("/");
         if (hash[1] == "activity") {
-          console.log("userActivity", response.data.userprofile._id);
           $state.go('userActivity')
           $rootScope.activityLogger(response.data.userprofile._id);
         }
@@ -84,14 +87,19 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       }
     }).catch(function(error) {
       console.log(error);
-      toastr.info(error);
+      toastr.info("Server Error please contact Administration");
     })
 
   }
 
   $rootScope.checkUser();
 
-  //function for profilePopup and profilepicture operation
+
+
+  /**
+   * openProfilemodal -  function for profilePopup and profilepicture operation
+   *
+   */
   $scope.openProfilemodal = function() {
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/profilePopup.html',
@@ -104,50 +112,50 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     });
   }
 
-  //function updateNote in modalInstance operation
+  //
+  /**
+   * openPopup - function for updation of note
+   *
+   * @param  {Object} notedata description
+   *
+   */
   $scope.openPopup = function(notedata) {
     var modalInstance = $uibModal.open({
       templateUrl: '../templates/popup.html',
       controller: function($uibModalInstance) {
 
         var $ctrl = this;
-        this.title = notedata.title;
-        this.content = notedata.content;
-        this.id = notedata._id;
-        this.date = notedata.updatedAt
-        this.bgcolor = notedata.bgcolor;
-        this.scrapeImageurl = notedata.scrapeImageurl;
-        this.scrapeTitle = notedata.scrapeTitle;
-        this.scrapeLinkurl = notedata.scrapeLinkurl;
+        this.note = notedata;
+        this.scrape = notedata.scrape;
+
+        /**
+         * updateNote -  function for updation of note
+         *
+         */
         this.updateNote = function() {
-          console.log("update ok", notedata._id);
           updatedNoteData = {
-            title: this.title,
-            content: this.content
+            title: this.note.title,
+            content: this.note.content
           }
-          var url = "/updateNote/" + this.id + "";
+          var url = "/updateNote/" + this.note._id + "";
           var action = "POST";
           var obj = todoService.app(url, action, updatedNoteData);
           obj.then(function(data) {
             if (data.data.status == true) {
-              console.log(data.data.message);
               toastr.info(data.data.message)
               $rootScope.getNote();
             } else {
-              console.log(data.data.message);
-              toastr.error(data.data.message)
+              toastr.error("Note note Updated, Please try again");
             }
 
           }).catch(function(error) {
-            console.log("error");
-            toastr.error(error)
+            toastr.error("Server Error Please contact Administrators")
           })
 
 
         };
 
         this.cancel = function() {
-          console.log("update cancel");
           $uibModalInstance.dismiss('cancel');
         };
       },
@@ -170,7 +178,11 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  //function for getNote/Retrieve note operation
+
+  /**
+   * getNote -function for getNote/Retrieve note operation
+   *
+   */
   $rootScope.getNote = function() {
     var url = "/getNotes";
     var action = "POST";
@@ -232,7 +244,11 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
   $rootScope.getNote();
 
 
-  //function for saveNote operation
+
+  /**
+   * saveNote -   function for saveNote operation
+   *
+   */
   $scope.saveNote = function() {
     $scope.note1 = true;
     $scope.note2 = false;
@@ -244,16 +260,9 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       return;
     }
 
-    var arr=[];
-    var data=content.replace(/(<div>)|(<\/div>)|(<br>)/g," ");
-    console.log("asjhdfghjsaf",data);
-    // for (var i = 0; i < data.length; i++) {
-      var scrapurl=data.match(/\bhttps?:\/\/\S+/gi);
-    // }
-    console.log("new arr",scrapurl);
-    // var d=data.match(/\bhttps?:\/\/\S+/gi);
-    // console.log(d);
-    // var scrapurl = content.match(/\bhttps?:\/\/\S+/gi);
+    var arr = [];
+    var data = content.replace(/(<div>)|(<\/div>)|(<br>)/g, " ");
+    var scrapurl = data.match(/\bhttps?:\/\/\S+/gi);
     console.log(scrapurl);
 
     if (scrapurl) {
@@ -288,7 +297,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
 
-  //function for copyNote operation
+
+  /**
+   * copyNote -  function for copyNote operation
+   *
+   * @param  {Object} notedata contain note detail for copy the note
+   *
+   */
   $scope.copyNote = function(notedata) {
     var url = "/saveNote";
     var action = "POST";
@@ -309,7 +324,11 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
 
   }
 
-  //function for logout operation
+
+  /**
+   * logout -  function for logout operation
+   *
+   */
   $scope.logout = function() {
     var url = "/logout";
     var action = "POST";
@@ -326,14 +345,21 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     if (!$auth.isAuthenticated()) {
       return;
     }
-    $auth.logout()  //logout the facebook or google
+    $auth.logout() //logout the facebook or google
       .then(function() {
         toastr.info('You have been logged out');
         $state.go('login');
       });
   }
 
-//function for delete single note
+
+  /**
+   * deleteNote - function for delete single note
+   *
+   * @param  {Object} id       contain noteId to perform some operations
+   * @param  {type} trashNote  contain trashNote string for checking purpose
+   *
+   */
   $scope.deleteNote = function(id, trashNote) {
     var url = "/deleteNote/" + id + "";
     var action = "POST";
@@ -353,7 +379,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
 
-//function for changing the view of note to list
+
+
+  /**
+   * listview - function for changing the view of note to list
+   *
+   * @return {type}  description
+   */
   $scope.listview = function() {
     $scope.liststyle = {
       'display': 'none'
@@ -361,15 +393,26 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.gridstyle = {
       'display': 'block'
     }
-    //changing class of div for displaying list view
+    /**
+     *    changing class of div for displaying list view
+     */
     $scope.leavespace = "col-lg-3 col-md-3 col-sm-3";
     $scope.allocatespace = "col-lg-6 col-md-6 col-sm-6 col-xs-12";
     $scope.changeview = "cards";
     $scope.boxsize = "col-lg-12 col-md-12 col-sm-12 col-xs-12 box1 dragCard"
-    localStorage.setItem("view", "list"); //setting the view in localStorage for checking note cards are in grid or list
+    localStorage.setItem("view", "list");
+
+    /**
+     *   setting the view in localStorage for checking note cards are in grid or list
+     */
+
   }
 
-  //function for changing the view of note to grid
+
+  /**
+   * gridview - function for changing the view of note to grid
+   */
+
   $scope.gridview = function() {
     $scope.liststyle = {
       'display': 'block'
@@ -392,7 +435,12 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     $scope.listview();
 
   }
-  //function for slide sidenav operation
+
+  /**
+   * slidemenubar - function for slide sidenav operation
+   *
+   *
+   */
   $scope.slidemenubar = function() {
     if (window.innerWidth > 600) {
       if (!$scope.sidenav) {
@@ -410,7 +458,13 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     }
   }
 
-  //function for reminder operation
+  /**
+   * reminder - function for reminder operation
+   *
+   * @param  {String} id          contain noteId of particular note
+   * @param  {type} remindertime  contain remindertime and date selected by user
+   *
+   */
   $scope.reminder = function(id, remindertime) {
     // $scope.reminder_date=true;
     var date = new Date();
@@ -441,26 +495,30 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
         $rootScope.getNote();
         toastr.info(data.data.message)
       } else {
-        // console.log(data.data.status);
         toastr.error(data.data.message)
         return;
       }
     }).catch(function(error) {
-      // console.log("error");
       toastr.error(error)
     })
 
   }
-  //function for deleteReminder from note operation
-  $scope.deleteReminder = function(note_id) {
-    var url = "/deleteReminder/" + note_id + "";
+
+
+  /**
+   * deleteReminder - function for deleteReminder from note operation
+   *
+   * @param  {String} noteId       contain noteId of particular note
+   *
+   */
+  $scope.deleteReminder = function(noteId) {
+    var url = "/deleteReminder/" + noteId + "";
     var action = "POST";
     todoService.app(url, action).then(function(data) {
-      if(data.data.status==true){
+      if (data.data.status == true) {
         toastr.info(data.data.message);
         $rootScope.getNote();
-      }
-      else {
+      } else {
         toastr.error(data.data.message)
       }
     }).catch(function(error) {
@@ -469,18 +527,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-  //function for selecting color and updating color of note
-  $scope.selectColor = function(color, note_id) {
+
+  /**
+   * selectColor - function for selecting color and updating color of note
+   *
+   * @param  {String} color        contain color code for changing color of note
+   * @param  {String} noteId       contain noteId of particular note
+   *
+   */
+  $scope.selectColor = function(color, noteId) {
     var backgroundcolor = {
       bgcolor: color
     };
-    var url = "/changebgcolor/" + note_id + "";
+    var url = "/changebgcolor/" + noteId + "";
     var action = "POST";
     todoService.app(url, action, backgroundcolor).then(function(data) {
-      if(data.data.status==true){
+      if (data.data.status == true) {
         $rootScope.getNote();
-      }
-      else {
+      } else {
         toastr.error(data.data.message)
       }
     }).catch(function(error) {
@@ -489,16 +553,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
 
   }
-    //function for archive & UnArchived note operation
-  $scope.archiveNote = function(note_id, archiveNote) {
-    var url = "/archive/" + note_id + "";
+
+
+  /**
+   * archiveNote - function for archive & UnArchived note operation
+   *
+   * @param  {String} noteId    contain noteId of particular note
+   * @param  {type} archiveNote description
+   *
+   */
+  $scope.archiveNote = function(noteId, archiveNote) {
+    var url = "/archive/" + noteId + "";
     var action = "POST";
     var data = {
       archiveval: archiveNote
     }
     todoService.app(url, action, data).then(function(data) {
-      if(data.data.status==true){
-        toastr.info('Note '+archiveNote+'Successfully');
+      if (data.data.status == true) {
+        toastr.info('Note ' + archiveNote + 'Successfully');
         $rootScope.getNote();
       }
 
@@ -507,16 +579,24 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       console.log(error);
     })
   }
-    //function for removing scrape content from note
-  $scope.removeScrapcontent = function(noteId,scrape) {
+
+
+  /**
+   * removeScrapcontent - function for removing scrape content from note
+   *
+   * @param  {String} noteId  contain noteId of particular note
+   * @param  {String} scrape  contain the scrape content details
+   *
+   */
+  $scope.removeScrapcontent = function(noteId, scrape) {
     var url = "/removeScrapcontent/" + noteId;
     action = "post";
-    var data={
-      scrapeId:scrape._id
+    var data = {
+      scrapeId: scrape._id
     }
     console.log(scrape);
-    todoService.app(url, action,data).then(function(data) {
-      if(data.data.status==true){
+    todoService.app(url, action, data).then(function(data) {
+      if (data.data.status == true) {
         // toastr.info('Note Pinned Successfully');
         $rootScope.getNote();
       }
@@ -525,7 +605,15 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
 
-  //function for perform pinned and unpin operation for note
+
+
+  /**
+   * pinNote - function for perform pinned and unpin operation for note
+   *
+   * @param  {String} noteId  contain noteId of particular note
+   * @param  {String} pinval  contain the some String of pin note
+   *
+   */
   $scope.pinNote = function(noteId, pinval) {
 
     var url = "/pinned/" + noteId + "";
@@ -534,7 +622,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       'pinValue': pinval
     }
     todoService.app(url, action, data).then(function(data) {
-      if(data.data.status==true){
+      if (data.data.status == true) {
         // toastr.info('Note Pinned Successfully');
         $rootScope.getNote();
       }
@@ -543,7 +631,14 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
     })
   }
 
-  //function for sharing note on facebook
+
+
+  /**
+   * facebookshare - function for sharing note on facebook
+   *
+   * @param  {object} todo contain the object with detail of notes
+   *
+   */
   $scope.facebookshare = function(todo) {
     console.log("facebook share")
     FB.init({
@@ -565,6 +660,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
       },
       // callback
       function(response) {
+
         if (response && !response.error_message) {
           // then get post content
           alert('successfully posted. Status id : ' + response.post_id);

@@ -1,20 +1,25 @@
-/*
-* pinnedNote
-* @path controller/pinned.js
-* @file pinned.js
-* @Scripted by Salman M Khan
-*/
+/**
+ * pinnedNote
+ * @path controller/pinned.js
+ * @file pinned.js
+ * @Scripted by Salman M Khan
+ */
 'use strict';
 /*
-* Module dependencies
-*/
+ * Module dependencies
+ */
 var express = require('express');
 var router = express.Router();
 var userData = require('../model/dataNote');
 var logger = require('winston');
 
-
-//API for pinnedNote
+/**
+ * router -API for pinnedNote
+ *
+ * @param  {type} '/:id'            noteId of particular note
+ * @param {Object} request          request having object containing note detail to perform some operation
+ * @param  {Object} response        response having object with status and message
+ */
 router.post('/:id', function(request, response) {
 
   try {

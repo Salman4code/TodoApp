@@ -1,3 +1,4 @@
+
 <div class="row" ng-class="changeview">
   <div ng-class="leavespace"></div>
   <div ng-class="allocatespace">
@@ -23,11 +24,11 @@
         <span class="scrapeTitle">{{z.scrapeTitle}}</span>
         <a target="blank" id ="scrapurl" href="{{z.scrapeLinkurl}}">
           <img src="../image/linkicon.svg" alt="link" uib-tooltip="Go to Link" tooltip-placement="bottom" tooltip-append-to-body=true style="top:0;float:right;"/></a>
-        <!-- <img  src="../image/more.svg" > -->
 
-        <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
+        <div uib-dropdown dropdown-append-to-body="true">
       <button id="btn-append-to-body" uib-dropdown-toggle>
-        <img src="../image/more.svg" id="btn-append-to-body" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true uib-dropdown-toggle></button>
+        <img src="../image/more.svg">
+      </button>
       <!-- <i type=button style="display:inline-block;" uib-dropdown-toggle ng-disabled="disabled">
      <img src="../image/more.svg" ng-mouseenter="coloricons=false" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a>
       </i> -->
@@ -35,6 +36,16 @@
         <li role="menuitem"><a ng-click='removeScrapcontent(x._id,z)'>Remove Url</a></li>
       </ul>
     </div>
+
+
+    <!-- <div class="btn-group" uib-dropdown dropdown-append-to-body="true">
+      <i id="btn-append-to-body" style="display:inline-block;" class="fa fa-ellipsis-v" uib-dropdown-toggle>
+     <img src="../image/more.svg" ng-mouseenter="coloricons=false" uib-tooltip="more" tooltip-placement="bottom" tooltip-append-to-body=true></a> -->
+      <!-- </i>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+      <li role="menuitem"><a ng-click="removeScrapcontent(x._id,z)">Make a copy</a></li>
+    </ul>
+  </div> -->
 
       </div>
       <div id="coloricons" ng-show="coloricons" ng-mouseleave="coloricons=false">

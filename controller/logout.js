@@ -1,4 +1,4 @@
-/*
+/**
 * logout
 * @path controller/logout.js
 * @file logout.js
@@ -13,7 +13,13 @@ var express = require('express');
 var router = express();
 var logger = require('winston');
 
-//Api for logout
+/**
+ * router - Api for logout
+ *
+ * @param  {Object} request          description
+ * @param  {Object} response         response having object with status and message
+ *
+ */
 router.post('/', function(request, response) {
 
   try {

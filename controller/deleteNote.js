@@ -16,6 +16,15 @@ var logger = require('winston');
 
 
 //post call for API Delete note
+
+/**
+ * router - post call for API Delete note
+ *
+ * @param  {String} '/:id'           noteId of notes
+ * @param  {Object} request           request having object with background-color code
+ * @param  {type} response           response having status and message
+ *
+ */
 router.post('/:id', function(request, response) {
   var id = request.params.id;
   try {

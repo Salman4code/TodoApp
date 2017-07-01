@@ -1,4 +1,4 @@
-/*
+/**
 * uploadProfileImage
 * @path controller/uploadImage.js
 * @file uploadImage.js
@@ -14,6 +14,14 @@ var userModel = require("../model");
 var fs = require("fs");
 var logger = require('winston');
 
+
+/**
+ * upload - function for converting image base64 to image.png
+ *
+ * @param  {String} imagename Name of image to saving
+ * @param  {String} Image     base64 image
+ *
+ */
 function upload(imagename, Image) {
 
   fs.writeFile('public/profilepicture/' + imagename, Image, {
@@ -28,6 +36,15 @@ function upload(imagename, Image) {
 }
 
 //Api for uploading profile pic
+
+/**
+ * router - description
+ *
+ * @param  {type} '/:id'            userId of registered user
+ * @param {Object} request          request having object containing note detail to perform some operation
+ * @param  {Object} response        response having object with status and message
+ *
+ */
 router.post('/:id', function(request, response) {
 try {
   if (!fs.existsSync('public/profilepicture/'+request.params.id)){ //if user directory is not available then create directory using userId

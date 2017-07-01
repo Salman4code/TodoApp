@@ -7,11 +7,17 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
+/**
+ * router - description
+ *
+ * @param  {Object} request           Request Contain data for updation
+ * @param  {Object} response          response contain object with status and message
+ *
+ */
 router.post('/', function(req, res) {
   try {
   console.log("inside webpageScrapper1",req.body.url);
   var url=req.body.url;
-  // url = 'http://timesofindia.indiatimes.com/india/govt-announces-30-smart-cities-thiruvanathapuram-tops-list/articleshow/59280576.cms';
 
   request(url, function(error, response, html) {
     if (!error) {

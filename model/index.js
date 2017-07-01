@@ -1,4 +1,4 @@
-/*
+/**
  * User Schema
  * @path model/index.js
  * @file index.js

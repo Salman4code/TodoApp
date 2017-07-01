@@ -4,7 +4,7 @@
  * @file  activityLogger.js
  * @Scripted By Salman M Khan
  */
- 'use strict';
+'use strict';
 /*
  * Module dependencies
  */
@@ -28,10 +28,11 @@ var activityLoggerschema = Schema({
     type: Date,
     default: Date.now
   },
-  title:{
-    type:String
+  title: {
+    type: String
   }
 });
+
 activityLoggerschema.pre('save', function(next) {
   // get the current date
   var currentDate = new Date();
@@ -46,11 +47,17 @@ activityLoggerschema.pre('save', function(next) {
   next();
 });
 
-activityLoggerschema.statics.activityLog = function(userId,cb) {
-  console.log("activity",userId);
+/**
+ * activityLog - function for retrieve the activityLog from mongo
+ *
+ * @param  {String} userId userId of registered user
+ * @param  {Object} cb     calllback send to api
+ *
+ */
+activityLoggerschema.statics.activityLog = function(userId, cb) {
   this.find({
     userId: userId
-  },cb);
+  }, cb);
 }
 
 

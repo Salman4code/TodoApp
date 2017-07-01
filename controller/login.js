@@ -1,4 +1,4 @@
-/*
+/**
 * Login
 * @path controller/login.js
 * @file login.js
@@ -19,11 +19,20 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var login = require("../model");
 
 
-//post call for API login
+
+
+/**
+ * router -post call for API login
+ *
+ * @param  {Object} request          request having object with user login detail
+ * @param  {Object} response         response having object with status and message
+ *
+ */
 router.post('/', function(request, response) {
   var result = {};
   result.status = false;
   try {
+       
     request.check(config.validationSchema.login);
     request.getValidationResult().then(function(isValid) {
       try {

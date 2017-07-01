@@ -19,6 +19,14 @@ var logger = require('winston');
 
 //post call for API changing background-color of note
 
+/**
+ * router - post call for API changing background-color of note
+ *
+ * @param  {String} '/:id'           noteId of notes
+ * @param  {Object} request           request having object with background-color code
+ * @param  {type} response           response having status and message
+ *
+ */
 router.post('/:id', function(request, response) {
   try {
     var id = request.params.id;
@@ -26,7 +34,7 @@ router.post('/:id', function(request, response) {
       if (err) {
         response.send({
           "status": false,
-          "message": err
+          "message": "color not changed"
         });
         logger.error("color not changed", err)
       } else {

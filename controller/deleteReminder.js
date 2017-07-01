@@ -1,4 +1,4 @@
-/*
+/**
 * DeleteReminder
 * @path controller/deleteReminder.js
 * @file deleteReminder.js
@@ -15,7 +15,16 @@ var userData = require('../model/dataNote');
 var logger = require('winston');
 
 
-//post call for API deleteReminder
+
+
+/**
+ * router - post call for API deleteReminder
+ *
+ * @param  {String} '/:id'           noteId of notes
+ * @param  {Object} request           request having object with background-color code
+ * @param  {type} response           response having status and message
+ *
+ */
 router.post('/:id', function(request, response) {
 
 try {

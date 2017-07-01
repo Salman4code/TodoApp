@@ -1,4 +1,4 @@
-/*
+/**
 * userProfile
 * @path controller/userProfile.js
 * @file userProfile.js

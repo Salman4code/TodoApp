@@ -1,4 +1,4 @@
-/*
+/**
 * Signup
 * @path controller/signup.js
 * @file signup.js
@@ -15,8 +15,13 @@ var config=require('../config/error');
 var signup = require("../model");
 var logger = require('winston');
 
-//Api for Signup
-
+/**
+ * router - Post call for Signup API
+ *
+ * @param {Object} request          request having object containing note detail to perform some operation
+ * @param  {Object} response        response having object with status and message
+ *
+ */
 router.post('/', function(request, response) {
   var result={};
   result.status=false;

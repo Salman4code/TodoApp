@@ -1,4 +1,4 @@
-/*
+/**
 * Google Login
 * @path controller/googleLogin.js
 * @file googleLogin.js
@@ -31,6 +31,13 @@ function createJWT(user) { //jwt function for creating token using user._id
   });
 }
 
+/**
+ * router - post call for API googleLogin
+ *
+ * @param  {Object} req           request having object with background-color code
+ * @param  {Object} res           response having status and message
+ *
+ */
 router.post('/', function(req, res) {
   try {
   var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
@@ -44,6 +51,17 @@ router.post('/', function(req, res) {
   };
 
   // Step 1. Exchange authorization code for access token.
+
+  /**
+   * request - description
+   *
+   * @param  {String} accessTokenUrl accessTokenUrl is for
+   * @param  {Object} params          params contain object with field(code,clientId,client_secret,redirect_uri,grant_type)
+   * @param  {type} err               err contain error message
+   * @param  {type} response          response from google
+   * @param  {type} token             this token came from google
+   *
+   */
   request.post(accessTokenUrl, {
     json: true,
     form: params
