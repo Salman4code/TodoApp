@@ -32,7 +32,7 @@ try {
     if (err) {
       response.send({
         "status": false,
-        "message": err
+        "message": "server error"
       });
       logger.error("Reminder error",err)
     } else {

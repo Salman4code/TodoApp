@@ -29,9 +29,9 @@ router.post('/:id', function(request, response) {
       if (err) {
         response.send({
           "status": false,
-          "message": err
+          "message": "Profile image upload failed"
         });
-        logger.error("Profile image upload failed")
+        logger.error("Profile image upload failed",err)
       } else {
         response.send({
           "status": true,

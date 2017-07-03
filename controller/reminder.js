@@ -28,18 +28,13 @@ router.post('/:id', function(request, response) {
 try {
 
 var id = request.params.id;
-userData.reminder(id, request.body, function(err, result) {
+userData.reminder(id, request.body, function(err, success) {
   if (err) {
     response.send({
       "status": false,
-      "message": err
+      "message": "Reminder not set"
     });
-      logger.error("reminder not set",err);
-  } else if (result.nModified == 0) {
-    response.send({
-      "status": false,
-      "message": "Reminder not changed"
-    });
+      logger.error("Reminder not set",err);
   }
   else {
     response.send({

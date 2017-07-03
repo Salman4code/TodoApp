@@ -88,14 +88,13 @@ router.post('/', function(req, res) {
               if (err) {
                 res.send({
                   "status": false,
-                  "message": err
+                  "message": "Note Creation Failed"
                 });
                 logger.error(err);
               } else {
                 res.send({
                   "status": true,
-                  "message": result
-
+                  "message": "Note Created"
                 });
                 logger.info("Note Created")
               }
@@ -114,13 +113,13 @@ router.post('/', function(req, res) {
         if (err) {
           res.send({
             "status": false,
-            "message": err
+            "message": "Note Creation Failed"
           });
           logger.error(err);
         } else {
           res.send({
             "status": true,
-            "message": result
+            "message": "Note Created"
           });
           logger.info("Note Created")
         }
@@ -131,7 +130,7 @@ router.post('/', function(req, res) {
   } catch (err) {
     res.send({
       "status": false,
-      "message": err
+      "message": "Server Error"
     });
     logger.error(err);
   }

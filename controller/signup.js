@@ -39,7 +39,7 @@ router.post('/', function(request, response) {
           if (err) {
             response.send({
               "status": false,
-              "message": err
+              "message": "Registration Failed"
             })
             logger.error(err)
 

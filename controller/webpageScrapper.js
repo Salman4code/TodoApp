@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
       if (success) {
         res.send({
           "status": true,
-          "message": success
+          "message": "Scrape content saved"
         });
       } else {
         res.send({

@@ -27,13 +27,13 @@ try {
     if (err) {
       response.send({
         "status": false,
-        "message": err
+        "message": "Data not Found"
       });
         logger.info(err)
     } else {
       response.send({
         "status": true,
-        "message": result
+        "message": "Data Retrieve Successfully for updation"
       });
     }
 

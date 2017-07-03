@@ -28,7 +28,7 @@ router.post('/', function(request, response) {
       logger.info(err);
       response.send({
         "status": false,
-        "message": err
+        "message": "Failed to get data"
       });
       logger.error("getData error",err)
     } else {

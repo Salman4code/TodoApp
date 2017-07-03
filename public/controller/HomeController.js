@@ -145,7 +145,7 @@ app.controller('HomeController', function($scope, $rootScope, $state, $location,
               toastr.info(data.data.message)
               $rootScope.getNote();
             } else {
-              toastr.error("Note note Updated, Please try again");
+              toastr.error(data.data.message);
             }
 
           }).catch(function(error) {

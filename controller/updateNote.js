@@ -23,7 +23,7 @@ var logger = require('winston');
  * @param  {Object} '/:id'            contain noteId of note
  * @param  {Object} request           Request Contain data for updation
  * @param  {Object} response          response contain object with status and message
- * @return {type}
+ *
  */
 router.post('/:id', function(request, response) {
 
@@ -43,15 +43,13 @@ router.post('/:id', function(request, response) {
       if (err) {
         response.send({
           "status": false,
-          "message": err
+          "message": "Note not Updated"
         });
         logger.error(err)
       } else {
         response.send({
           "status": true,
-          "message": "Data Successfully Updated",
-          "updateresult": result
-
+          "message": "Data Successfully Updated"
         });
         logger.info("Note Successfully Updated")
       }

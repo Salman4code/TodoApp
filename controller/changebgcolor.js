@@ -40,7 +40,6 @@ router.post('/:id', function(request, response) {
       } else {
         response.send({
           "status": true,
-          // "message": result
           "message": "color changed Successfully",
           "updateresult": result
 

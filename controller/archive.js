@@ -44,7 +44,7 @@ router.post('/:id', function(request, response) {
       if (err) {
         response.send({
           "status": false,
-          "message": err
+          "message": "Data Not Archieved"
         });
         logger.error(err)
       } else {

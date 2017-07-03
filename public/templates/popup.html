@@ -29,8 +29,8 @@
   </ul>
 </div>
   </div>
+  <div style="float:right;font-style: italic;">Edited on {{$ctrl.note.updatedAt | date:'dd:MMM hh:mm a'}}</div>
 </div>
-<div style="float:right;font-style: italic;">Edited on {{$ctrl.note.updatedAt | date:'dd:MMM hh:mm a'}}</div>
 <div class="modal-footer">
 <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel();$ctrl.updateNote()">Done</button>
 </div>

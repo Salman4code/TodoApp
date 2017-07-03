@@ -44,6 +44,7 @@ router.post('/:id', function(request, response) {
           "message": "Activity Log",
           "activity": result
         });
+        logger.info("Activity log")
       } else {
         response.send({
           "status": false,

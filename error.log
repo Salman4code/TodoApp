@@ -113,3 +113,23 @@
 {"level":"error","message":"message:login Please","timestamp":"2017-07-01T11:12:14.670Z"}
 {"level":"error","message":"message:login Please","timestamp":"2017-07-01T11:12:14.672Z"}
 {"level":"error","message":"message:login Please","timestamp":"2017-07-01T11:12:14.753Z"}
+{"message":"croppedimageurl is not defined","stack":"ReferenceError: croppedimageurl is not defined\n    at /home/bridgeit/AngularAndNodejs/controller/uploadImage.js:63:19\n    at Layer.handle [as handle_request] (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/layer.js:95:5)\n    at next (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/route.js:137:13)\n    at Route.dispatch (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/route.js:112:3)\n    at Layer.handle [as handle_request] (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/layer.js:95:5)\n    at /home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:281:22\n    at param (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:354:14)\n    at param (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:365:14)\n    at Function.process_params (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:410:3)\n    at next (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:275:10)\n    at Function.handle (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:174:3)\n    at router (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:47:12)\n    at Layer.handle [as handle_request] (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:317:13)\n    at /home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:284:7\n    at Function.process_params (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:335:12)\n    at next (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:275:10)\n    at Function.handle (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:174:3)\n    at router (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:47:12)\n    at Layer.handle [as handle_request] (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:317:13)\n    at /home/bridgeit/AngularAndNodejs/node_modules/express/lib/router/index.js:284:7","level":"error","timestamp":"2017-07-01T13:37:31.536Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:32:49.984Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:32:49.997Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:32:50.072Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:33:05.240Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:43:47.371Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T03:43:47.374Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:04:24.469Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:07:40.481Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:15:10.815Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:15:23.871Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:15:23.873Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:15:23.947Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:25:12.077Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:30:52.557Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:31:06.656Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:31:06.658Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:31:06.747Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:31:16.815Z"}
+{"level":"error","message":"message:login Please","timestamp":"2017-07-03T04:35:28.402Z"}

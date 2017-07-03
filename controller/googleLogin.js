@@ -24,6 +24,7 @@ var logger = require('winston');
 
 
 function createJWT(user) { //jwt function for creating token using user._id
+  console.log(user);
   return jwt.sign({
     _id: user._id
   }, config.TOKEN_SECRET, {
@@ -109,7 +110,7 @@ router.post('/', function(req, res) {
             user.google.displayName = user.google.displayName || profile.name;
             user.email = profile.email;
             user.save(function() {
-
+              console.log("step2",user);
               var token = createJWT(user);// createJWT token for authentication via cookie
               res.cookie("key", token);//saving token in cookies
               res.send({
@@ -126,6 +127,7 @@ router.post('/', function(req, res) {
           'email': profile.email
         }, function(err, existingUser) {
           //existingUser found then add google profile to registered user and save
+          console.log(existingUser);
           if (existingUser) {
             existingUser.google.googleId = profile.sub;
             existingUser.google.picture = profile.picture.replace('sz=50', 'sz=200');
@@ -139,7 +141,7 @@ router.post('/', function(req, res) {
                 logger.error(err)
               }
             })
-            var token = createJWT(user);// createJWT token for authentication via cookie
+            var token = createJWT(existingUser);// createJWT token for authentication via cookie
             res.cookie("key", token);//saving token in cookies
 
             return res.send({
@@ -155,6 +157,12 @@ router.post('/', function(req, res) {
           user.email = profile.email;
 
           user.save(function(err, result) {
+            console.log(result);
+            if (err) {
+              res.send({
+                message: "Data not saved"
+              });
+            }
             var token = createJWT(user);// createJWT token for authentication via cookie
             res.cookie("key", token);//saving token in cookies
             res.send({
@@ -169,7 +177,7 @@ router.post('/', function(req, res) {
 } catch (error) {
   response.send({
     "status": false,
-    "message": error
+    "message": "Server Error"
   });
     logger.error(error)
 }

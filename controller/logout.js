@@ -33,8 +33,10 @@ router.post('/', function(request, response) {
   } catch (error) {
     response.send({
       "status": false,
-      "message": error
+      "message": "server error"
     });
+    logger.error(error);
+
   }
 })
 
